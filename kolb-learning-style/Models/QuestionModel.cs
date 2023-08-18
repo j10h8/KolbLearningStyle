@@ -2,6 +2,7 @@
 
 namespace kolb_learning_style.Models
 {
+    //Här är text 
     public class QuestionModel
     {
         [Key]
