@@ -1,11 +1,13 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Sitka Display';
 }
 
 h1:focus {
     outline: none;
+    position: center;
+    font-weight: bold;
 }
 
 a, .btn-link {
@@ -14,8 +16,24 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #2ab083;
+    border-color: #2ab083;
+    border-radius: 6px;
+    font-weight: bold;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: large;
+}
+
+.btn-navi {
+    color: #fff;
+    background-color: black;
+    border-color: black;
+    border-radius: 6px;
+    padding: 5px;
+    font-weight: bold;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {

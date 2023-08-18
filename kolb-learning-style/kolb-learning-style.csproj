@@ -7,4 +7,14 @@
     <RootNamespace>kolb_learning_style</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Pages\Component.razor.razor" />
+    <Content Remove="Pages\Index.razor.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\NewFolder1\" />
+    <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
+
 </Project>

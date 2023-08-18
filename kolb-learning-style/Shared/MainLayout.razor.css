@@ -13,12 +13,22 @@ main {
 }
 
 .top-row {
-    background-color: #f7f7f7;
+    /*background-color: #f7f7f7;*/
     border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
+    justify-content: space-between;
+    height: 4.5rem;
     display: flex;
     align-items: center;
+}
+
+.navbar-brand img {
+    width: 200px; /* Set the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px; /* Add some margin around the logo */
+    display: flex;
+    
+    /*justify-content: flex-start;
+    align-items: flex-start;*/
 }
 
     .top-row ::deep a, .top-row .btn-link {
