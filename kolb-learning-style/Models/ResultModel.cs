@@ -4,6 +4,8 @@ namespace kolb_learning_style.Models
 {
     public class ResultModel
     {
+
+        //någonting
         [Key]
         public int ResultId { get; set; }
         public int Tester { get; set }
