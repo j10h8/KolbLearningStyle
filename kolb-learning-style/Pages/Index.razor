@@ -1,9 +1,54 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Kolb's "Learning Style" Test</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div class="center-container">
+    <h1>Kolb's Test</h1>
+    <br />
+    
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <p>
+        David Kolb published his learning styles model in 1984, from which he developed his learning style inventory.
+        Kolb’s experiential learning theory works on two levels: a four-stage cycle of learning and four separate learning styles.
+        Much of Kolb’s theory is concerned with the learner’s internal cognitive processes.
+        Kolb states that learning involves the acquisition of abstract concepts that can be applied flexibly in a range of situations.
+        In Kolb’s theory, the impetus for the development of new concepts is provided by new experiences.
+    </p>
+
+    <SurveyPrompt Title="“Learning is the process whereby knowledge is created through the transformation of experience” (Kolb, 1984, p. 38).“" />
+    <br />
+    <button class="btn btn-primary" @*@onclick="StartTest"*@>Starta Testet</button>
+    
+   
+    
+    
+</div>
+
+<footer>
+    <p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
+</footer>
+
+
+
+<style>
+    .center-container {
+        padding: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 78vh; /* This will center-align vertically by using the full viewport height */
+        text-align: center; /* This will center-align the text horizontally */
+    }
+
+    footer {
+        background-color: #f8f8f8;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+        footer p {
+            color: #333;
+        }
+</style>
