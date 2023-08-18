@@ -1,6 +1,5 @@
 using kolb_learning_style.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+// Add MainDbContext
+var connectionString = builder.Configuration.GetConnectionString("Default");
+builder.Services.AddDbContext<MainDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
