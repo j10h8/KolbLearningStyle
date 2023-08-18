@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using kolb_learning_style.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace kolb_learning_style.Data
 {
