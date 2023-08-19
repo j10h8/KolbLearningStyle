@@ -1,13 +1,25 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+/*@font-face {
+    font-family: "MentiDisplay-Regular";
+    src: url("../fonts/MentiDisplay-Regular.otf") format("otf");*/
+    /* Add more src lines for different font formats if needed */
+    /*font-weight: normal;
+    font-style: normal;
+}*/
+
 html, body {
-    font-family: 'Sitka Display';
+    font-family: /*'MentiDisplay-Regular', */'Sitka Display';
 }
 
-h1:focus {
+h1 {
     outline: none;
     position: center;
     font-weight: bold;
+}
+
+p {
+    font-size: medium;
 }
 
 a, .btn-link {
@@ -22,7 +34,7 @@ a, .btn-link {
     font-weight: bold;
     padding-right: 20px;
     padding-left: 20px;
-    font-size: large;
+    font-size: medium;
 }
 
 .btn-navi {
@@ -34,6 +46,20 @@ a, .btn-link {
     font-weight: bold;
     padding-right: 20px;
     padding-left: 20px;
+    font-size: small;
+}
+
+
+.btn-cancel {
+    color: white;
+    background-color: orangered;
+    border-color: orangered;
+    border-radius: 6px;
+    padding: 5px;
+    font-weight: bold;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: small;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -84,3 +110,5 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+

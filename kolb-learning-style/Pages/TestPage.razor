@@ -1,0 +1,115 @@
+﻿@page "/TestPage"
+
+<PageTitle>Test Page</PageTitle>
+
+<div class="font-example">
+
+
+    <div class="center-container">
+        <h1>
+            Instruktion
+        </h1>
+        <br />
+
+
+        <p>
+            Nedan ser du nio rader med fyra ord i varje rad.
+            @*<ul>
+                <li>
+                    Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+                    beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
+                    till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
+                    dig.
+                </li>
+                
+                
+                <li>
+                     Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+                    information eller arbetsuppgifter, hur gör du?
+                </li>
+                
+                <li>
+                    Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+                    uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
+                    kan tycka att det är svårt, men rangordna ändå.
+
+                </li>
+
+                
+                
+
+
+                
+                
+                
+
+            </ul>*@
+        </p>
+
+
+
+
+
+        <NavLink class="nav-link" href="ResultsPage">
+            <button class="btn btn-primary" @*@onclick="StartTest" *@>FINISH THE TEST</button>
+        </NavLink>
+
+
+
+
+    </div>
+
+    <div class="right-container">
+        <NavLink class="nav-link" href="/">
+            <button class="btn-cancel"> CANCEL </button>
+        </NavLink>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
+</footer>
+
+
+
+
+
+<style>
+    /* .font-example {
+                font-family: 'MentiDisplay-Regular';
+            }*/
+
+    .center-container {
+        padding: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 78vh; /* This will center-align vertically by using the full viewport height */
+        text-align: center; /* This will center-align the text horizontally */
+    }
+
+    .right-container {
+        display: flex;
+        /*flex-direction: column;*/
+        padding-right: 10px;
+        align-items: end;
+        justify-content: right;
+        /*height: 78vh; /* This will center-align vertically by using the full viewport height */
+        text-align: center; /* This will center-align the text horizontally */
+        */
+    }
+
+    footer {
+        background-color: #f8f8f8;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+
+
+        footer p {
+            color: #333;
+        }
+</style>

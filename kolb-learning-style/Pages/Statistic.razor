@@ -1,0 +1,68 @@
+﻿@page "/Statistic"
+
+<PageTitle>Test Results</PageTitle>
+
+<div class="font-example">
+
+
+    <div class="center-container">
+        <h1>Worldwide Statistics:</h1>
+        <br />
+
+
+        <p>
+
+            Epsum
+            Kolb states that learning involves the acquisition of abstract concepts that can be applied flexibly in a range of situations.
+            In Kolb’s theory, the impetus for the development of new concepts is provided by new experiences.
+        </p>
+
+
+
+
+
+        <NavLink class="nav-link" href="/">
+            <button class="btn btn-primary" @*@onclick="StartTest" *@>GO BACK TO THE MAIN PAGE</button>
+        </NavLink>
+
+
+
+
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
+</footer>
+
+
+
+
+
+<style>
+    /* .font-example {
+                font-family: 'MentiDisplay-Regular';
+            }*/
+
+    .center-container {
+        padding: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 78vh; /* This will center-align vertically by using the full viewport height */
+        text-align: center; /* This will center-align the text horizontally */
+    }
+
+    footer {
+        background-color: #f8f8f8;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+
+
+        footer p {
+            color: #333;
+        }
+</style>

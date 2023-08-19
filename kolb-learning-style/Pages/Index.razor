@@ -2,9 +2,13 @@
 
 <PageTitle>Kolb's "Learning Style" Test</PageTitle>
 
+<div class="font-example">
+    
 
 <div class="center-container">
-    <h1>Kolb's Test</h1>
+        <h1>
+            Kolbs lärstilar: testa din inlärningsstil
+        </h1>
     <br />
     
 
@@ -18,11 +22,17 @@
 
     <SurveyPrompt Title="“Learning is the process whereby knowledge is created through the transformation of experience” (Kolb, 1984, p. 38).“" />
     <br />
-    <button class="btn btn-primary" @*@onclick="StartTest"*@>Starta Testet</button>
+
+    
+
+        <NavLink class="nav-link" href="SaveResults">
+            <button class="btn btn-primary" @*@onclick="StartTest" *@>STARTA TESTET</button>
+        </NavLink>
     
    
     
     
+</div>
 </div>
 
 <footer>
@@ -31,7 +41,13 @@
 
 
 
+
+
 <style>
+   /* .font-example {
+        font-family: 'MentiDisplay-Regular';
+    }*/
+
     .center-container {
         padding: 220px;
         display: flex;
@@ -47,6 +63,8 @@
         padding-top: 20px;
         text-align: center;
     }
+
+
 
         footer p {
             color: #333;

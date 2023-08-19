@@ -7,10 +7,17 @@
     <RootNamespace>kolb_learning_style</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\NewFolder1\**" />
+    <Content Remove="wwwroot\NewFolder1\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
+    <None Remove="wwwroot\NewFolder1\**" />
+  </ItemGroup>
+
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\NewFolder1\" />
+    <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\NewFolder\" />
     <Content Remove="Pages\Component.razor.razor" />
     <Content Remove="Pages\Index.razor.razor" />
