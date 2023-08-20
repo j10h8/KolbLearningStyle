@@ -29,6 +29,23 @@
 			</li>
 			</ul>*@
 		</p>
+		<EditForm Model="InputModel" OnValidSubmit="HandleSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<div style="display:flex;">
+				<label>1.</label>
+				<label>text</label>
+				<InputNumber class="kolb-input" @bind-Value="InputModel.Input11"></InputNumber>
+				<label>text</label>
+				<InputNumber class="kolb-input" @bind-Value="InputModel.Input12"></InputNumber>
+				<label>text</label>
+				<InputNumber class="kolb-input" @bind-Value="InputModel.Input13"></InputNumber>
+				<label>text</label>
+				<InputNumber class="kolb-input" @bind-Value="InputModel.Input14"></InputNumber>
+			</div>
+			<button type="submit">Slutför testet</button>
+		</EditForm>
+
 		<NavLink class="nav-link" href="ResultsPage">
 			<button class="btn btn-primary" @*@onclick="StartTest" *@>FINISH THE TEST</button>
 		</NavLink>
@@ -44,9 +61,22 @@
 </footer>
 
 <style>
-	/* .font-example {
-					font-family: 'MentiDisplay-Regular';
-				}*/
+	label {
+		display: flex;
+		width: 8rem;
+		justify-content: flex-end;
+		align-items: center;
+		margin-right: 0.5rem;
+	}
+
+	.kolb-input {
+		width: 4rem;
+		margin-right: 1rem;
+	}
+
+	/*.font-example {
+		font-family: 'MentiDisplay-Regular';
+	}*/
 
 	.center-container {
 		padding: 220px;
@@ -79,3 +109,12 @@
 			color: #333;
 		}
 </style>
+
+@code {
+	public InputModel InputModel { get; set; } = new InputModel();
+
+	private void HandleSubmit()
+	{
+
+	}
+}
