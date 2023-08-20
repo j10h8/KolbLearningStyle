@@ -3,82 +3,59 @@
 <PageTitle>Do you want to save results?</PageTitle>
 
 <div class="font-example">
-
-
-    <div class="center-container">
-        <h1>Do you want to save your results in our database?</h1>
-        <h1> ... </h1>
-        <br />
-
-
-
-
-
-
-
-        <NavLink class="nav-link" href="TestPage">
-            <button class="btn btn-primary" @*@onclick="StartTest" *@>NO, CONTINUE WITHOUT SAVING</button>
-        </NavLink>
-        <NavLink class="nav-link" href="TestPage">
-            <button class="btn btn-primary" @*@onclick="StartTest" *@>YES, I'M OK WITH SHARING MY RESULTS TO THE WORLD</button>
-        </NavLink>
-
-
-
-
-
-    </div>
-    <div class="right-container">
-        <NavLink class="nav-link" href="/">
-            <button class="btn-cancel"> CANCEL </button>
-        </NavLink>
-    </div>
-
+	<div class="center-container">
+		<h1>Do you want to save your results in our database?</h1>
+		<h1> ... </h1>
+		<br />
+		<NavLink class="nav-link" href="TestPage">
+			<button class="btn btn-primary" @*@onclick="StartTest" *@>NO, CONTINUE WITHOUT SAVING</button>
+		</NavLink>
+		<NavLink class="nav-link" href="TestPage">
+			<button class="btn btn-primary" @*@onclick="StartTest" *@>YES, I'M OK WITH SHARING MY RESULTS TO THE WORLD</button>
+		</NavLink>
+	</div>
+	<div class="right-container">
+		<NavLink class="nav-link" href="/">
+			<button class="btn-cancel"> CANCEL </button>
+		</NavLink>
+	</div>
 </div>
-
 <footer>
-    <p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
+	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
 </footer>
 
-
-
-
-
 <style>
-    /* .font-example {
-                font-family: 'MentiDisplay-Regular';
-            }*/
+	/* .font-example {
+						font-family: 'MentiDisplay-Regular';
+					}*/
 
-    .center-container {
-        padding: 200px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 70vh; /* This will center-align vertically by using the full viewport height */
-        text-align: center; /* This will center-align the text horizontally */
-    }
+	.center-container {
+		padding: 200px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 70vh; /* This will center-align vertically by using the full viewport height */
+		text-align: center; /* This will center-align the text horizontally */
+	}
 
-    .right-container {
-        display: flex;
-        /*flex-direction: column;*/
-        padding-right: 10px;
-        align-items: end;
-        justify-content: right;
-        /*height: 78vh; /* This will center-align vertically by using the full viewport height */
-        text-align: center; /* This will center-align the text horizontally */
-        */
-    }
+	.right-container {
+		display: flex;
+		/*flex-direction: column;*/
+		padding-right: 10px;
+		align-items: end;
+		justify-content: right;
+		/*height: 78vh; /* This will center-align vertically by using the full viewport height */
+		text-align: center; /* This will center-align the text horizontally */
+	}
 
-    footer {
-        background-color: #f8f8f8;
-        padding-top: 20px;
-        text-align: center;
-    }
+	footer {
+		background-color: #f8f8f8;
+		padding-top: 20px;
+		text-align: center;
+	}
 
-
-
-        footer p {
-            color: #333;
-        }
+		footer p {
+			color: #333;
+		}
 </style>
