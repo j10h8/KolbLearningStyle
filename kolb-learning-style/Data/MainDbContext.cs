@@ -12,6 +12,6 @@ namespace kolb_learning_style.Data
 
 		public DbSet<ResultModel> Results { get; set; }
 
-		public DbSet<QuestionModel> Questions { get; set; }
+		public DbSet<EmailAddressModel> SendList { get; set; }
 	}
 }
