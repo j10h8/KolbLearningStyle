@@ -16,13 +16,20 @@
 
 
 
-
+		<NavLink class="nav-link" href="/">
+			<button class="btn-cancel"> AVBRYT TESTET </button>
+		</NavLink>
         <NavLink class="nav-link" href="TestPage">
             <button class="btn btn-primary" @*@onclick="StartTest" *@>NO, CONTINUE WITHOUT SAVING</button>
         </NavLink>
+		<h1> ... </h1>
         <NavLink class="nav-link" href="TestPage">
             <button class="btn btn-primary" @*@onclick="StartTest" *@>YES, I'M OK WITH SHARING MY RESULTS TO THE WORLD</button>
         </NavLink>
+		<div class="checkbox-container">
+			<input type="checkbox" id="confirmCheckbox" />
+			<label for="confirmCheckbox">I agree with website policy</label>
+		</div>
 
 
 
@@ -30,9 +37,7 @@
 
     </div>
     <div class="right-container">
-        <NavLink class="nav-link" href="/">
-            <button class="btn-cancel"> AVBRYT TESTET </button>
-        </NavLink>
+        
     </div>
 
 
@@ -65,6 +70,14 @@
 		/*height: 78vh; /* This will center-align vertically by using the full viewport height */
 		text-align: center; /* This will center-align the text horizontally */
 	}
+
+	.checkbox-container {
+		margin-top: 10px; 
+	}
+
+		.checkbox-container input[type="checkbox"] {
+			margin-right: 5px; 
+		}
 
 	footer {
 		background-color: #f8f8f8;
