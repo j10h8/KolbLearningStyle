@@ -1,4 +1,5 @@
 ﻿@page "/TestPage"
+@inject IResultService ResultService
 
 <PageTitle>Test Page</PageTitle>
 
@@ -6,76 +7,69 @@
 
 
 	<div class="center-container">
-		
-		
-		
-		
 	</div>
 	<div class="center-container">
-		
+
 		<p>
 
 			<h1>
-			Kolbs lärstilar: testa din inlärningsstil
-		</h1>
-		<br />
+				Kolbs lärstilar: testa din inlärningsstil
+			</h1>
+			<br />
 
-		<br />
+			<br />
 			<h2> Instruktion </h2>
 			<br />
 			<b>Nedan ser du nio rader med fyra ord i varje rad</b>
 
-			
+
 
 			<ul>
 				<br />
-			@*<p>
-			Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
-			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
-			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
-			dig.
-			</p>*@
+				@*<p>
+				Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+				beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
+				till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
+				dig.
+				</p>*@
 
-			<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+				<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
 			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
 			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
 			dig." />
-			@*<br />
-			<hr />
-			<br />*@
-			@*<p>
-			<b>
+				@*<br />
+				<hr />
+				<br />*@
+				@*<p>
+				<b>
 				Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
-			information eller arbetsuppgifter, hur gör du?
-			</b>
-			</p>*@
+				information eller arbetsuppgifter, hur gör du?
+				</b>
+				</p>*@
 
-			<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+				<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
 			information eller arbetsuppgifter, hur gör du?" />
-			
-			@*<br />
-			<hr />
-			<br />*@
-			@*<p>
-			Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
-			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
-			kan tycka att det är svårt, men rangordna ändå.
 
-			</p>*@
-			<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+				@*<br />
+				<hr />
+				<br />*@
+				@*<p>
+				Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+				uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
+				kan tycka att det är svårt, men rangordna ändå.
+
+				</p>*@
+				<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
 			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
 			kan tycka att det är svårt, men rangordna ändå." />
 			</ul>
 		</p>
 		<br />
 		<br />
-		
-		<EditForm  Model="InputModel" OnSubmit="HandleSubmit">
-			@* 			<DataAnnotationsValidator />
-			<ValidationSummary /> *@
 
-			<div  style="display:flex; align-items: left; margin-bottom:0.5rem;">
-				<label2> <b>1. </b> </label2> 
+		<EditForm Model="InputModel" OnSubmit="HandleSubmitAsync">
+			<div style="display:flex; margin-bottom:0.5rem;">
+				<label2> <b>1. </b> </label2>
 				<br />
 				<label>Prioritera</label>
 				<InputSelect class="input-select" @bind-Value="InputModel.Input11">
@@ -356,26 +350,26 @@
 					})
 				</InputSelect>
 			</div>
-					
-					<br />
-					<br />
+
+			<br />
+			<br />
 			<div class="button-row">
 
 				<NavLink class="nav-link" href="/">
-			<button class="btn-cancel"> AVBRYT TESTET </button>
-		</NavLink>
-				<button type="submit" class="btn btn-primary" >SLUTFÖR TESTET</button>
-			
+					<button class="btn-cancel"> AVBRYT TESTET </button>
+				</NavLink>
+				<button type="submit" class="btn btn-primary">SLUTFÖR TESTET</button>
+
 
 			</div>
-				
-			
-					
-					
+
+
+
+
 
 			@*<NavLink class="nav-link" href="ResultsPage">
-			
-		</NavLink>*@
+
+			</NavLink>*@
 			<br />
 			<br />
 			<br />
@@ -383,10 +377,9 @@
 			<br />
 			<br />
 		</EditForm>
-		
+
 	</div>
 	<div class="right-container">
-		
 	</div>
 
 </div>
@@ -444,9 +437,7 @@
 		margin-right: 0.5rem;
 	}
 
-	.input-select
-
-	{
+	.input-select {
 		border-radius: 3px;
 	}
 
@@ -456,14 +447,15 @@
 	}
 
 	/* .font-example {
-											font-family: 'MentiDisplay-Regular';
-										} */
+		font-family: 'MentiDisplay-Regular';
+	} */
+
 	.button-row {
-    display: flex;
-	justify-content: center;
-    align-items: center;
-    margin-top: 10px; 
-}
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 10px;
+	}
 
 	.center-container {
 		padding: 250px;
@@ -510,24 +502,38 @@
 		_errorMessageIsVisible = false;
 	}
 
-	private void HandleSubmit()
+	private async Task<bool> HandleSubmitAsync()
 	{
 		if (InputModel.Input11 == 0)
 		{
 			_errorMessageIsVisible = true;
+
+			return false;
 		}
 		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
 		{
 			_errorMessageIsVisible = true;
+
+			return false;
 		}
 		else
 		{
-			// Gör något med den InputModel som skapats av EditForm
+			// Skapa en fake InputModel för att testa 
+			ResultModel resultModel = new ResultModel()
+				{
+					Tester = 1,
+					IdeaGiver = 2,
+					Gatherer = 3,
+					Explainer = 4
+				};
 
 			// Återställ formuläret/sidan
 			InputModel = new InputModel();
 			InputModel.Input11 = 0;
 			_errorMessageIsVisible = false;
+
+			// Skicka fake InputModel till AddResultAsync för att testa 
+			return await ResultService.AddResultAsync(resultModel);
 		}
 	}
 }
