@@ -1,0 +1,81 @@
+﻿
+<h3>ResultCircle</h3>
+
+<BECanvas Width="@canvasSize" Height="@canvasSize" @ref="_canvasReference"></BECanvas>
+
+@code {
+    [Parameter]
+    public ResultModel Result { get; set; }
+    
+    private Canvas2DContext? _context;
+
+    protected BECanvasComponent? _canvasReference;
+
+    public int canvasSize = 500;
+    private int circleRadius => (canvasSize-200)/2;
+    private int middle => canvasSize / 2;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        this._context = await this._canvasReference.CreateCanvas2DAsync();
+        
+        await DrawAllCircles(circleRadius);
+        await DrawAllLabels();
+        await DrawRektangle(Result,circleRadius);
+    }
+
+    private async Task DrawAllCircles(int outherRadius)
+    {
+        int innerRadius = outherRadius/5;
+
+        await DrawCircle(outherRadius,"25");
+        await DrawCircle(innerRadius*4,"20");
+        await DrawCircle(innerRadius*3,"15");
+        await DrawCircle(innerRadius*2,"10");
+        await DrawCircle(innerRadius,"5");
+    }
+    private async Task DrawAllLabels()
+    {
+        await DrawText("IdéGivare", canvasSize - 70, 10, 0); //Uppe Höger
+        await DrawText("Prövare", 10, 10, 0); //Uppe Vänster
+        await DrawText("Förklarare", canvasSize - 70, canvasSize - 30, 0); // Nere Höger
+        await DrawText("IhopSamlare", 10, canvasSize - 30, 0); //Nere Vänster
+    }
+    private async Task DrawText(string text, int x, int y, int direction)
+    {
+        await this._context.SetFontAsync("12px Calibri");
+        await this._context.StrokeTextAsync(text, x, y);
+    }
+
+    private async Task DrawRektangle(ResultModel resultModel, int circleRadius)
+    {
+        int circleSize = circleRadius / 25;
+        await _context.SetStrokeStyleAsync("red");
+        await _context.BeginPathAsync();        
+        await this._context.MoveToAsync(middle+(resultModel.IdeaGiver*circleSize), middle);
+        await this._context.LineToAsync(middle, middle - (resultModel.Explainer*circleSize));
+        await this._context.LineToAsync(middle - (resultModel.Tester*circleSize), middle);
+        await this._context.LineToAsync(middle, middle + (resultModel.Gatherer*circleSize));
+        await this._context.LineToAsync(middle + (resultModel.IdeaGiver*circleSize), middle);
+        await this._context.StrokeAsync();
+
+    }
+    
+    private async Task DrawCircle(int radius, string text)
+    {
+        await _context.SetStrokeStyleAsync("black");
+        await _context.BeginPathAsync();
+        await _context.ArcAsync(middle, middle, radius, 0, Math.PI * 2, true);
+        await _context.StrokeAsync();
+        await PrintRadius(radius, text);
+    }
+    private async Task PrintRadius(int radius, string text)
+    {
+        await this._context.SetFontAsync("12px Calibri");
+        await this._context.StrokeTextAsync(text, middle + radius, middle);
+        await this._context.StrokeTextAsync(text, middle, middle + radius);
+        await this._context.StrokeTextAsync(text, middle - radius, middle);
+        await this._context.StrokeTextAsync(text, middle, middle - radius);
+        
+    }
+}

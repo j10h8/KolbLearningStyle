@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -20,6 +20,7 @@
     <Folder Include="wwwroot\fonts\" />
     <Content Remove="Pages\Component.razor.razor" />
     <Content Remove="Pages\Index.razor.razor" />
+    <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <PrivateAssets>all</PrivateAssets>
