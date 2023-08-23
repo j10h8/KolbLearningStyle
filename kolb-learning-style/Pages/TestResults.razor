@@ -2,6 +2,9 @@
 
 
 
+
+
+
 <PageTitle>Test Results</PageTitle>
 
 <div class="font-example">
@@ -13,6 +16,7 @@
 			Kolb states that learning involves the acquisition of abstract concepts that can be applied flexibly in a range of situations.
 			In Kolb’s theory, the impetus for the development of new concepts is provided by new experiences.
 		</p>
+		<ResultCircle Result="Result"></ResultCircle>
 		<NavLink class="nav-link" href="SaveResults">
 			<button class="btn btn-primary" @*@onclick="StartTest" *@>SEND RESULTS TO MY EMAIL</button>
 		</NavLink>
@@ -47,3 +51,14 @@
 			color: #333;
 		}
 </style>
+
+@code{
+	public ResultModel Result { get; set; }
+
+
+	protected override void OnInitialized()
+	{
+		Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
+	}
+
+}
