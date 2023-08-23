@@ -1,63 +1,99 @@
 ﻿@page "/TestPage"
+@inject IResultService ResultService
 
 <PageTitle>Test Page</PageTitle>
 
 <div class="font-example">
 
+
 	<div class="center-container">
-		<h1>
-			Instruktion
-		</h1>
-		<br />
+	</div>
+	<div class="center-container">
+
 		<p>
-			Nedan ser du nio rader med fyra ord i varje rad.
-			@*<ul>
-			<li>
-			Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+
+			<h1>
+				Kolbs lärstilar: testa din inlärningsstil
+			</h1>
+			<br />
+
+			<br />
+			<h2> Instruktion </h2>
+			<br />
+			<b>Nedan ser du nio rader med fyra ord i varje rad</b>
+
+
+
+			<ul>
+				<br />
+				@*<p>
+				Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+				beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
+				till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
+				dig.
+				</p>*@
+
+				<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
 			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
 			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
-			dig.
-			</li>
-			<li>
-			Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
-			information eller arbetsuppgifter, hur gör du?
-			</li>
-			<li>
-			Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
-			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
-			kan tycka att det är svårt, men rangordna ändå.
+			dig." />
+				@*<br />
+				<hr />
+				<br />*@
+				@*<p>
+				<b>
+				Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+				information eller arbetsuppgifter, hur gör du?
+				</b>
+				</p>*@
 
-			</li>
-			</ul>*@
+				<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+			information eller arbetsuppgifter, hur gör du?" />
+
+				@*<br />
+				<hr />
+				<br />*@
+				@*<p>
+				Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+				uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
+				kan tycka att det är svårt, men rangordna ändå.
+
+				</p>*@
+				<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
+			kan tycka att det är svårt, men rangordna ändå." />
+			</ul>
 		</p>
-		<EditForm Model="InputModel" OnSubmit="HandleSubmit">
-			@* 			<DataAnnotationsValidator />
-			<ValidationSummary /> *@
+		<br />
+		<br />
+
+		<EditForm Model="InputModel" OnSubmit="HandleSubmitAsync">
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>1.</label>
+				<label2> <b>1. </b> </label2>
+				<br />
 				<label>Prioritera</label>
-				<InputSelect @bind-Value="InputModel.Input11">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input11">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Pröva</label>
-				<InputSelect @bind-Value="InputModel.Input12">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input12">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Sammanfatta</label>
-				<InputSelect @bind-Value="InputModel.Input13">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input13">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Praktisera</label>
-				<InputSelect @bind-Value="InputModel.Input14">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input14">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -65,30 +101,32 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>2.</label>
+				<label2>
+					<b>2. </b>
+				</label2>
 				<label>Mottaga</label>
-				<InputSelect @bind-Value="InputModel.Input21">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input21">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Uppmärksamma</label>
-				<InputSelect @bind-Value="InputModel.Input22">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input22">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Analysera</label>
-				<InputSelect @bind-Value="InputModel.Input23">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input23">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Opartisk</label>
-				<InputSelect @bind-Value="InputModel.Input24">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input24">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -96,30 +134,30 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>3.</label>
+				<label2><b>3. </b></label2>
 				<label>Känna</label>
-				<InputSelect @bind-Value="InputModel.Input31">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input31">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Betrakta</label>
-				<InputSelect @bind-Value="InputModel.Input32">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input32">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Tänka</label>
-				<InputSelect @bind-Value="InputModel.Input33">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input33">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Göra</label>
-				<InputSelect @bind-Value="InputModel.Input34">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input34">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -127,30 +165,30 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>4.</label>
+				<label2> <b>4. </b></label2>
 				<label>Acceptera</label>
-				<InputSelect @bind-Value="InputModel.Input41">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input41">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Relatera</label>
-				<InputSelect @bind-Value="InputModel.Input42">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input42">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Värdera</label>
-				<InputSelect @bind-Value="InputModel.Input43">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input43">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Riskera</label>
-				<InputSelect @bind-Value="InputModel.Input44">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input44">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -158,30 +196,30 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>5.</label>
+				<label2><b>5. </b></label2>
 				<label>Intuition</label>
-				<InputSelect @bind-Value="InputModel.Input51">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input51">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Svara</label>
-				<InputSelect @bind-Value="InputModel.Input52">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input52">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Logik</label>
-				<InputSelect @bind-Value="InputModel.Input53">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input53">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Fråga</label>
-				<InputSelect @bind-Value="InputModel.Input54">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input54">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -189,30 +227,30 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>6.</label>
+				<label2><b>6. </b></label2>
 				<label>Konkretisera</label>
-				<InputSelect @bind-Value="InputModel.Input61">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input61">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Observera</label>
-				<InputSelect @bind-Value="InputModel.Input62">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input62">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Teoretisera</label>
-				<InputSelect @bind-Value="InputModel.Input63">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input63">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Aktivera</label>
-				<InputSelect @bind-Value="InputModel.Input64">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input64">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -220,30 +258,30 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>7.</label>
+				<label2><b>7. </b></label2>
 				<label>Nuorientera</label>
-				<InputSelect @bind-Value="InputModel.Input71">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input71">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Reflektera</label>
-				<InputSelect @bind-Value="InputModel.Input72">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input72">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Framtidsorientera</label>
-				<InputSelect @bind-Value="InputModel.Input73">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input73">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Tillämpa</label>
-				<InputSelect @bind-Value="InputModel.Input74">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input74">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -251,30 +289,30 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>8.</label>
+				<label2><b>8. </b></label2>
 				<label>Upplevelse</label>
-				<InputSelect @bind-Value="InputModel.Input81">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input81">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Observation</label>
-				<InputSelect @bind-Value="InputModel.Input82">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input82">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Begrepp</label>
-				<InputSelect @bind-Value="InputModel.Input83">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input83">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Experiment</label>
-				<InputSelect @bind-Value="InputModel.Input84">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input84">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
@@ -282,52 +320,72 @@
 				</InputSelect>
 			</div>
 			<div style="display:flex; margin-bottom:0.5rem;">
-				<label>9.</label>
+				<label2><b>9. </b></label2>
 				<label>Känslor</label>
-				<InputSelect @bind-Value="InputModel.Input91">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input91">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Avvakta</label>
-				<InputSelect @bind-Value="InputModel.Input92">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input92">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Rationell</label>
-				<InputSelect @bind-Value="InputModel.Input93">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input93">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 				<label>Engagerad</label>
-				<InputSelect @bind-Value="InputModel.Input94">
+				<InputSelect class="input-select" @bind-Value="InputModel.Input94">
 					@for (int i = 1; i < 5; i++)
 					{
 						<option value="@i">@i</option>
 					})
 				</InputSelect>
 			</div>
-			<button type="submit">Slutför testet</button>
+
+			<br />
+			<br />
+			<div class="button-row">
+
+				<NavLink class="nav-link" href="/">
+					<button class="btn-cancel"> AVBRYT TESTET </button>
+				</NavLink>
+				<button type="submit" class="btn btn-primary">SLUTFÖR TESTET</button>
+
+
+			</div>
+
+
+
+
+
+			@*<NavLink class="nav-link" href="ResultsPage">
+
+			</NavLink>*@
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
 		</EditForm>
-		<NavLink class="nav-link" href="ResultsPage">
-			<button class="btn btn-primary" @*@onclick="StartTest" *@>FINISH THE TEST</button>
-		</NavLink>
+
 	</div>
 	<div class="right-container">
-		<NavLink class="nav-link" href="/">
-			<button class="btn-cancel"> CANCEL </button>
-		</NavLink>
 	</div>
 
 </div>
-<footer>
+@*<footer>
 	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
-</footer>
+</footer>*@
 
 @if (_errorMessageIsVisible == true)
 {
@@ -368,6 +426,19 @@
 		justify-content: flex-end;
 		align-items: center;
 		margin-right: 0.5rem;
+		/*font-weight: bold;*/
+	}
+
+	label2 {
+		display: flex;
+		width: 2.5rem;
+		justify-content: flex-end;
+		align-items: center;
+		margin-right: 0.5rem;
+	}
+
+	.input-select {
+		border-radius: 3px;
 	}
 
 	.kolb-input {
@@ -376,16 +447,23 @@
 	}
 
 	/* .font-example {
-											font-family: 'MentiDisplay-Regular';
-										} */
+		font-family: 'MentiDisplay-Regular';
+	} */
+
+	.button-row {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 10px;
+	}
 
 	.center-container {
-		padding: 220px;
+		padding: 250px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 78vh; /* This will center-align vertically by using the full viewport height */
+		height: 1vh; /* This will center-align vertically by using the full viewport height */
 		text-align: center; /* This will center-align the text horizontally */
 	}
 
@@ -424,24 +502,38 @@
 		_errorMessageIsVisible = false;
 	}
 
-	private void HandleSubmit()
+	private async Task<bool> HandleSubmitAsync()
 	{
 		if (InputModel.Input11 == 0)
 		{
 			_errorMessageIsVisible = true;
+
+			return false;
 		}
 		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
 		{
 			_errorMessageIsVisible = true;
+
+			return false;
 		}
 		else
 		{
-			// Gör något med den InputModel som skapats av EditForm
+			// Skapa en fake InputModel för att testa 
+			ResultModel resultModel = new ResultModel()
+				{
+					Tester = 1,
+					IdeaGiver = 2,
+					Gatherer = 3,
+					Explainer = 4
+				};
 
 			// Återställ formuläret/sidan
 			InputModel = new InputModel();
 			InputModel.Input11 = 0;
 			_errorMessageIsVisible = false;
+
+			// Skicka fake InputModel till AddResultAsync för att testa 
+			return await ResultService.AddResultAsync(resultModel);
 		}
 	}
 }

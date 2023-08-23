@@ -1,4 +1,6 @@
 using kolb_learning_style.Data;
+using kolb_learning_style.Repositories;
+using kolb_learning_style.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<IResultService, ResultService>();
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
 
 // Add MainDbContext
 var connectionString = builder.Configuration.GetConnectionString("Default");
@@ -28,6 +32,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapBlazorHub();
+
 app.MapFallbackToPage("/_Host");
 
 app.Run();
