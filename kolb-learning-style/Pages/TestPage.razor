@@ -1,5 +1,7 @@
 ﻿@page "/TestPage"
 @inject IResultService ResultService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Test Page</PageTitle>
 
@@ -62,14 +64,14 @@
 				<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
 			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
 			kan tycka att det är svårt, men rangordna ändå." />
-			<br />
+				<br />
 
-			<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
-			<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
+				<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
+				<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
 
 			</ul>
 		</p>
-		
+
 		<br />
 
 		<EditForm Model="InputModel" OnSubmit="HandleSubmitAsync">
@@ -452,8 +454,8 @@
 	}
 
 	/* .font-example {
-		font-family: 'MentiDisplay-Regular';
-	} */
+					font-family: 'MentiDisplay-Regular';
+				} */
 
 	.button-row {
 		display: flex;
@@ -507,25 +509,19 @@
 		_errorMessageIsVisible = false;
 	}
 
-	private async Task<bool> HandleSubmitAsync()
+	private async Task HandleSubmitAsync()
 	{
 		if (InputModel.Input11 == 0)
 		{
 			_errorMessageIsVisible = true;
-
-			return false;
 		}
 		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
 		{
 			_errorMessageIsVisible = true;
-
-			return false;
 		}
 		else
 		{
 			// Skapa en resultmodel av inputModel
-
-
 			ResultModel resultModel = GetResultFromInput(InputModel);
 
 			// Återställ formuläret/sidan
@@ -533,8 +529,12 @@
 			InputModel.Input11 = 0;
 			_errorMessageIsVisible = false;
 
-			// Skicka resultModel till AddResultAsync för att testa 
-			return await ResultService.AddResultAsync(resultModel);
+			// Skicka resultModel till AddResultAsync (TODO: bara om användaren valt att resultatet ska få sparas i statistiken/databasen)
+			await ResultService.AddResultAsync(resultModel);
+
+			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "result", JsonSerializer.Serialize(resultModel));
+
+			NavigationManager.NavigateTo("/TestResults");
 		}
 	}
 

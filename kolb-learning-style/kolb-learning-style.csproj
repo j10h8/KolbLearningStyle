@@ -21,6 +21,7 @@
     <Content Remove="Pages\Component.razor.razor" />
     <Content Remove="Pages\Index.razor.razor" />
     <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <PrivateAssets>all</PrivateAssets>
