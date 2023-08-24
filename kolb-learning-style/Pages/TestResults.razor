@@ -1,30 +1,30 @@
-﻿@page "/ResultsPage"
+﻿@page "/TestResults"
+@inject IJSRuntime JSRuntime
 
+<PageTitle>Ditt resultat</PageTitle>
 
-
-
-
-
-<PageTitle>Test Results</PageTitle>
-
-<div class="font-example">
-	<div class="center-container">
-		<h1>Your learning style is:</h1>
-		<br />
-		<p>
-			Epsum
-			Kolb states that learning involves the acquisition of abstract concepts that can be applied flexibly in a range of situations.
-			In Kolb’s theory, the impetus for the development of new concepts is provided by new experiences.
-		</p>
-		<ResultCircle Result="Result"></ResultCircle>
-		<NavLink class="nav-link" href="SaveResults">
-			<button class="btn btn-primary" @*@onclick="StartTest" *@>SEND RESULTS TO MY EMAIL</button>
-		</NavLink>
+@if (Result != null)
+{
+	<div class="font-example">
+		<div class="center-container">
+			<h1>Ditt resultat</h1>
+			<p>Prövare (AE): @Result.Tester</p>
+			<p>Sammanställare (AT): @Result.Gatherer</p>
+			<p>Idégivare (KU): @Result.IdeaGiver</p>
+			<p>Förklarare (RO): @Result.Explainer</p>
+			<br />
+			<p>
+				Epsum
+				Kolb states that learning involves the acquisition of abstract concepts that can be applied flexibly in a range of situations.
+				In Kolb’s theory, the impetus for the development of new concepts is provided by new experiences.
+			</p>
+			<ResultCircle Result="Result"></ResultCircle>
+			<NavLink class="nav-link" href="SaveResults">
+				<button class="btn btn-primary" @*@onclick="StartTest" *@>SEND RESULTS TO MY EMAIL</button>
+			</NavLink>
+		</div>
 	</div>
-
-</div>
-
-
+}
 
 <footer>
 	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
@@ -32,8 +32,8 @@
 
 <style>
 	/* .font-example {
-					font-family: 'MentiDisplay-Regular';
-				}*/
+			font-family: 'MentiDisplay-Regular';
+		} */
 
 	.center-container {
 		padding: 220px;
@@ -56,13 +56,23 @@
 		}
 </style>
 
-@code{
-	public ResultModel Result { get; set; }
+@code {
+	public ResultModel? Result { get; set; }
 
-
-	protected override void OnInitialized()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
+		if (firstRender)
+		{
+			string jsonString = await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "result");
+
+			if (jsonString != null)
+			{
+				Result = JsonSerializer.Deserialize<ResultModel>(jsonString);
+
+				StateHasChanged();
+			}
+		}
 	}
 
+	// Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
 }
