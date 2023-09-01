@@ -1,12 +1,12 @@
 ﻿
-<h3>ResultCircle</h3>
+<h3 style="margin-top:3rem;">Kolbs lärcirkel</h3>
 
 <BECanvas Width="@canvasSize" Height="@canvasSize" @ref="_canvasReference"></BECanvas>
 
 @code {
     [Parameter]
-    public ResultModel Result { get; set; }
-    
+    public ResultModel Result { get; set; } 
+
     private Canvas2DContext? _context;
 
     protected BECanvasComponent? _canvasReference;
@@ -36,10 +36,10 @@
     }
     private async Task DrawAllLabels()
     {
-        await DrawText("IdéGivare", canvasSize - 70, 10, 0); //Uppe Höger
-        await DrawText("Prövare", 10, 10, 0); //Uppe Vänster
-        await DrawText("Förklarare", canvasSize - 70, canvasSize - 30, 0); // Nere Höger
-        await DrawText("IhopSamlare", 10, canvasSize - 30, 0); //Nere Vänster
+        await DrawText("Idégivare (KU)", canvasSize - 70, 10, 0); //Uppe Höger
+        await DrawText("Prövare (AE)", 10, 10, 0); //Uppe Vänster
+        await DrawText("Förklarare (RO)", canvasSize - 70, canvasSize - 30, 0); // Nere Höger
+        await DrawText("Sammanställare (AT)", 10, canvasSize - 30, 0); //Nere Vänster
     }
     private async Task DrawText(string text, int x, int y, int direction)
     {
