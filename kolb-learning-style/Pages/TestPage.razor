@@ -542,10 +542,10 @@
 	private ResultModel GetResultFromInput(InputModel input)
 	{
 		ResultModel result = new();
-		result.Tester = Add(new int[] { input.Input21, input.Input31, input.Input41, input.Input51, input.Input61, input.Input81, input.Input91 });
-		result.IdeaGiver = Add(new int[] { input.Input12, input.Input22, input.Input32, input.Input62, input.Input72, input.Input82, input.Input92 });
+		result.IdeaGiver = Add(new int[] { input.Input21, input.Input31, input.Input41, input.Input51, input.Input61, input.Input81, input.Input91 });
+		result.Explainer = Add(new int[] { input.Input12, input.Input22, input.Input32, input.Input62, input.Input72, input.Input82, input.Input92 });
 		result.Gatherer = Add(new int[] { input.Input13, input.Input23, input.Input33, input.Input43, input.Input53, input.Input63, input.Input93 });
-		result.Explainer = Add(new int[] { input.Input14, input.Input34, input.Input44, input.Input64, input.Input74, input.Input84, input.Input94 });
+		result.Tester = Add(new int[] { input.Input14, input.Input34, input.Input44, input.Input64, input.Input74, input.Input84, input.Input94 });
 		return result;
 	}
 	// Lägg ihop alla numbers i array
