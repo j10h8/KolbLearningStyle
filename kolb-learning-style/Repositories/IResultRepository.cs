@@ -2,8 +2,9 @@
 
 namespace kolb_learning_style.Repositories
 {
-	public interface IResultRepository
-	{
-		Task<bool> AddResultAsync(ResultModel result);
-	}
+    public interface IResultRepository
+    {
+        Task<bool> AddResultAsync(ResultModel result);
+        Task<List<ResultModel>> GetResultsAsync();
+    }
 }
