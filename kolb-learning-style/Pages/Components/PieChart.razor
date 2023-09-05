@@ -2,34 +2,36 @@
 
 <h3>PieChart</h3>
 
-<RadzenChart ColorScheme="@ColorScheme.Divergent">
-    <RadzenPieSeries Data="@dataItems"  Title="Procent: " CategoryProperty="Label" ValueProperty="Procent">
-       @* <RadzenSeriesDataLabels  Visible="@showLabels">*@
+<RadzenChart ColorScheme="@ColorScheme.Divergent" Style="width: 800px; height: 800px">
+    <RadzenPieSeries Data="@dataItems" Title="Procent: " CategoryProperty="Label" ValueProperty="Procent" Radius="150">
         <TooltipTemplate Context="data">
             <div>
                 <strong>@data.Label</strong>
                 <br />
-                <strong>@data.Procent %</strong>
+                <strong>@Math.Round(data.Procent,2) %</strong>
             </div>            
-        </TooltipTemplate>
-        @*</RadzenSeriesDataLabels>*@        
+        </TooltipTemplate>       
     </RadzenPieSeries>
     <RadzenLegend Position="LegendPosition.Bottom"/>
 </RadzenChart>
-
+@*@foreach (var item in dataItems)
+{
+    <p>@item.Label</p>
+}
+*@
 
 @code {
-    
+
     [Parameter]
     public string[] Labels { get; set; }
     [Parameter]
     public double[] Data { get; set; }
-    
+
     private bool showLabels { get; set; } = true;
 
     private List<DataItem> dataItems { get; set; } = new List<DataItem>();
-    
-    
+
+
 
     protected override void OnParametersSet()
     {
@@ -60,6 +62,7 @@
                 dataItems.Add(item);
                 index++;
             }
+            StateHasChanged();
         }
     }
 }
