@@ -1,7 +1,11 @@
 using kolb_learning_style.Data;
 using kolb_learning_style.Repositories;
 using kolb_learning_style.Services;
+//using BlazorBootstrap;
 using Microsoft.EntityFrameworkCore;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IResultRepository, ResultRepository>();
+//builder.Services.AddBlazorBootstrap();
+
+
+//builder.Services.AddScoped<BootstrapModalService>();
+//builder.Services.AddScoped<BootstrapCssClasses>();
 
 // Add MainDbContext
 var connectionString = builder.Configuration.GetConnectionString("Default");
