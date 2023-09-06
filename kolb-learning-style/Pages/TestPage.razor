@@ -1,7 +1,9 @@
 ﻿@page "/TestPage"
 @inject IResultService ResultService
-@inject NavigationManager NavigationManager
+
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
 
 <PageTitle>Test Page</PageTitle>
 
@@ -358,17 +360,9 @@
 				</InputSelect>
 			</div>
 
-			<br />
-			<br />
-			<div class="button-row">
-
-				<NavLink class="nav-link" href="/">
-					<button class="btn-cancel"> AVBRYT TESTET </button>
-				</NavLink>
-				<button type="submit" class="btn btn-primary">SLUTFÖR TESTET</button>
-
-
-			</div>
+			@*<br />
+			<br />*@
+			
 
 
 
@@ -377,19 +371,62 @@
 			@*<NavLink class="nav-link" href="ResultsPage">
 
 			</NavLink>*@
+			@*<br />
 			<br />
+			
+			<br />*@
 			<br />
-			<br />
-			<br />
-			<br />
-			<br />
+			@*<hr />*@
+			
 		</EditForm>
+		<br/>
+		<div class="button-row">
 
+				<button class="btn-cancel" @onclick="ShowConfirmationModal" > AVBRYT TESTET </button>
+				<button  class="btn btn-primary" @onclick="HandleSubmitAsync">SLUTFÖR TESTET</button>
+
+			@*type="submit"*@
+			<br />
+			<br />
+
+			</div>
+		<br/>
+		<P> . </P>	
+		@*<NavLink class="nav-link" href="/">*@
+				
+		@*</NavLink>*@
+		<br/>
+		<br/>
 	</div>
 	<div class="right-container">
+		
 	</div>
-
+	
+	<br/>
 </div>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				Are you sure you want to cancel the test?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="HandleConfirm">CONFIRM</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 @*<footer>
 	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
 </footer>*@
@@ -397,9 +434,31 @@
 @if (_errorMessageIsVisible == true)
 {
 	<div class="error-message" @onclick="CloseErrorMessage">
-		<div class="error-div">
+		@*<div class="error-div">
 			<h4 style="margin:0;">Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.</h4>
+		</div>*@
+
+			@*<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">*@
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmationModalLabel">Error</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+				</div>
+			</div>
 		</div>
+	@*</div>*@
+
+
 	</div>
 }
 
@@ -495,9 +554,32 @@
 		}
 </style>
 
+
+
+
 @code {
 	public InputModel InputModel { get; set; } = new InputModel();
 	private bool _errorMessageIsVisible = false;
+	
+
+	
+
+	private async Task ShowConfirmationModal()
+	{
+		
+		await JSRuntime.InvokeVoidAsync("showModal");
+		_errorMessageIsVisible = false;
+
+	}
+
+
+	private void HandleConfirm()
+	{
+
+		NavigationManager.NavigateTo("/");
+	}
+
+
 
 	protected override void OnInitialized()
 	{
@@ -511,11 +593,13 @@
 
 	private async Task HandleSubmitAsync()
 	{
+		//cancelTest = false;
+
 		if (InputModel.Input11 == 0)
 		{
 			_errorMessageIsVisible = true;
 		}
-		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
+		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10 )
 		{
 			_errorMessageIsVisible = true;
 		}
@@ -558,4 +642,7 @@
 		}
 		return sum;
 	}
+
+
+	
 }
