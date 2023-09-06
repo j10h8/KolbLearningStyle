@@ -1,30 +1,180 @@
-﻿@page "/ResultsPage"
+﻿@page "/TestResults"
+@inject IJSRuntime JSRuntime
 
+<PageTitle>Ditt resultat</PageTitle>
 
-
-
-
-
-<PageTitle>Test Results</PageTitle>
-
-<div class="font-example">
-	<div class="center-container">
-		<h1>Your learning style is:</h1>
-		<br />
-		<p>
-			Epsum
-			Kolb states that learning involves the acquisition of abstract concepts that can be applied flexibly in a range of situations.
-			In Kolb’s theory, the impetus for the development of new concepts is provided by new experiences.
-		</p>
+@if (Result != null)
+{
+	<div class="text-center">
+		<h1>Ditt resultat</h1>
+		<div>
+			<p style="@aeStyle[0]">Aktivt experimenterande/Prövare (AE): @Result.Tester</p>
+			<p style="@atStyle[0]">Abstrakt tänkande/Sammanställare (AT): @Result.Gatherer</p>
+			<p style="@kuStyle[0]">Konkreta upplevelser/Idégivare (KU): @Result.IdeaGiver</p>
+			<p style="@roStyle[0]"> Reflekterande observation/Förklarare (RO): @Result.Explainer</p>
+		</div>
+		<div style="display:flex;">
+			<div class="result-text-container" style="@aeStyle[1];">
+				<h3>Prövare (AE)</h3>
+				<ul>
+					<li>
+						Är väldigt
+						aktiv och
+						handlings-
+						inriktad och
+						därför passar
+						inte
+						traditionella
+						föreläsningar
+						då man sitter
+						still mycket.
+					</li>
+					<li>
+						Personen i
+						fråga vill
+						arbeta
+						praktiskt och
+						hittar ofta
+						nya sätt
+						då han/hon
+						kan använda
+						sina nya
+						kunskaper.
+					</li>
+					<li>
+						Prövaren styr
+						sin
+						upptäckarlust
+						och lär sig
+						genom
+						experiment.
+					</li>
+					<li>
+						Frågar sig:
+						Om?
+					</li>
+				</ul>
+			</div>
+			<div class="result-text-container" style="@kuStyle[1]">
+				<h3>Idégivare (KU)</h3>
+				<ul>
+					<li>
+						Vill gärna ha
+						en
+						känslomässig
+						koppling till
+						det som ska
+						läras och vill
+						veta varför
+						man ska lära
+						sig det som
+						ska läras.
+					</li>
+					<li>
+						Idégivaren lär
+						sig genom att
+						uppleva saker
+						och lär
+						genom
+						att se när
+						andra arbetar
+						praktiskt. Att
+						se film är ett
+						annat sätt
+						som kan vara
+						till bra hjälp.
+					</li>
+					<li>
+						Idégivaren
+						lär sig mest
+						då han/hon
+						har
+						diskussioner
+						med andra.
+						Frågar sig:
+						Varför?
+					</li>
+					<li>
+						Frågar sig:
+						Varför?
+					</li>
+				</ul>
+			</div>
+			<div class="result-text-container" style="@atStyle[1]">
+				<h3>Sammanställare (AT)</h3>
+				<ul>
+					<li>
+						Tänker först och
+						handlar därefter.
+						Man vill ha den
+						teoretiska
+						bakgrunden
+						först och därefter
+						möjligtvis tillämpa
+						kunskapen
+						praktiskt.
+					</li>
+					<li>
+						Sammanställaren
+						lär sig
+						bäst då man
+						börjar med att
+						lyssna och att
+						sedan få möjlighet
+						att pröva och att
+						få stenciler där
+						allt står
+						nedskrivet.
+					</li>
+					<li>
+						Frågar sig: Hur?
+					</li>
+				</ul>
+			</div>
+			<div class="result-text-container" style="@roStyle[1]">
+				<h3>Förklarare (RO)</h3>
+				<ul>
+					<li>
+						Behöver ha
+						teori och
+						fakta och
+						tänker
+						igenom olika
+						idéer och vill
+						få fram vad
+						som är viktigt.
+					</li>
+					<li>
+						Förklararen
+						vill inte prova
+						praktiskt utan
+						läser hellre
+						manualer.
+					</li>
+					<li>
+						Dessa elever
+						klarar sig bra i
+						skolan
+						eftersom
+						dagens skola
+						har mycket
+						lärarledda
+						lektioner och
+						föreläsningar.
+					</li>
+					<li>
+						Frågar sig:
+						Vad?
+					</li>
+				</ul>
+			</div>
+		</div>
 		<ResultCircle Result="Result"></ResultCircle>
 		<NavLink class="nav-link" href="SaveResults">
 			<button class="btn btn-primary" @*@onclick="StartTest" *@>SEND RESULTS TO MY EMAIL</button>
 		</NavLink>
 	</div>
-
-</div>
-
-
+}
 
 <footer>
 	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
@@ -32,8 +182,8 @@
 
 <style>
 	/* .font-example {
-					font-family: 'MentiDisplay-Regular';
-				}*/
+												font-family: 'MentiDisplay-Regular';
+											} */
 
 	.center-container {
 		padding: 220px;
@@ -56,13 +206,63 @@
 		}
 </style>
 
-@code{
-	public ResultModel Result { get; set; }
+@code {
+	public ResultModel? Result { get; set; }
+	private string[] aeStyle = { "", "" };
+	private string[] kuStyle = { "", "" };
+	private string[] atStyle = { "", "" };
+	private string[] roStyle = { "", "" };
 
-
-	protected override void OnInitialized()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
+		if (firstRender)
+		{
+			string jsonString = await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "result");
+
+			if (jsonString != null)
+			{
+				Result = JsonSerializer.Deserialize<ResultModel>(jsonString);
+
+				if (Result != null)
+				{
+					int[] resultArray = { Result.Tester, Result.Gatherer, Result.IdeaGiver, Result.Explainer };
+					int max = resultArray.Max();
+
+					foreach (var item in resultArray)
+					{
+						if (item == max)
+						{
+							int index = Array.IndexOf(resultArray, item);
+
+							switch (index)
+							{
+								case 0:
+									aeStyle[0] = "color: red; text-decoration: underline;";
+									aeStyle[1] = "border: solid 2px red;";
+									break;
+								case 1:
+									atStyle[0] = "color: red; text-decoration: underline;";
+									atStyle[1] = "border: solid 2px red;";
+									break;
+								case 2:
+									kuStyle[0] = "color: red; text-decoration: underline;";
+									kuStyle[1] = "border: solid 2px red;";
+									break;
+								case 3:
+									roStyle[0] = "color: red; text-decoration: underline;";
+									roStyle[1] = "border: solid 2px red;";
+									break;
+								default:
+									break;
+							}
+						}
+					}
+				}
+
+				StateHasChanged();
+			}
+		}
 	}
 
+	// Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
 }

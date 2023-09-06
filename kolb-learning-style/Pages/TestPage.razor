@@ -1,7 +1,9 @@
 ﻿@page "/TestPage"
 @inject IResultService ResultService
+
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+
 
 <PageTitle>Test Page</PageTitle>
 
@@ -27,7 +29,7 @@
 
 
 			<ul>
-				<br />
+				@* <br /> *@
 				@*<p>
 				Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
 				beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
@@ -64,14 +66,14 @@
 				<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
 			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
 			kan tycka att det är svårt, men rangordna ändå." />
-			<br />
+				@* <br /> *@
 
-			<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
-			<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
+				<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
+				<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
 
 			</ul>
 		</p>
-		
+
 		<br />
 
 		<EditForm Model="InputModel" OnSubmit="HandleSubmitAsync">
@@ -511,8 +513,8 @@
 	}
 
 	/* .font-example {
-		font-family: 'MentiDisplay-Regular';
-	} */
+					font-family: 'MentiDisplay-Regular';
+				} */
 
 	.button-row {
 		display: flex;
@@ -589,41 +591,56 @@
 		_errorMessageIsVisible = false;
 	}
 
-	private async Task<bool> HandleSubmitAsync()
+	private async Task HandleSubmitAsync()
 	{
 		//cancelTest = false;
 
 		if (InputModel.Input11 == 0)
 		{
 			_errorMessageIsVisible = true;
-
-			return false;
 		}
 		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10 )
 		{
 			_errorMessageIsVisible = true;
-
-			return false;
 		}
 		else
 		{
-			// Skapa en fake InputModel för att testa 
-			ResultModel resultModel = new ResultModel()
-				{
-					Tester = 1,
-					IdeaGiver = 2,
-					Gatherer = 3,
-					Explainer = 4
-				};
+			// Skapa en resultmodel av inputModel
+			ResultModel resultModel = GetResultFromInput(InputModel);
 
 			// Återställ formuläret/sidan
 			InputModel = new InputModel();
 			InputModel.Input11 = 0;
 			_errorMessageIsVisible = false;
 
-			// Skicka fake InputModel till AddResultAsync för att testa 
-			return await ResultService.AddResultAsync(resultModel);
+			// Skicka resultModel till AddResultAsync (TODO: bara om användaren valt att resultatet ska få sparas i statistiken/databasen)
+			await ResultService.AddResultAsync(resultModel);
+
+			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "result", JsonSerializer.Serialize(resultModel));
+
+			NavigationManager.NavigateTo("/TestResults");
 		}
+	}
+
+	//Räkna ut ResultModel från InputModel
+	private ResultModel GetResultFromInput(InputModel input)
+	{
+		ResultModel result = new();
+		result.IdeaGiver = Add(new int[] { input.Input21, input.Input31, input.Input41, input.Input51, input.Input61, input.Input81, input.Input91 });
+		result.Explainer = Add(new int[] { input.Input12, input.Input22, input.Input32, input.Input62, input.Input72, input.Input82, input.Input92 });
+		result.Gatherer = Add(new int[] { input.Input13, input.Input23, input.Input33, input.Input43, input.Input53, input.Input63, input.Input93 });
+		result.Tester = Add(new int[] { input.Input14, input.Input34, input.Input44, input.Input64, input.Input74, input.Input84, input.Input94 });
+		return result;
+	}
+	// Lägg ihop alla numbers i array
+	private int Add(int[] numbers)
+	{
+		int sum = 0;
+		foreach (int number in numbers)
+		{
+			sum += number;
+		}
+		return sum;
 	}
 
 

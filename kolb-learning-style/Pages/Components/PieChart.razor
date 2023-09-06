@@ -1,0 +1,68 @@
+﻿@using Radzen.Blazor
+
+<h3>PieChart</h3>
+
+<RadzenChart ColorScheme="@ColorScheme.Divergent" Style="width: 800px; height: 800px">
+    <RadzenPieSeries Data="@dataItems" Title="Procent: " CategoryProperty="Label" ValueProperty="Procent" Radius="150">
+        <TooltipTemplate Context="data">
+            <div>
+                <strong>@data.Label</strong>
+                <br />
+                <strong>@Math.Round(data.Procent,2) %</strong>
+            </div>            
+        </TooltipTemplate>       
+    </RadzenPieSeries>
+    <RadzenLegend Position="LegendPosition.Bottom"/>
+</RadzenChart>
+@*@foreach (var item in dataItems)
+{
+    <p>@item.Label</p>
+}
+*@
+
+@code {
+
+    [Parameter]
+    public string[] Labels { get; set; }
+    [Parameter]
+    public double[] Data { get; set; }
+
+    private bool showLabels { get; set; } = true;
+
+    private List<DataItem> dataItems { get; set; } = new List<DataItem>();
+
+
+
+    protected override void OnParametersSet()
+    {
+        SetDataItems();
+        StateHasChanged();
+    }
+
+    class DataItem
+    {
+        public string? Label { get; set; }
+        public double Procent { get; set; }
+    }
+
+    private void SetDataItems()
+    {
+        if (Labels != null && Data != null && Labels.Length == Data.Length)
+        {
+            dataItems.Clear();
+            int index = 0;
+            foreach (string label in Labels)
+            {
+
+                DataItem item = new()
+                    {
+                        Label = label,
+                        Procent = Data[index]
+                    };
+                dataItems.Add(item);
+                index++;
+            }
+            StateHasChanged();
+        }
+    }
+}
