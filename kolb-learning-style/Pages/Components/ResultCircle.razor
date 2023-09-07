@@ -11,9 +11,10 @@
 
     protected BECanvasComponent? _canvasReference;
 
-    public int canvasSize = 500;
+    public int canvasSize = 400;
     private int circleRadius => (canvasSize-200)/2;
     private int middle => canvasSize / 2;
+    private int height => canvasSize - 100;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -36,19 +37,47 @@
     }
     private async Task DrawAllLabels()
     {
-        await DrawText("Idégivare (KU)", canvasSize - 70, 10, 0,10); //Uppe Höger
-        await DrawText("Prövare (AE)", 10, 10, 0,10); //Uppe Vänster
-        await DrawText("Förklarare (RO)", canvasSize - 70, canvasSize - 30, 0,10); // Nere Höger
-        await DrawText("Sammanställare (AT)", 10, canvasSize - 30, 0,10); //Nere Vänster
+        await DrawText("Känna och titta", canvasSize - 90, 10, 0,12); //Uppe Höger
+        await DrawText("Göra konkreta", canvasSize - 85, 25, 0, 10); //Uppe Höger
+        await DrawText("upplevelser", canvasSize - 85, 35, 0, 10); //Uppe Höger
+        await DrawText("och erfarenheter", canvasSize - 85, 45, 0, 10); //Uppe Höger
 
-        await DrawText("Aktivt exprimenterande", 10, canvasSize / 2, -90,10); // Left
-        await DrawText("Konkreta upplevelser", canvasSize/2-50, 10, 0,10); // Top
-        await DrawText("Reflekterande observation", canvasSize-70, canvasSize / 2, 90,10); // Right
-        await DrawText("Abstrakt tänkande", canvasSize/2-30, canvasSize-30, 0,10); // Bottom
+        await DrawText("Känna och göra", 10, 10, 0,12); //Uppe Vänster
+        await DrawText("Tillämpa,", 15, 25, 0, 10);
+        await DrawText("omsätta i nya", 15, 35, 0, 10);
+        await DrawText("situationer", 15, 45, 0, 10);
+
+        await DrawText("Tänka och titta", canvasSize - 90, canvasSize - 70, 0,12); // Nere Höger
+        await DrawText("Göra", canvasSize - 85, canvasSize - 55, 0, 10);
+        await DrawText("observationer", canvasSize - 85, canvasSize - 45, 0, 10);
+        await DrawText("och", canvasSize - 85, canvasSize - 35, 0, 10);
+        await DrawText("reflektioner", canvasSize - 85, canvasSize - 25, 0, 10);
+
+        await DrawText("Tänka och göra", 10, canvasSize - 70, 0,12); //Nere Vänster
+        await DrawText("Lära genom", 15, canvasSize - 55, 0,10); //Nere Vänster
+        await DrawText("att kunna", 15, canvasSize - 45, 0,10); //Nere Vänster
+        await DrawText("abstrahera", 15, canvasSize - 35, 0,10); //Nere Vänster
+        await DrawText("generalisera", 15, canvasSize - 25, 0,10); //Nere Vänster
+        await DrawText("vara logisk", 15, canvasSize - 15, 0,10); //Nere Vänster
+
+        await DrawText("Aktivt", 5, canvasSize / 2, -90,12); // Left
+        await DrawText("Exprimenterande", 5, (canvasSize / 2)+10, -90,12); // Left
+
+
+        await DrawText("Konkreta upplevelser", canvasSize/2-50, 10, 0,12); // Top
+
+
+        await DrawText("Reflekterande", canvasSize-80, canvasSize / 2, 90,12); // Right
+        await DrawText("Observation", canvasSize-80, (canvasSize / 2)+10, 90,12); // Right
+
+
+        await DrawText("Abstrakt Tänkande", canvasSize/2-30, canvasSize-30, 0,12); // Bottom
+
+
     }
     private async Task DrawText(string text, int x, int y, int direction, int size)
     {
-        await this._context.SetFontAsync($"{size}px Calibri");
+        await this._context.SetFontAsync($"{size}px Arial");
         //await this._context.RotateAsync((float)Math.PI);
         //await this._context.StrokeTextAsync(text, x, y);
 
@@ -67,12 +96,13 @@
     {
         int circleSize = circleRadius / 25;
         await _context.SetStrokeStyleAsync("red");
+        await _context.SetLineWidthAsync(3);
         await _context.BeginPathAsync();        
-        await this._context.MoveToAsync(middle + (resultModel.IdeaGiver * circleSize), middle); // Move to right point
-        await this._context.LineToAsync(middle, middle - (resultModel.Explainer*circleSize)); // Draw line to bottom point
+        await this._context.MoveToAsync(middle + (resultModel.Explainer * circleSize), middle); // Move to right point
+        await this._context.LineToAsync(middle, middle - (resultModel.IdeaGiver*circleSize)); // Draw line to top point
         await this._context.LineToAsync(middle - (resultModel.Tester*circleSize), middle); // Draw line to left point
-        await this._context.LineToAsync(middle, middle + (resultModel.Gatherer*circleSize)); // Draw line to top point
-        await this._context.LineToAsync(middle + (resultModel.IdeaGiver*circleSize), middle); // Draw line to right point
+        await this._context.LineToAsync(middle, middle + (resultModel.Gatherer*circleSize)); // Draw line to bottom point
+        await this._context.LineToAsync(middle + (resultModel.Explainer*circleSize), middle); // Draw line to right point
         await this._context.StrokeAsync();
     }
     
