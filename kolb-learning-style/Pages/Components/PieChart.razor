@@ -1,24 +1,20 @@
 ﻿@using Radzen.Blazor
 
-<h3>PieChart</h3>
 
-<RadzenChart ColorScheme="@ColorScheme.Divergent" Style="width: 800px; height: 800px">
+<RadzenChart ColorScheme="@ColorScheme.Divergent" Style="width: 400px; height: 400px">
     <RadzenPieSeries Data="@dataItems" Title="Procent: " CategoryProperty="Label" ValueProperty="Procent" Radius="150">
+
         <TooltipTemplate Context="data">
             <div>
                 <strong>@data.Label</strong>
                 <br />
-                <strong>@Math.Round(data.Procent,2) %</strong>
+                <strong>@Math.Round(data.Procent,1) %</strong>
             </div>            
         </TooltipTemplate>       
     </RadzenPieSeries>
-    <RadzenLegend Position="LegendPosition.Bottom"/>
+    <RadzenLegend Position="LegendPosition.Right"/>
 </RadzenChart>
-@*@foreach (var item in dataItems)
-{
-    <p>@item.Label</p>
-}
-*@
+
 
 @code {
 
@@ -62,7 +58,6 @@
                 dataItems.Add(item);
                 index++;
             }
-            StateHasChanged();
         }
     }
 }
