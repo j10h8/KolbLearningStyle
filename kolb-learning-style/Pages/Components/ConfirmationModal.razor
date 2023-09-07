@@ -1,0 +1,36 @@
+﻿@if (showModal)
+{
+    <div class="confirmation-modal">
+        <div class="modal-content">
+            <p>Are you sure you want to cancel the test?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" @onclick="Confirm">Confirm</button>
+                <button class="btn-cancel" @onclick="Cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool showModal = false;
+
+    [Parameter] public EventCallback<bool> OnConfirm { get; set; }
+
+    private async Task Confirm()
+    {
+        showModal = false;
+        await OnConfirm.InvokeAsync(true);
+    }
+
+    private async Task Cancel()
+    {
+        showModal = false;
+        await OnConfirm.InvokeAsync(false);
+    }
+
+    public Task ShowModal()
+    {
+        showModal = true;
+        return Task.CompletedTask;
+    }
+}

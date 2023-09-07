@@ -1,9 +1,9 @@
 ﻿@using Radzen.Blazor
 
-<h3>PieChart</h3>
 
-<RadzenChart ColorScheme="@ColorScheme.Divergent" Style="width: 800px; height: 800px">
-    <RadzenPieSeries SeriesClick="OnSeriesClick" Data="@dataItems" Title="Procent: " CategoryProperty="Label" ValueProperty="Procent" Radius="150">
+<RadzenChart ColorScheme="@ColorScheme.Divergent" Style="width: 400px; height: 400px">
+    <RadzenPieSeries Data="@dataItems" Title="Procent: " CategoryProperty="Label" ValueProperty="Procent" Radius="150">
+
         <TooltipTemplate Context="data">
             <div>
                 <strong>@data.Label</strong>
