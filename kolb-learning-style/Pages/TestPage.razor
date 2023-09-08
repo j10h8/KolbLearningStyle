@@ -370,7 +370,7 @@
 
 			@*<br />
 			<br />*@
-			
+
 
 
 
@@ -381,36 +381,35 @@
 			</NavLink>*@
 			@*<br />
 			<br />
-			
+
 			<br />*@
 			<br />
 			@*<hr />*@
-			
+
 		</EditForm>
-		<br/>
+		<br />
 		<div class="button-row">
 
-				<button class="btn-cancel" @onclick="ShowConfirmationModal" > AVBRYT TESTET </button>
-				<button  class="btn btn-primary" @onclick="HandleSubmitAsync">SLUTFÖR TESTET</button>
+			<button class="btn-cancel" @onclick="ShowConfirmationModal"> AVBRYT TESTET </button>
+			<button class="btn btn-primary" @onclick="HandleSubmitAsync">SLUTFÖR TESTET</button>
 
 			@*type="submit"*@
 			<br />
 			<br />
 
-			</div>
-		<br/>
-		<P> . </P>	
+		</div>
+		<br />
+		<P> . </P>
 		@*<NavLink class="nav-link" href="/">*@
-				
+
 		@*</NavLink>*@
-		<br/>
-		<br/>
+		<br />
+		<br />
 	</div>
 	<div class="right-container">
-		
 	</div>
-	
-	<br/>
+
+	<br />
 </div>
 
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -443,10 +442,10 @@
 {
 	<div class="error-message" @onclick="CloseErrorMessage">
 		@*<div class="error-div">
-			<h4 style="margin:0;">Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.</h4>
-		</div>*@
+	<h4 style="margin:0;">Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.</h4>
+	</div>*@
 
-			@*<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">*@
+		@*<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">*@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -456,7 +455,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.
+					Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.
 				</div>
 				
 				<div class="modal-footer">
@@ -465,7 +464,7 @@
 				</div>
 			</div>
 		</div>
-	@*</div>*@
+		@*</div>*@
 
 
 	</div>
@@ -522,8 +521,8 @@
 	}
 
 	/* .font-example {
-					font-family: 'MentiDisplay-Regular';
-				} */
+						font-family: 'MentiDisplay-Regular';
+					} */
 
 	.button-row {
 		display: flex;
@@ -570,13 +569,13 @@
 @code {
 	public InputModel InputModel { get; set; } = new InputModel();
 	private bool _errorMessageIsVisible = false;
-	
 
-	
+
+
 
 	private async Task ShowConfirmationModal()
 	{
-		
+
 		await JSRuntime.InvokeVoidAsync("showModal");
 		_errorMessageIsVisible = false;
 
@@ -609,7 +608,7 @@
 		{
 			_errorMessageIsVisible = true;
 		}
-		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10 )
+		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
 		{
 			_errorMessageIsVisible = true;
 		}
@@ -623,10 +622,14 @@
 			InputModel.Input11 = 0;
 			_errorMessageIsVisible = false;
 
-			// Skicka resultModel till AddResultAsync (TODO: bara om användaren valt att resultatet ska få sparas i statistiken/databasen)
-			await ResultService.AddResultAsync(resultModel);
-
 			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "result", JsonSerializer.Serialize(resultModel));
+
+			if (await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "saveResultToDb") == "True")
+			{
+				await ResultService.AddResultAsync(resultModel);
+
+				NavigationManager.NavigateTo("/TestResults");
+			}
 
 			NavigationManager.NavigateTo("/TestResults");
 		}
@@ -654,5 +657,5 @@
 	}
 
 
-	
+
 }

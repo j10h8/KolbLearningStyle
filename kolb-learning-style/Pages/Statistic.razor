@@ -1,5 +1,6 @@
 ﻿@page "/Statistic"
 @inject IResultService ResultService
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Statistik</PageTitle>
 
@@ -8,7 +9,7 @@
 	<div style="display:flex;justify-content:center;">
 		<div style="margin-top:1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
 			<h1>Statistik</h1>
-			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Andelen i procent ovanför varje kolumn motsvarar genomsnittet av hur all de @noOfTests personer som har genomfört testet svarade.</h3>
+			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Andelen i procent ovanför varje kolumn motsvarar genomsnittet av hur de @noOfTests personer som har genomfört testet svarade.</h3>
 			<div style="display:flex; margin-top:3rem;">
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">@Math.Round(data[1],2) %</h3>
@@ -177,13 +178,10 @@
 	</div>
 }
 
-@*	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
-</footer>*@
-
 <style>
 	/* .font-example {
-									font-family: 'MentiDisplay-Regular';
-								}*/
+										font-family: 'MentiDisplay-Regular';
+									}*/
 
 	.center-container {
 		padding: 220px;
@@ -221,13 +219,13 @@
 
 	protected override async void OnParametersSet()
 	{
-		// results = await ResultService.GetResultsAsync();
+		//results = await ResultService.GetResultsAsync();
 
-		// data = CalculateProcentData();
+		//data = CalculateProcentData();
 
-		// labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
+		//labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
 
-		// StateHasChanged();
+		//StateHasChanged();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -235,13 +233,15 @@
 		if (firstRender)
 		{
 			results = await ResultService.GetResultsAsync();
+			
+			noOfTests = results.Count();
 
 			data = CalculateProcentData();
 
 			labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
 
-			noOfTests = results.Count();
-
+			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
+    
 			StateHasChanged();
 		}
 		//if (firstRender)
@@ -276,48 +276,16 @@
 	}
 	private double[] CalculateProcentData()
 	{
-		if (results == null) return new double[] { 40, 40, 10, 10 };
+		if (results == null) return new double[] { 25 , 25, 25, 25 };
 
 		double[] temp = { 0, 0, 0, 0 };
 		foreach (var result in results)
 		{
+			int maxScore = new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }.Max(); //Leta upp högsta värdet
+			temp[Array.IndexOf(new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }, maxScore)]++; // Addera till rätt index
+		}
+		temp = temp.Select(x => (x * 100) / noOfTests).ToArray();
 
-			if (result.IdeaGiver >= Max(new int[] { result.Tester, result.Explainer, result.Gatherer }))
-			{
-				temp[0]++;
-			}
-			else if (result.Tester >= Max(new int[] { result.IdeaGiver, result.Explainer, result.Gatherer }))
-			{
-				temp[1]++;
-			}
-			else if (result.Explainer >= Max(new int[] { result.IdeaGiver, result.Tester, result.Gatherer }))
-			{
-				temp[2]++;
-			}
-			else if (result.Gatherer >= Max(new int[] { result.IdeaGiver, result.Tester, result.Explainer }))
-			{
-				temp[3]++;
-			}
-		}
-		for (int i = 0; i < temp.Length; i++)
-		{
-			if (temp[i] > 0)
-			{
-				temp[i] = (temp[i] * 100) / results.Count();
-			}
-		}
 		return temp;
-	}
-	private int Max(int[] numbers)
-	{
-		int max = 0;
-		foreach (var number in numbers)
-		{
-			if (number > max)
-			{
-				max = number;
-			}
-		}
-		return max;
 	}
 }
