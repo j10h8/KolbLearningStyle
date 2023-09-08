@@ -19,12 +19,12 @@
 			<h1>
 				Kolbs lärstilar: testa din inlärningsstil
 			</h1>
-			<br />
+			@*<br />*@
 
+			@*<br />*@
+			@*<h2> Instruktion </h2>*@
 			<br />
-			<h2> Instruktion </h2>
-			<br />
-			<b>Nedan ser du nio rader med fyra ord i varje rad</b>
+			@*<b>Nedan ser du nio rader med fyra ord i varje rad</b>*@
 
 
 
@@ -37,10 +37,10 @@
 				dig.
 				</p>*@
 
-				<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+				@*<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
 			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
 			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
-			dig." />
+			dig." />*@
 				@*<br />
 				<hr />
 				<br />*@
@@ -51,8 +51,8 @@
 				</b>
 				</p>*@
 
-				<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
-			information eller arbetsuppgifter, hur gör du?" />
+				@*<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+			information eller arbetsuppgifter, hur gör du?" />*@
 
 				@*<br />
 				<hr />
@@ -63,18 +63,26 @@
 				kan tycka att det är svårt, men rangordna ändå.
 
 				</p>*@
-				<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+				@*<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
 			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
-			kan tycka att det är svårt, men rangordna ändå." />
+			kan tycka att det är svårt, men rangordna ändå." />*@
 				@* <br /> *@
+
+				@*<p> <b> <u> <b>SE INSTRUKTION</b></u></b></p>*@
+				
+				<br />
+				
 
 				<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
 				<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
-
+				<br />
+				<button class="btn-second" @onclick="ShowConfirmationModal">SE INSTRUKTION</button>
+				<br />
+				<br />
 			</ul>
 		</p>
 
-		<br />
+		@*<br />*@
 
 		<EditForm Model="InputModel" OnSubmit="HandleSubmitAsync">
 			<div style="display:flex; margin-bottom:0.5rem;">
@@ -449,6 +457,7 @@
 				<div class="modal-body">
 					Du måste fylla i samtliga rutor, och du får bara fylla i en 1:a, en 2:a, en 3:a och en 4:a på varje rad.
 				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -523,7 +532,8 @@
 	}
 
 	.center-container {
-		padding: 250px;
+		/*padding: 250px;*/
+		padding: 150px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
