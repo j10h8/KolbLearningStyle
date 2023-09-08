@@ -1,5 +1,6 @@
 ﻿@page "/Statistic"
 @inject IResultService ResultService
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Statistik</PageTitle>
 
@@ -8,7 +9,7 @@
 	<div style="display:flex;justify-content:center;">
 		<div style="margin-top:1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
 			<h1>Statistik</h1>
-			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Andelen i procent ovanför varje kolumn motsvarar genomsnittet av hur all de @noOfTests personer som har genomfört testet svarade.</h3>
+			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Andelen i procent ovanför varje kolumn motsvarar genomsnittet av hur de @noOfTests personer som har genomfört testet svarade.</h3>
 			<div style="display:flex; margin-top:3rem;">
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">@Math.Round(data[1],2) %</h3>
@@ -176,14 +177,14 @@
 		</div>
 	</div>
 }
-
+<footer>
 	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
 </footer>
 
 <style>
 	/* .font-example {
-									font-family: 'MentiDisplay-Regular';
-								}*/
+										font-family: 'MentiDisplay-Regular';
+									}*/
 
 	.center-container {
 		padding: 220px;
@@ -241,6 +242,8 @@
 			labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
 
 			noOfTests = results.Count();
+
+			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
 
 			StateHasChanged();
 		}
