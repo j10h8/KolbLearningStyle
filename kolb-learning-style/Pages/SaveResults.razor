@@ -10,42 +10,41 @@
 
 <div class="font-example">
 
-	
 
-    <div class="center-container">
-        <h1>Do you want to save your results in our database?</h1>
-        <h1> ... </h1>
-        <br />
 
-		
+	<div class="center-container">
+		<h1>Do you want to save your results in our database?</h1>
+		<h1> ... </h1>
+		<br />
+
+
 
 		@*<NavLink class="nav-link" href="/">*@
-			<button class="btn-cancel" @onclick="ShowConfirmationModal"> AVBRYT TESTET </button>
+		<button class="btn-cancel" @onclick="ShowConfirmationModal"> AVBRYT TESTET </button>
 		@*</NavLink>*@
-        <NavLink class="nav-link" href="TestPage">
-            <button class="btn btn-primary" @*@onclick="StartTest" *@>NO, CONTINUE WITHOUT SAVING</button>
-        </NavLink>
+		<NavLink class="nav-link" href="TestPage">
+			<button class="btn btn-primary" @onclick="StartTestWithoutValidation">NO, CONTINUE WITHOUT SAVING</button>
+		</NavLink>
 		<h1> ... </h1>
-		
+
 		<button class="btn btn-primary" @onclick="StartTestWithValidation">YES, I'M OK WITH SHARING MY RESULTS TO THE WORLD</button>
 		<span class="error-message">
 			@errorMessage
 		</span>
 		<div class="checkbox-container">
-			<input type="checkbox" id="confirmCheckbox" @bind="isCheckboxChecked"/>
+			<input type="checkbox" id="confirmCheckbox" @bind="isCheckboxChecked" />
 			<label for="confirmCheckbox">
 				Jag bekräftar att jag har läst och accepterar webbplatsens <u>användningspolicy och sekretesspolicy</u>
 			</label>
 		</div>
-		
-		
 
 
-    </div>
-	<footer>
-		<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
-	</footer>
 
+
+	</div>
+	@*<footer>
+	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
+	</footer>*@
 </div>
 
 
@@ -73,26 +72,43 @@
 
 
 @code {
-    private bool isCheckboxChecked;
-    private string errorMessage = "";
-    
+	private bool isCheckboxChecked;
+	private string errorMessage = "";
 
-    private void StartTestWithValidation()
-    {
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
+		}
+	}
+
+	private async Task StartTestWithValidation()
+	{
 		if (!isCheckboxChecked)
 		{
 			errorMessage = "You must agree to the website policy in order to continue!";
 		}
 		else
 		{
-			errorMessage = ""; 
+			errorMessage = "";
+
+			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "True");
 
 			NavigationManager.NavigateTo("/TestPage");
 
 		}
 	}
 
-	
+	private async Task StartTestWithoutValidation()
+	{
+		errorMessage = "";
+
+		await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
+
+		NavigationManager.NavigateTo("/TestPage");
+	}
+
 	private async Task ShowConfirmationModal()
 	{
 		await JSRuntime.InvokeVoidAsync("showModal");
@@ -108,19 +124,14 @@
 
 	private void HandleConfirm()
 	{
-		
 		NavigationManager.NavigateTo("/");
 	}
-
-	
 }
 
 
 
 
 <style>
-	
-
 	.error-message {
 		color: red;
 		display: block;
@@ -133,8 +144,8 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 70vh; 
-		text-align: center; 
+		height: 70vh;
+		text-align: center;
 	}
 
 	.right-container {
@@ -143,16 +154,16 @@
 		padding-right: 10px;
 		align-items: end;
 		justify-content: right;
-		/*height: 78vh; 
-		text-align: center;  */
+		/*height: 78vh;
+							text-align: center;  */
 	}
 
 	.checkbox-container {
-		margin-top: 10px; 
+		margin-top: 10px;
 	}
 
 		.checkbox-container input[type="checkbox"] {
-			margin-right: 5px; 
+			margin-right: 5px;
 		}
 
 	footer {

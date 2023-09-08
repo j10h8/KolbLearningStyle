@@ -1,4 +1,5 @@
 ﻿@inject Data.MainDbContext DbContext
+@inject IJSRuntime JSRuntime
 @page "/"
 
 
@@ -73,6 +74,14 @@
     private EmailAddressModel viewModel = new EmailAddressModel();
     private bool emailSubmitted = false;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
+        }
+    }
+
     private async Task Subscribe()
     {
         if (!string.IsNullOrWhiteSpace(viewModel.EmailAddress))
@@ -113,20 +122,27 @@
         justify-content: center;
         height: 78vh; /* This will center-align vertically by using the full viewport height */
         text-align: center; /* This will center-align the text horizontally */
+        /*font-family: 'Sitka Display';*/
     }
 
     
 
     footer {
-        background-color: #f8f8f8;
+        background-color: white;
         padding-top: 10px;
         text-align: center;
+        width: auto;
+        /*border-width: thin;
+        border-color: black;*/
+        /*border: solid 1px;*/
+        /*border-radius: 0.2rem;*/
     }
 
 
 
     footer p {
             color: #333;
+            
     }
 
 

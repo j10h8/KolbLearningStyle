@@ -9,7 +9,8 @@
 }*/
 
 html, body {
-    font-family: /*'MentiDisplay-Regular', */ 'Sitka Display';
+    /*font-family:*/ /* */ /*'Sitka Display';*/
+    font-family: 'MentiDisplay-Regular', 'Sitka Display';
 }
 
 h1 {
