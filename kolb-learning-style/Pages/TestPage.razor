@@ -76,9 +76,13 @@
 				<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
 				<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
 				<br />
-				<button class="btn-second" @onclick="ShowConfirmationModal">SE INSTRUKTION</button>
 				<br />
-				<br />
+				<div class="button-right">
+					<button class="btn-third" @onclick="ShowInstructionModal"> <i class="fas fa-question-circle"></i> &nbsp; SE INSTRUKTION </button>
+				</div>
+				
+				@*<br />
+				<br />*@
 			</ul>
 		</p>
 
@@ -421,7 +425,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body modal-body-margin">
 				Are you sure you want to cancel the test?
 			</div>
 			<div class="modal-footer">
@@ -431,6 +435,99 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="modal-width">
+
+	<div class="modal fade " id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+	<div class="modal-dialog custom-modal-width" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmationModalLabel"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+					<h2>
+						@*Kolbs lärstilar: testa din inlärningsstil*@
+			Instruktion
+		</h2>
+
+
+					@*<h2> Instruktion </h2>*@
+		<br />
+					@*<b>Nedan ser du nio rader med fyra ord i varje rad</b>*@
+
+
+		<div class="survey-left">
+			<ul >
+							@* <br /> *@
+							@*<p>
+			Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
+			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
+			dig.
+			</p>*@
+
+			<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
+			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
+			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
+			dig." />
+							@*<br />
+			<hr />
+			<br />*@
+							@*<p>
+			<b>
+			Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+			information eller arbetsuppgifter, hur gör du?
+			</b>
+			</p>*@
+
+			<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
+			information eller arbetsuppgifter, hur gör du?" />
+
+							@*<br />
+			<hr />
+			<br />*@
+							@*<p>
+			Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
+			kan tycka att det är svårt, men rangordna ändå.
+
+			</p>*@
+			<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
+			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
+			kan tycka att det är svårt, men rangordna ändå." />
+							@* <br /> *@
+
+
+
+		</ul>
+		</div>
+
+					@*</p>*@
+	<br />
+	<h2><b>Exempel: </b></h2>
+
+	<br />
+	<p > <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
+	<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
+
+	<br />
+					@*<div class="exempel-img">*@
+	<img class="exempel-img" src="NewFolder/exempel.png" alt="Test Example" />
+					@*</div>*@
+			</div>
+			<div class="modal-footer">
+					@*<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>*@
+				<button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
 
 
 
@@ -494,6 +591,44 @@
 		z-index: 9999;
 	}
 
+	
+	.modal-dialog
+	{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		
+		text-align: center; /* This will center-align the text horizontally */
+		
+		
+	}
+
+	.modal-body-margin
+	{
+	text-align: left;
+	}
+
+	.survey-left
+	{
+		margin-left: -30px;
+	}
+
+	.button-right
+	{
+		display: flex;
+		flex-direction: row;
+		align-items: end;
+		justify-content: end;
+		margin-right: -82px;
+		margin-bottom: -18px;
+	}
+
+	.custom-modal-width {
+        max-width: 60%; 
+        /*margin: 0 auto;*/ 
+    }
+
 	label {
 		display: flex;
 		width: 8rem;
@@ -551,6 +686,11 @@
 		/*height: 78vh; /* This will center-align vertically by using the full viewport height */
 		text-align: center; /* This will center-align the text horizontally */
 	}
+	.exempel-img
+	{
+		width: 100%;
+		/*height: 100%;*/
+	}
 
 	footer {
 		background-color: #f8f8f8;
@@ -577,6 +717,14 @@
 	{
 
 		await JSRuntime.InvokeVoidAsync("showModal");
+		_errorMessageIsVisible = false;
+
+	}
+
+private async Task ShowInstructionModal()
+	{
+
+		await JSRuntime.InvokeVoidAsync("showInstructionModal");
 		_errorMessageIsVisible = false;
 
 	}
