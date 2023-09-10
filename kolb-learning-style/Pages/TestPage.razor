@@ -608,9 +608,9 @@
 			ResultModel resultModel = GetResultFromInput(InputModel);
 
 			// Återställ formuläret/sidan
-			InputModel = new InputModel();
-			InputModel.Input11 = 0;
-			_errorMessageIsVisible = false;
+			//InputModel = new InputModel();
+			//InputModel.Input11 = 0;
+			//_errorMessageIsVisible = false;
 
 			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "result", JsonSerializer.Serialize(resultModel));
 
