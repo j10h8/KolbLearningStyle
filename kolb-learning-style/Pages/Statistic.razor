@@ -12,7 +12,7 @@
 			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Andelen i procent ovanför varje kolumn motsvarar genomsnittet av hur de @noOfTests personer som har genomfört testet svarade.</h3>
 			<div style="display:flex; margin-top:3rem;">
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[1],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Tester</h3>
 					<h3>Prövare (AE)</h3>
 					<ul>
 						<li>
@@ -54,7 +54,7 @@
 					</ul>
 				</div>
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[0],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.IdeaGiver</h3>
 					<h3>Idégivare (KU)</h3>
 					<ul>
 						<li>
@@ -100,7 +100,7 @@
 					</ul>
 				</div>
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[3],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Gatherer</h3>
 					<h3>Sammanställare (AT)</h3>
 					<ul>
 						<li>
@@ -132,7 +132,7 @@
 					</ul>
 				</div>
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[2],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Explainer</h3>
 					<h3>Förklarare (RO)</h3>
 					<ul>
 						<li>
@@ -170,7 +170,10 @@
 					</ul>
 				</div>
 			</div>
-			<PieChart Labels="@labels" Data="@data"></PieChart>
+			<h3>Hur vanliga är lärstilarna?</h3> 
+				<PieChart Labels="@labels" Data="@data"></PieChart>
+			<h3>Genomsnittlig Lärstil</h3>
+				<ResultCircle Result="pieChartResult"></ResultCircle>
 			<NavLink class="nav-link" href="/">
 				<button class="btn btn-primary" @*@onclick="StartTest" *@>GO BACK TO THE MAIN PAGE</button>
 			</NavLink>
@@ -182,7 +185,6 @@
 	/* .font-example {
 										font-family: 'MentiDisplay-Regular';
 									}*/
-
 	.center-container {
 		padding: 220px;
 		display: flex;
@@ -212,6 +214,8 @@
 	private string[] labels { get; set; }
 	private double[] data { get; set; }
 
+	private ResultModel pieChartResult { get; set; } 
+
 	protected override async void OnInitialized()
 	{
 		// results = await ResultService.GetResultsAsync();
@@ -233,12 +237,20 @@
 		if (firstRender)
 		{
 			results = await ResultService.GetResultsAsync();
-			
+
+
 			noOfTests = results.Count();
+			pieChartResult = new()
+				{
+					Tester = results.Sum(r => r.Tester) / noOfTests,
+					IdeaGiver = results.Sum(r=>r.IdeaGiver) / noOfTests,
+					Gatherer = results.Sum(r=>r.Gatherer) / noOfTests,
+					Explainer = results.Sum(r=>r.Explainer)/noOfTests
+				};
 
 			data = CalculateProcentData();
 
-			labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
+			labels = new string[] { "Idégivare", "Prövare", "Förklarare", "Ihopsamlare" };
 
 			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
     
@@ -284,7 +296,7 @@
 			int maxScore = new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }.Max(); //Leta upp högsta värdet
 			temp[Array.IndexOf(new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }, maxScore)]++; // Addera till rätt index
 		}
-		temp = temp.Select(x => (x * 100) / noOfTests).ToArray();
+        temp = temp.Select(x => (x * 100) / noOfTests).ToArray(); // Räkna ut procent
 
 		return temp;
 	}
