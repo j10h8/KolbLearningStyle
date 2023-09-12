@@ -1,11 +1,23 @@
 ﻿@page "/TestResults"
 @inject IJSRuntime JSRuntime
+@inject IEmailService EmailService
+@inject NavigationManager NavManager
+@inject IConverter PdfConverter
+@inject EmailSettings EmailSettings
+@inject IOptions<EmailSettings> EmailSettingsOptions
+
+@using DinkToPdf;
+@using DinkToPdf.Contracts;
+@using Microsoft.Extensions.Options;
+@using MimeKit;
+@using System.IO;
+@using System.Text;
 
 <PageTitle>Ditt resultat</PageTitle>
 
 @if (Result != null)
 {
-	<div class="text-center">
+	<div id="testResults" class="text-center">
 		<h1>Ditt resultat</h1>
 		<div>
 			<p style="@aeStyle[0]">Aktivt experimenterande/Prövare (AE): @Result.Tester</p>
@@ -173,11 +185,40 @@
 				</ul>
 			</div>
 		</div>
+		
+
 		<ResultCircle Result="Result"></ResultCircle>
-		<NavLink class="nav-link" href="SaveResults">
-			<button class="btn btn-primary" @*@onclick="StartTest" *@>SEND RESULTS TO MY EMAIL</button>
-		</NavLink>
+		<button class="btn btn-primary nav-link" @onclick="ToggleEmailModal">SEND RESULTS TO MY EMAIL</button>
 	</div>
+
+	@if (showEmailModal)
+	{
+		<div class="modal">
+			<div class="modal-content">
+				<span class="close-button" @onclick="ToggleEmailModal">x</span>
+				<h2>Enter your email</h2>
+				<input type="email" @bind="userEmail" placeholder="Enter your email address" />
+				<button @onclick="SendResultToEmail">Send Results</button>
+			</div>
+		</div>
+	}
+
+	@if (showEmailStatusModal)
+	{
+		<div class="modal">
+			<div class="modal-content">
+				<span class="close-button" @onclick="ToggleEmailStatusModal">x</span>
+				@if (emailSendStatus == EmailSendStatus.Sent)
+				{
+					<h2>Email sent successfully!</h2>
+				}
+				else if (emailSendStatus == EmailSendStatus.Failed)
+				{
+					<h2>There was an error sending the email. Please try again.</h2>
+				}
+			</div>
+		</div>
+	}
 }
 
 <footer>
@@ -208,9 +249,105 @@
 		footer p {
 			color: #333;
 		}
+
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+	}
+
+	.modal-content {
+		background-color: #f4f4f4;
+		padding: 20px;
+		border-radius: 5px;
+		width: 50%;
+	}
+
+	.close-button {
+		cursor: pointer;
+		position: absolute;
+		top: 10px;
+		right: 20px;
+		font-size: 24px;
+	}
 </style>
 
 @code {
+	private bool showEmailModal = false;
+	private string userEmail = "";
+	private enum EmailSendStatus { None, Sent, Failed }
+	private EmailSendStatus emailSendStatus = EmailSendStatus.None;
+	private bool showEmailStatusModal = false;
+
+	private void ToggleEmailModal()
+	{
+		showEmailModal = !showEmailModal;
+	}
+
+	private async Task SendResultToEmail()
+	{
+		byte[] pdfBytes = await GetPdfBytesAsync();
+		var subject = "Your Test Results";
+		var emailSettings = EmailSettingsOptions.Value;
+
+		var emailMessage = new MimeMessage();
+		emailMessage.From.Add(new MailboxAddress(emailSettings.SenderName, emailSettings.Sender));
+		emailMessage.To.Add(new MailboxAddress("", userEmail));
+		emailMessage.Subject = subject;
+
+		var multipart = new Multipart("mixed");
+		var textPart = new TextPart("plain") { Text = "Attached is your test result in PDF format." };
+		multipart.Add(textPart);
+
+		var pdfAttachment = new MimePart("application", "pdf")
+			{
+				Content = new MimeContent(new MemoryStream(pdfBytes), ContentEncoding.Default),
+				ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+				ContentTransferEncoding = ContentEncoding.Base64,
+				FileName = "TestResults.pdf"
+			};
+		multipart.Add(pdfAttachment);
+
+		emailMessage.Body = multipart;
+
+		try
+		{
+			await EmailService.SendEmailAsync(userEmail, subject, emailMessage);
+			emailSendStatus = EmailSendStatus.Sent;
+		}
+		catch
+		{
+			emailSendStatus = EmailSendStatus.Failed;
+		}
+
+		showEmailModal = false;
+		showEmailStatusModal = true;
+	}
+
+	private void ToggleEmailStatusModal()
+	{
+		showEmailStatusModal = !showEmailStatusModal;
+		if (!showEmailStatusModal)
+			emailSendStatus = EmailSendStatus.None;
+	}
+
+
+	private async Task<byte[]> GetPdfBytesAsync()
+	{
+		var base64String = await JSRuntime.InvokeAsync<string>("getPDFBase64");
+		var bytes = Convert.FromBase64String(base64String.Split(',')[1]);
+		return bytes;
+
+
+	}
+
 	public ResultModel? Result { get; set; }
 	private string[] aeStyle = { "", "" };
 	private string[] kuStyle = { "", "" };
