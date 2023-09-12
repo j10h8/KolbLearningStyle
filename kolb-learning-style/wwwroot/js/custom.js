@@ -1,4 +1,5 @@
-﻿function showModal() {
+﻿
+function showModal() {
     $('#confirmationModal').modal('show');
 }
 function showInstructionModal() {
