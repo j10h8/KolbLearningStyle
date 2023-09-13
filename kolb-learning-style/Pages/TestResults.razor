@@ -185,7 +185,7 @@
 				</ul>
 			</div>
 		</div>
-		
+
 
 		<ResultCircle Result="Result"></ResultCircle>
 		<button class="btn btn-primary nav-link" @onclick="ToggleEmailModal">SEND RESULTS TO MY EMAIL</button>
@@ -227,8 +227,8 @@
 
 <style>
 	/* .font-example {
-														font-family: 'MentiDisplay-Regular';
-													} */
+																	font-family: 'MentiDisplay-Regular';
+																} */
 
 	.center-container {
 		padding: 220px;
@@ -280,79 +280,16 @@
 </style>
 
 @code {
-	private bool showEmailModal = false;
-	private string userEmail = "";
-	private enum EmailSendStatus { None, Sent, Failed }
-	private EmailSendStatus emailSendStatus = EmailSendStatus.None;
-	private bool showEmailStatusModal = false;
-
-	private void ToggleEmailModal()
-	{
-		showEmailModal = !showEmailModal;
-	}
-
-	private async Task SendResultToEmail()
-	{
-		byte[] pdfBytes = await GetPdfBytesAsync();
-		var subject = "Your Test Results";
-		var emailSettings = EmailSettingsOptions.Value;
-
-		var emailMessage = new MimeMessage();
-		emailMessage.From.Add(new MailboxAddress(emailSettings.SenderName, emailSettings.Sender));
-		emailMessage.To.Add(new MailboxAddress("", userEmail));
-		emailMessage.Subject = subject;
-
-		var multipart = new Multipart("mixed");
-		var textPart = new TextPart("plain") { Text = "Attached is your test result in PDF format." };
-		multipart.Add(textPart);
-
-		var pdfAttachment = new MimePart("application", "pdf")
-			{
-				Content = new MimeContent(new MemoryStream(pdfBytes), ContentEncoding.Default),
-				ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-				ContentTransferEncoding = ContentEncoding.Base64,
-				FileName = "TestResults.pdf"
-			};
-		multipart.Add(pdfAttachment);
-
-		emailMessage.Body = multipart;
-
-		try
-		{
-			await EmailService.SendEmailAsync(userEmail, subject, emailMessage);
-			emailSendStatus = EmailSendStatus.Sent;
-		}
-		catch
-		{
-			emailSendStatus = EmailSendStatus.Failed;
-		}
-
-		showEmailModal = false;
-		showEmailStatusModal = true;
-	}
-
-	private void ToggleEmailStatusModal()
-	{
-		showEmailStatusModal = !showEmailStatusModal;
-		if (!showEmailStatusModal)
-			emailSendStatus = EmailSendStatus.None;
-	}
-
-
-	private async Task<byte[]> GetPdfBytesAsync()
-	{
-		var base64String = await JSRuntime.InvokeAsync<string>("getPDFBase64");
-		var bytes = Convert.FromBase64String(base64String.Split(',')[1]);
-		return bytes;
-
-
-	}
-
 	public ResultModel? Result { get; set; }
 	private string[] aeStyle = { "", "" };
 	private string[] kuStyle = { "", "" };
 	private string[] atStyle = { "", "" };
 	private string[] roStyle = { "", "" };
+	private bool showEmailModal = false;
+	private string userEmail = "";
+	private enum EmailSendStatus { None, Sent, Failed }
+	private EmailSendStatus emailSendStatus = EmailSendStatus.None;
+	private bool showEmailStatusModal = false;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -407,5 +344,67 @@
 		}
 	}
 
-	// Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
+	private void ToggleEmailModal()
+	{
+		showEmailModal = !showEmailModal;
+	}
+
+	private void ToggleEmailStatusModal()
+	{
+		showEmailStatusModal = !showEmailStatusModal;
+
+		if (!showEmailStatusModal)
+		{
+			emailSendStatus = EmailSendStatus.None;
+		}
+	}
+
+	private async Task SendResultToEmail()
+	{
+		byte[] pdfBytes = await GetPdfBytesAsync();
+		var subject = "Your Test Results";
+		var emailSettings = EmailSettingsOptions.Value;
+
+		var emailMessage = new MimeMessage();
+		emailMessage.From.Add(new MailboxAddress(emailSettings.SenderName, emailSettings.Sender));
+		emailMessage.To.Add(new MailboxAddress("", userEmail));
+		emailMessage.Subject = subject;
+
+		var multipart = new Multipart("mixed");
+		var textPart = new TextPart("plain") { Text = "Attached is your test result in PDF format." };
+		multipart.Add(textPart);
+
+		var pdfAttachment = new MimePart("application", "pdf")
+			{
+				Content = new MimeContent(new MemoryStream(pdfBytes), ContentEncoding.Default),
+				ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+				ContentTransferEncoding = ContentEncoding.Base64,
+				FileName = "TestResults.pdf"
+			};
+
+		multipart.Add(pdfAttachment);
+
+		emailMessage.Body = multipart;
+
+		try
+		{
+			await EmailService.SendEmailAsync(userEmail, subject, emailMessage);
+
+			emailSendStatus = EmailSendStatus.Sent;
+		}
+		catch
+		{
+			emailSendStatus = EmailSendStatus.Failed;
+		}
+
+		showEmailModal = false;
+		showEmailStatusModal = true;
+	}
+
+	private async Task<byte[]> GetPdfBytesAsync()
+	{
+		var base64String = await JSRuntime.InvokeAsync<string>("getPDFBase64");
+		var bytes = Convert.FromBase64String(base64String.Split(',')[1]);
+		return bytes;
+	}
 }
