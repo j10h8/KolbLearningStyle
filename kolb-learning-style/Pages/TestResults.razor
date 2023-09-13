@@ -3,7 +3,7 @@
 @inject IEmailService EmailService
 @inject NavigationManager NavManager
 @inject IConverter PdfConverter
-@inject EmailSettings EmailSettings
+@* @inject EmailSettings EmailSettings *@
 @inject IOptions<EmailSettings> EmailSettingsOptions
 
 @using DinkToPdf;
@@ -361,34 +361,9 @@
 
 	private async Task SendResultToEmail()
 	{
-		byte[] pdfBytes = await GetPdfBytesAsync();
-		var subject = "Your Test Results";
-		var emailSettings = EmailSettingsOptions.Value;
-
-		var emailMessage = new MimeMessage();
-		emailMessage.From.Add(new MailboxAddress(emailSettings.SenderName, emailSettings.Sender));
-		emailMessage.To.Add(new MailboxAddress("", userEmail));
-		emailMessage.Subject = subject;
-
-		var multipart = new Multipart("mixed");
-		var textPart = new TextPart("plain") { Text = "Attached is your test result in PDF format." };
-		multipart.Add(textPart);
-
-		var pdfAttachment = new MimePart("application", "pdf")
-			{
-				Content = new MimeContent(new MemoryStream(pdfBytes), ContentEncoding.Default),
-				ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-				ContentTransferEncoding = ContentEncoding.Base64,
-				FileName = "TestResults.pdf"
-			};
-
-		multipart.Add(pdfAttachment);
-
-		emailMessage.Body = multipart;
-
 		try
 		{
-			await EmailService.SendEmailAsync(userEmail, subject, emailMessage);
+			await EmailService.SendEmailAsync(await EmailService.CreateEmailMessage(userEmail));
 
 			emailSendStatus = EmailSendStatus.Sent;
 		}
@@ -399,12 +374,5 @@
 
 		showEmailModal = false;
 		showEmailStatusModal = true;
-	}
-
-	private async Task<byte[]> GetPdfBytesAsync()
-	{
-		var base64String = await JSRuntime.InvokeAsync<string>("getPDFBase64");
-		var bytes = Convert.FromBase64String(base64String.Split(',')[1]);
-		return bytes;
 	}
 }
