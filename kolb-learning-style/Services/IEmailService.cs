@@ -1,10 +1,13 @@
 ﻿namespace kolb_learning_style.Services
 {
-    using MimeKit;
-    using System.Threading.Tasks;
+	using MimeKit;
+	using System.Threading.Tasks;
 
-    public interface IEmailService
-    {
-        Task SendEmailAsync(string toEmail, string subject, MimeMessage emailMessage);
-    }
+	public interface IEmailService
+	{
+		Task SendEmailAsync(MimeMessage emailMessage);
+		Task<bool> AddEmailAddressAsync(string emailAddress);
+		Task<MimeMessage> CreateEmailMessage(string userEmail);
+		Task<byte[]> GetPdfBytesAsync();
+	}
 }

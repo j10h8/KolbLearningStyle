@@ -2,17 +2,11 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
-
-
-
-
 <PageTitle>Instruktion</PageTitle>
 
 <div class="center-container">
 
 	<p>
-
-
 		<br />
 		<br />
 
@@ -28,12 +22,9 @@
 			Instruktion
 		</h1>
 
-		
 		@*<h2> Instruktion </h2>*@
 		<br />
 		@*<b>Nedan ser du nio rader med fyra ord i varje rad</b>*@
-
-
 
 		<ul>
 			@* <br /> *@
@@ -75,13 +66,11 @@
 			kan tycka att det är svårt, men rangordna ändå." />
 			@* <br /> *@
 
-			
-
 		</ul>
 	</p>
 	<br />
 	<h2><b>Exempel: </b></h2>
-	
+
 	<br />
 	<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
 	<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
@@ -90,14 +79,11 @@
 	@*<div class="exempel-img">*@
 	<img class="exempel-img" src="NewFolder/exempel.png" alt="Test Example" />
 	@*</div>*@
-	
-	
+
 	<div class="button-row">
 		@*<h3>Do you want to save your results in our database?</h3>
 		<h1> ... </h1>
 		<br />*@
-
-
 
 		@*<NavLink class="nav-link" href="/">*@
 		<button class="btn-cancel" @onclick="ShowConfirmationModal">AVBRYT</button>
@@ -105,10 +91,6 @@
 		<NavLink href="SaveResults">
 			<button class="btn btn-primary" @*@onclick="StartTest" *@>GÅ VIDARE</button>
 		</NavLink>
-		
-
-
-
 
 		@*<br />
 		<br />*@
@@ -119,14 +101,7 @@
 </div>
 
 <div class="font-example">
-
-
-
-	
-	
-
 </div>
-
 
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -148,35 +123,19 @@
 	</div>
 </div>
 
-
-
-
 @code {
-	
-
-
 	private async Task ShowConfirmationModal()
 	{
 		await JSRuntime.InvokeVoidAsync("showModal");
 	}
 
-	
-
 	private void HandleConfirm()
 	{
-
 		NavigationManager.NavigateTo("/");
 	}
-
-
 }
 
-
-
-
 <style>
-
-
 	.button-row {
 		display: flex;
 		justify-content: center;
@@ -195,7 +154,6 @@
 	.center-container {
 		padding: 200px;
 		padding-top: 100px;
-		
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -211,13 +169,14 @@
 		align-items: end;
 		justify-content: right;
 		/*height: 78vh;
-			text-align: center;  */
+					text-align: center;  */
 	}
-	.exempel-img
-	{
+
+	.exempel-img {
 		width: 100%;
 		/*height: 100%;*/
 	}
+
 	.checkbox-container {
 		margin-top: 10px;
 	}

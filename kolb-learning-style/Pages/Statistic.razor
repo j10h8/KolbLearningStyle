@@ -237,8 +237,8 @@
 		{
 			results = await ResultService.GetResultsAsync();
 
-
 			noOfTests = results.Count();
+
 			pieChartResult = new()
 				{
 					Tester = results.Sum(r => r.Tester) / noOfTests,
