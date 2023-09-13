@@ -1,9 +1,7 @@
 ﻿@page "/TestPage"
 @inject IResultService ResultService
-
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
-
 
 <PageTitle>Test Page</PageTitle>
 
@@ -436,7 +434,6 @@
 	</div>
 </div>
 
-
 <div class="modal-width">
 
 	<div class="modal fade " id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
@@ -528,9 +525,6 @@
 </div>
 </div>
 
-
-
-
 @*<footer>
 	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
 </footer>*@
@@ -562,7 +556,6 @@
 			</div>
 		</div>
 		@*</div>*@
-
 
 	</div>
 }
@@ -703,40 +696,26 @@
 		}
 </style>
 
-
-
-
 @code {
 	public InputModel InputModel { get; set; } = new InputModel();
 	private bool _errorMessageIsVisible = false;
 
-
-
-
 	private async Task ShowConfirmationModal()
 	{
-
 		await JSRuntime.InvokeVoidAsync("showModal");
 		_errorMessageIsVisible = false;
-
 	}
 
 private async Task ShowInstructionModal()
 	{
-
 		await JSRuntime.InvokeVoidAsync("showInstructionModal");
 		_errorMessageIsVisible = false;
-
 	}
-
 
 	private void HandleConfirm()
 	{
-
 		NavigationManager.NavigateTo("/");
 	}
-
-
 
 	protected override void OnInitialized()
 	{
@@ -752,11 +731,7 @@ private async Task ShowInstructionModal()
 	{
 		//cancelTest = false;
 
-		if (InputModel.Input11 == 0)
-		{
-			_errorMessageIsVisible = true;
-		}
-		else if (InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
+		if (InputModel.Input11 == 0 || InputModel.Input11 + InputModel.Input12 + InputModel.Input13 + InputModel.Input14 != 10 || InputModel.Input21 + InputModel.Input22 + InputModel.Input23 + InputModel.Input24 != 10 || InputModel.Input31 + InputModel.Input32 + InputModel.Input33 + InputModel.Input34 != 10 || InputModel.Input41 + InputModel.Input42 + InputModel.Input43 + InputModel.Input44 != 10 || InputModel.Input51 + InputModel.Input52 + InputModel.Input53 + InputModel.Input54 != 10 || InputModel.Input61 + InputModel.Input62 + InputModel.Input63 + InputModel.Input64 != 10 || InputModel.Input71 + InputModel.Input72 + InputModel.Input73 + InputModel.Input74 != 10 || InputModel.Input81 + InputModel.Input82 + InputModel.Input83 + InputModel.Input84 != 10 || InputModel.Input91 + InputModel.Input92 + InputModel.Input93 + InputModel.Input94 != 10)
 		{
 			_errorMessageIsVisible = true;
 		}
@@ -803,7 +778,4 @@ private async Task ShowInstructionModal()
 		}
 		return sum;
 	}
-
-
-
 }
