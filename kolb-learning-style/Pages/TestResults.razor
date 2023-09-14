@@ -199,6 +199,12 @@
 				<h2>Enter your email</h2>
 				<input type="email" @bind="userEmail" placeholder="Enter your email address" />
 				<button @onclick="SendResultToEmail">Send Results</button>
+				@if (emailSendStatus == EmailSendStatus.Sending)
+				{
+					<div>
+					<div class="loading-spinner"></div> Skickar email,var god att vänta. Ta ett par djupa avkopplande andetag så är det snart skickat...
+					</div>
+				}
 			</div>
 		</div>
 	}
@@ -277,6 +283,7 @@
 		right: 20px;
 		font-size: 24px;
 	}
+
 </style>
 
 @code {
@@ -287,7 +294,7 @@
 	private string[] roStyle = { "", "" };
 	private bool showEmailModal = false;
 	private string userEmail = "";
-	private enum EmailSendStatus { None, Sent, Failed }
+	private enum EmailSendStatus { None, Sent, Failed, Sending }
 	private EmailSendStatus emailSendStatus = EmailSendStatus.None;
 	private bool showEmailStatusModal = false;
 
@@ -363,6 +370,7 @@
 	{
 		try
 		{
+			emailSendStatus = EmailSendStatus.Sending;
 			await EmailService.SendEmailAsync(await EmailService.CreateEmailMessage(userEmail));
 
 			emailSendStatus = EmailSendStatus.Sent;
