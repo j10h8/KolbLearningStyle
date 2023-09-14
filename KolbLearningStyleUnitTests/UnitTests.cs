@@ -8,7 +8,7 @@ namespace KolbLearningStyleUnitTests
 	[TestClass]
 	public class UnitTests
 	{
-		ResultService resultService;
+		private ResultService resultService;
 
 		public UnitTests()
 		{
@@ -70,10 +70,56 @@ namespace KolbLearningStyleUnitTests
 			// Act
 			ResultModel resultModel = resultService.GetResultFromInput(inputModel);
 
+			// Assert
 			Assert.AreEqual(18, resultModel.Tester);
 			Assert.AreEqual(15, resultModel.IdeaGiver);
 			Assert.AreEqual(19, resultModel.Gatherer);
 			Assert.AreEqual(16, resultModel.Explainer);
+		}
+
+		[TestMethod]
+		public void TestGetPieChartResult()
+		{
+			// Arrange
+			List<ResultModel> results = new()
+			{
+				new ResultModel()
+				{
+					Tester = 27,
+					IdeaGiver = 7,
+					Gatherer = 21,
+					Explainer = 14
+				},
+				new ResultModel()
+				{
+					Tester = 7,
+					IdeaGiver = 29,
+					Gatherer = 13,
+					Explainer = 20
+				}
+			};
+
+			// Act
+			ResultModel resultModel = resultService.GetPieChartResult(results);
+
+			// Assert
+			Assert.AreEqual(17, resultModel.Tester);
+			Assert.AreEqual(18, resultModel.IdeaGiver);
+			Assert.AreEqual(17, resultModel.Gatherer);
+			Assert.AreEqual(17, resultModel.Explainer);
+		}
+
+		[TestMethod]
+		public void TestAdd()
+		{
+			// Arrange
+			int[] numbers = new int[] { 1, 2, 3, 4 };
+
+			// Act
+			int sum = resultService.Add(numbers);
+
+			// Assert
+			Assert.AreEqual(10, sum);
 		}
 	}
 }

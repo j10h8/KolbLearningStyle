@@ -53,6 +53,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MimeKit" Version="4.2.0" />
+    <PackageReference Include="Moq" Version="4.20.69" />
     <PackageReference Include="MudBlazor" Version="6.9.0" />
     <PackageReference Include="Radzen.Blazor" Version="4.15.9" />
 	      <PackageReference Include="RazorLight" Version="2.3.1" />

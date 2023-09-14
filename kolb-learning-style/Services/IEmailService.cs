@@ -7,7 +7,7 @@
 	{
 		Task SendEmailAsync(MimeMessage emailMessage);
 		Task<bool> AddEmailAddressAsync(string emailAddress);
-		Task<MimeMessage> CreateEmailMessage(string userEmail);
+		Task<MimeMessage> CreateEmailMessageAsync(string userEmail);
 		Task<byte[]> GetPdfBytesAsync();
 	}
 }
