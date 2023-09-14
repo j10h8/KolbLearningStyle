@@ -4,12 +4,12 @@
 
 <PageTitle>Statistik</PageTitle>
 
-@if (labels != null)
+@if (labels != null && results != null && pieChartResult != null)
 {
 	<div style="display:flex;justify-content:center;">
 		<div style="margin-top:1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
 			<h1>Statistik</h1>
-			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Siffrorna överst i varje kolumn motsvarar genomsnittet av hur de @noOfTests personer som har genomfört testet svarade.</h3>
+			<h3 style="max-width:30rem;">Nedan följer statistik för @results.Count() genomförda tester. Siffrorna överst i varje kolumn motsvarar genomsnittet av hur de @results.Count() personer som har genomfört testet svarade.</h3>
 			<div style="display:flex; margin-top:3rem;">
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Tester</h3>
@@ -206,30 +206,11 @@
 </style>
 
 @code {
-	private List<ResultModel> results;
-	private int noOfTests;
-
+	private List<ResultModel>? results;
 	private int Index = -1;
-	private string[] labels { get; set; }
-	private double[] data { get; set; }
-
-	private ResultModel pieChartResult { get; set; } 
-
-	protected override async void OnInitialized()
-	{
-		// results = await ResultService.GetResultsAsync();
-	}
-
-	protected override async void OnParametersSet()
-	{
-		//results = await ResultService.GetResultsAsync();
-
-		//data = CalculateProcentData();
-
-		//labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
-
-		//StateHasChanged();
-	}
+	private string[]? labels { get; set; } 
+	private double[]? data { get; set; }
+	private ResultModel? pieChartResult { get; set; } 
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -237,66 +218,39 @@
 		{
 			results = await ResultService.GetResultsAsync();
 
-			noOfTests = results.Count();
+			pieChartResult = ResultService.GetPieChartResult(results);
 
-			pieChartResult = new()
-				{
-					Tester = results.Sum(r => r.Tester) / noOfTests,
-					IdeaGiver = results.Sum(r=>r.IdeaGiver) / noOfTests,
-					Gatherer = results.Sum(r=>r.Gatherer) / noOfTests,
-					Explainer = results.Sum(r=>r.Explainer)/noOfTests
-				};
+			data = ResultService.CalculateProcentData(results);
 
-			data = CalculateProcentData();
-
-			labels = new string[] { "Idégivare", "Prövare", "Förklarare", "Ihopsamlare" };
+			labels = new string[] { "Idégivare", "Prövare", "Förklarare", "Sammanställare" };
 
 			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
     
 			StateHasChanged();
 		}
-		//if (firstRender)
-		//{
-		//    results = await ResultService.GetResultsAsync();
-		//    data = CalculateProcentData();
-		//    labels = new string[]{ "IdeaGiver", "Tester", "Explainer", "Gatherer" };
-		//}
 	}
-	private double GetAverage(string type)
-	{
-		double sum = 0;
-		foreach (var result in results)
-		{
-			switch (type)
-			{
-				case "IdeaGiver":
-					sum += result.IdeaGiver;
-					break;
-				case "Tester":
-					sum += result.Tester;
-					break;
-				case "Explainer":
-					sum += result.Explainer;
-					break;
-				case "Gatherer":
-					sum += result.Gatherer;
-					break;
-			}
-		}
-		return sum / results.Count;
-	}
-	private double[] CalculateProcentData()
-	{
-		if (results == null) return new double[] { 25 , 25, 25, 25 };
 
-		double[] temp = { 0, 0, 0, 0 };
-		foreach (var result in results)
-		{
-			int maxScore = new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }.Max(); //Leta upp högsta värdet
-			temp[Array.IndexOf(new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }, maxScore)]++; // Addera till rätt index
-		}
-        temp = temp.Select(x => (x * 100) / noOfTests).ToArray(); // Räkna ut procent
-
-		return temp;
-	}
+	// private double GetAverage(string type)
+	// {
+	// 	double sum = 0;
+	// 	foreach (var result in results)
+	// 	{
+	// 		switch (type)
+	// 		{
+	// 			case "IdeaGiver":
+	// 				sum += result.IdeaGiver;
+	// 				break;
+	// 			case "Tester":
+	// 				sum += result.Tester;
+	// 				break;
+	// 			case "Explainer":
+	// 				sum += result.Explainer;
+	// 				break;
+	// 			case "Gatherer":
+	// 				sum += result.Gatherer;
+	// 				break;
+	// 		}
+	// 	}
+	// 	return sum / results.Count;
+	// }
 }
