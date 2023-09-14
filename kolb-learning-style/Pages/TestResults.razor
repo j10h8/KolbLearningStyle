@@ -371,7 +371,7 @@
 		try
 		{
 			emailSendStatus = EmailSendStatus.Sending;
-			await EmailService.SendEmailAsync(await EmailService.CreateEmailMessage(userEmail));
+			await EmailService.SendEmailAsync(await EmailService.CreateEmailMessageAsync(userEmail));
 
 			emailSendStatus = EmailSendStatus.Sent;
 		}

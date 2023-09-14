@@ -48,7 +48,7 @@ namespace kolb_learning_style.Services
 			return bytes;
 		}
 
-		public async Task<MimeMessage> CreateEmailMessage(string userEmail)
+		public async Task<MimeMessage> CreateEmailMessageAsync(string userEmail)
 		{
 			var subject = "Kolbs lärstilar - Ditt resultat";
 			var emailSettings = emailSettingsOptions.Value;
