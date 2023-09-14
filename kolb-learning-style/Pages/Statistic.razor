@@ -3,8 +3,14 @@
 @inject IJSRuntime JSRuntime
 
 <PageTitle>Statistik</PageTitle>
+@if (loadingData)
+{
+	<div style="display:flex;justify-content:center;">
+		<div><div class="loading-spinner"></div>Laddar statistik...</div>
+	</div>
 
-@if (labels != null && results != null && pieChartResult != null)
+}
+else if (labels != null && results != null && pieChartResult != null)
 {
 	<div style="display:flex;justify-content:center;">
 		<div style="margin-top:1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
@@ -210,25 +216,34 @@
 	private int Index = -1;
 	private string[]? labels { get; set; } 
 	private double[]? data { get; set; }
-	private ResultModel? pieChartResult { get; set; } 
+	private ResultModel? pieChartResult { get; set; }
+	private bool loadingData = false;
+
+	protected override void OnInitialized()
+	{
+		loadingData = true;
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
+			//loadingData = true;
 			results = await ResultService.GetResultsAsync();
 
 			pieChartResult = ResultService.GetPieChartResult(results);
 
 			data = ResultService.CalculateProcentData(results);
 
-			labels = new string[] { "Idégivare", "Prövare", "Förklarare", "Sammanställare" };
+			labels = new string[] { "Andel som är övervägande Idégivare", "Andel som är övervägande Prövare", "Andel som är övervägande Förklarare", "Andel som är övervägande Sammanställare" };
 
 			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
-    
+			loadingData = false;
+
 			StateHasChanged();
 		}
 	}
+
 
 	// private double GetAverage(string type)
 	// {
