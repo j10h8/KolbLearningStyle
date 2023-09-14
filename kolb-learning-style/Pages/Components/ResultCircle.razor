@@ -1,14 +1,10 @@
-﻿
-<BECanvas Width="@canvasSize" Height="@canvasSize" @ref="_canvasReference"></BECanvas>
+﻿<BECanvas Width="@canvasSize" Height="@canvasSize" @ref="_canvasReference"></BECanvas>
 
 @code {
     [Parameter]
     public ResultModel Result { get; set; } 
-
     private Canvas2DContext? _context;
-
     protected BECanvasComponent? _canvasReference;
-
     public int canvasSize = 400;
     private int circleRadius => (canvasSize-200)/2;
     private int middle => canvasSize / 2;
@@ -26,17 +22,16 @@
         }
     }
 
-
     private async Task DrawAllCircles(int outherRadius)
     {
         int innerRadius = outherRadius/5;
-
         await DrawCircle(outherRadius,"25");
         await DrawCircle(innerRadius*4,"20");
         await DrawCircle(innerRadius*3,"15");
         await DrawCircle(innerRadius*2,"10");
         await DrawCircle(innerRadius,"5");
     }
+
     private async Task DrawAllLabels()
     {
         await DrawText("Känna och titta", canvasSize - 90, 10, 0,12); //Uppe Höger
@@ -65,24 +60,18 @@
         await DrawText("Aktivt", 5, canvasSize / 2, -90,12); // Left
         await DrawText("Exprimenterande", 5, (canvasSize / 2)+10, -90,12); // Left
 
-
         await DrawText("Konkreta upplevelser", canvasSize/2-50, 10, 0,12); // Top
-
 
         await DrawText("Reflekterande", canvasSize-80, canvasSize / 2, 90,12); // Right
         await DrawText("Observation", canvasSize-80, (canvasSize / 2)+10, 90,12); // Right
 
-
         await DrawText("Abstrakt Tänkande", canvasSize/2-30, canvasSize-30, 0,12); // Bottom
-
-
     }
     private async Task DrawText(string text, int x, int y, int direction, int size)
     {
         await this._context.SetFontAsync($"{size}px Arial");
         //await this._context.RotateAsync((float)Math.PI);
         //await this._context.StrokeTextAsync(text, x, y);
-
 
         // Rotate the context by the specified direction angle (in radians)
         //await this._context.RotateAsync(Convert.ToSingle(direction) * Convert.ToSingle(Math.PI) / (float)180);
@@ -123,6 +112,5 @@
         await this._context.StrokeTextAsync(text, middle, middle + radius);
         await this._context.StrokeTextAsync(text, middle - radius, middle);
         await this._context.StrokeTextAsync(text, middle, middle - radius);
-        
     }
 }

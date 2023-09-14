@@ -53,5 +53,44 @@ namespace kolb_learning_style.Services
 			}
 			return sum;
 		}
+
+		public ResultModel GetPieChartResult(List<ResultModel> results)
+		{
+			if (results.Count() > 0)
+			{
+				return new ResultModel()
+				{
+					Tester = results.Sum(r => r.Tester) / results.Count(),
+					IdeaGiver = results.Sum(r => r.IdeaGiver) / results.Count(),
+					Gatherer = results.Sum(r => r.Gatherer) / results.Count(),
+					Explainer = results.Sum(r => r.Explainer) / results.Count()
+				};
+			}
+
+			return new ResultModel()
+			{
+				Tester = 0,
+				IdeaGiver = 0,
+				Gatherer = 0,
+				Explainer = 0
+			};
+		}
+
+		public double[] CalculateProcentData(List<ResultModel> results)
+		{
+			if (results == null) return new double[] { 25, 25, 25, 25 };
+
+			double[] temp = { 0, 0, 0, 0 };
+
+			foreach (var result in results)
+			{
+				int maxScore = new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }.Max(); //Leta upp högsta värdet
+				temp[Array.IndexOf(new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }, maxScore)]++; // Addera till rätt index
+			}
+
+			temp = temp.Select(x => (x * 100) / results.Count()).ToArray(); // Räkna ut procent
+
+			return temp;
+		}
 	}
 }

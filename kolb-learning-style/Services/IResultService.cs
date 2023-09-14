@@ -9,5 +9,7 @@ namespace kolb_learning_style.Services
 		bool CheckInput(InputModel input);
 		ResultModel GetResultFromInput(InputModel input);
 		int Add(int[] numbers);
+		ResultModel GetPieChartResult(List<ResultModel> results);
+		double[] CalculateProcentData(List<ResultModel> results);
 	}
 }
