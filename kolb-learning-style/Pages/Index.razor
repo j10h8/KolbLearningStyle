@@ -33,7 +33,7 @@
     
 
         <NavLink class="nav-link" href="Instruction">
-            <button class="btn btn-primary" @*@onclick="StartTest" *@>STARTA TESTET</button>
+        <button class="btn btn-primary" @*@onclick="StartTest" *@> <b>STARTA TESTET</b></button>
         </NavLink>
     
    
@@ -41,62 +41,9 @@
     
 
 </div>
-<footer>
-    <div class="subscribe-form">
-        @*<div>
-            <h3>Subscribe to Our Newsletter</h3>
-            <p>Stay up to date with our latest news and updates.</p>
-        </div>*@
-        
-        <div>
-        <form @onsubmit="Subscribe">
-                <input type="email" placeholder="Enter your email" @bind="viewModel.EmailAddress" />
-            <button type="submit">SUBSCRIBE</button>
-            
-                
-        </form>
-            
-        </div>
 
-        <div>
-            @if (emailSubmitted)
-            {
-                <p class="success-message">Email submitted successfully!</p>
-            }
-        </div>
 
-        
-    </div>
-	@*<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>*@
-</footer>
 
-@code {
-    private EmailAddressModel viewModel = new EmailAddressModel();
-    private bool emailSubmitted = false;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
-        }
-    }
-
-    private async Task Subscribe()
-    {
-        if (!string.IsNullOrWhiteSpace(viewModel.EmailAddress))
-        {
-            // Save the email to the database
-            DbContext.SendList.Add(new EmailAddressModel { EmailAddress = viewModel.EmailAddress });
-            await DbContext.SaveChangesAsync();
-
-            // Clear the form after successful submission
-            viewModel.EmailAddress = string.Empty;
-
-            emailSubmitted = true;
-        }
-    }
-}
 
 
 
@@ -116,78 +63,66 @@
 
     .center-container {
         padding: 220px;
+        margin-top: 50px;
+        margin-bottom: -50px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 76vh; /* This will center-align vertically by using the full viewport height */
+        height: 67vh; 
+
+        /*height: 60%;*/
         text-align: center; /* This will center-align the text horizontally */
         /*font-family: 'Sitka Display';*/
     }
 
     
 
-    footer {
-        background-color: white;
-        padding-top: 10px;
-        text-align: center;
-        width: auto;
-        /*border-width: thin;
-        border-color: black;*/
-        /*border: solid 1px;*/
-        /*border-radius: 0.2rem;*/
-    }
-
-
-
-    footer p {
-            color: #333;
-            
-    }
-
-
-    .subscribe-form {
-
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        /*justify-content: space-around;*/
-        margin-top: 10px;
-        margin-bottom: -10px;
-       /* margin-right: 50px;*/
-        text-align: center;
-    }
-
-        .subscribe-form h3 {
-            margin-bottom: -8px;
-        }
-
-        .subscribe-form input[type="email"] {
-            padding: 3px;
-            width: 210px;
-            height: 25px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-            margin-left: 60px;
-            margin-top: 5px;
-            margin-bottom: 25px;
-        }
-
-        .subscribe-form button[type="submit"] {
-            padding: 4px 12px;
-            background-color: #2ab083;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-    .success-message {
-        color: green;
-        margin-bottom: 27px;
-        margin-left: 15px;
-    }
+    
 
 </style>
+
+
+
+
+
+
+@*
+<footer>
+    <div class="subscribe-form">
+
+        <div class="footer-links">
+            <p><a href="url">Om Oss</a>&nbsp; - &nbsp;<a href="url">Om Webbplatsen</a> &nbsp;- &nbsp;<a href="url">Referenser</a> &nbsp;- &nbsp;<a href="url">Allmänna Villkor</a> &nbsp;- &nbsp;<a href="url">Kontakta Oss</a> </p>
+        </div>
+        <div class="footer-links">
+
+
+            
+            <p style="color: black;">&nbsp; Vill du få nyheter och nya tester från oss? Prenumerera! </p>
+        </div>
+
+        <div>
+            <form @onsubmit="Subscribe">
+                <input type="email" placeholder="Fyll i din e-postadress" @bind="viewModel.EmailAddress" />
+                <button type="submit">PRENUMERERA</button>
+
+
+            </form>
+
+        </div>
+
+       
+
+        <div>
+            @if (emailSubmitted)
+            {
+                <p class="success-message">Email submitted successfully!</p>
+            }
+        </div>
+
+
+    </div>
+
+
+    
+</footer>*@
