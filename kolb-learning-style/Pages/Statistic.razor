@@ -175,10 +175,10 @@ else if (labels != null && results != null && pieChartResult != null)
 					</ul>
 				</div>
 			</div>
-			<h3>Hur vanliga är lärstilarna?</h3> 
-				<PieChart Labels="@labels" Data="@data"></PieChart>
+			<h3>Hur vanliga är lärstilarna?</h3>
+			<PieChart Labels="@labels" Data="@data"></PieChart>
 			<h3>Genomsnittlig Lärstil</h3>
-				<ResultCircle Result="pieChartResult"></ResultCircle>
+			<ResultCircle Result="pieChartResult"></ResultCircle>
 			<NavLink class="nav-link" href="/">
 				<button class="btn btn-primary" @*@onclick="StartTest" *@>GO BACK TO THE MAIN PAGE</button>
 			</NavLink>
@@ -188,8 +188,8 @@ else if (labels != null && results != null && pieChartResult != null)
 
 <style>
 	/* .font-example {
-										font-family: 'MentiDisplay-Regular';
-									}*/
+											font-family: 'MentiDisplay-Regular';
+										}*/
 	.center-container {
 		padding: 220px;
 		display: flex;
@@ -214,7 +214,7 @@ else if (labels != null && results != null && pieChartResult != null)
 @code {
 	private List<ResultModel>? results;
 	private int Index = -1;
-	private string[]? labels { get; set; } 
+	private string[]? labels { get; set; }
 	private double[]? data { get; set; }
 	private ResultModel? pieChartResult { get; set; }
 	private bool loadingData = false;
@@ -243,29 +243,4 @@ else if (labels != null && results != null && pieChartResult != null)
 			StateHasChanged();
 		}
 	}
-
-
-	// private double GetAverage(string type)
-	// {
-	// 	double sum = 0;
-	// 	foreach (var result in results)
-	// 	{
-	// 		switch (type)
-	// 		{
-	// 			case "IdeaGiver":
-	// 				sum += result.IdeaGiver;
-	// 				break;
-	// 			case "Tester":
-	// 				sum += result.Tester;
-	// 				break;
-	// 			case "Explainer":
-	// 				sum += result.Explainer;
-	// 				break;
-	// 			case "Gatherer":
-	// 				sum += result.Gatherer;
-	// 				break;
-	// 		}
-	// 	}
-	// 	return sum / results.Count;
-	// }
 }
