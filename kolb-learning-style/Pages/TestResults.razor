@@ -1,20 +1,33 @@
 ﻿@page "/TestResults"
 @inject IJSRuntime JSRuntime
+@inject IEmailService EmailService
+@inject NavigationManager NavManager
+@inject IConverter PdfConverter
+@* @inject EmailSettings EmailSettings *@
+@inject IOptions<EmailSettings> EmailSettingsOptions
+
+@using DinkToPdf;
+@using DinkToPdf.Contracts;
+@using Microsoft.Extensions.Options;
+@using MimeKit;
+@using System.IO;
+@using System.Text;
 
 <PageTitle>Ditt resultat</PageTitle>
 
 @if (Result != null)
 {
-	<div class="text-center">
+	<div id="testResults" class="text-center">
 		<h1>Ditt resultat</h1>
 		<div>
 			<p style="@aeStyle[0]">Aktivt experimenterande/Prövare (AE): @Result.Tester</p>
-			<p style="@atStyle[0]">Abstrakt tänkande/Sammanställare (AT): @Result.Gatherer</p>
 			<p style="@kuStyle[0]">Konkreta upplevelser/Idégivare (KU): @Result.IdeaGiver</p>
+			<p style="@atStyle[0]">Abstrakt tänkande/Sammanställare (AT): @Result.Gatherer</p>			
 			<p style="@roStyle[0]"> Reflekterande observation/Förklarare (RO): @Result.Explainer</p>
 		</div>
 		<div style="display:flex;">
 			<div class="result-text-container" style="@aeStyle[1];">
+				<h3 style="text-align:center; color:red;">@Result.Tester</h3>
 				<h3>Prövare (AE)</h3>
 				<ul>
 					<li>
@@ -56,6 +69,7 @@
 				</ul>
 			</div>
 			<div class="result-text-container" style="@kuStyle[1]">
+				<h3 style="text-align:center; color:red;">@Result.IdeaGiver</h3>
 				<h3>Idégivare (KU)</h3>
 				<ul>
 					<li>
@@ -101,6 +115,7 @@
 				</ul>
 			</div>
 			<div class="result-text-container" style="@atStyle[1]">
+				<h3 style="text-align:center; color:red;">@Result.Gatherer</h3>
 				<h3>Sammanställare (AT)</h3>
 				<ul>
 					<li>
@@ -132,6 +147,7 @@
 				</ul>
 			</div>
 			<div class="result-text-container" style="@roStyle[1]">
+				<h3 style="text-align:center; color:red;">@Result.Explainer</h3>
 				<h3>Förklarare (RO)</h3>
 				<ul>
 					<li>
@@ -169,11 +185,46 @@
 				</ul>
 			</div>
 		</div>
+
+
 		<ResultCircle Result="Result"></ResultCircle>
-		<NavLink class="nav-link" href="SaveResults">
-			<button class="btn btn-primary" @*@onclick="StartTest" *@>SEND RESULTS TO MY EMAIL</button>
-		</NavLink>
+		<button class="btn btn-primary nav-link" @onclick="ToggleEmailModal">SEND RESULTS TO MY EMAIL</button>
 	</div>
+
+	@if (showEmailModal)
+	{
+		<div class="modal">
+			<div class="modal-content">
+				<span class="close-button" @onclick="ToggleEmailModal">x</span>
+				<h2>Enter your email</h2>
+				<input type="email" @bind="userEmail" placeholder="Enter your email address" />
+				<button @onclick="SendResultToEmail">Send Results</button>
+				@if (emailSendStatus == EmailSendStatus.Sending)
+				{
+					<div>
+					<div class="loading-spinner"></div> Skickar email,var god att vänta. Ta ett par djupa avkopplande andetag så är det snart skickat...
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+	@if (showEmailStatusModal)
+	{
+		<div class="modal">
+			<div class="modal-content">
+				<span class="close-button" @onclick="ToggleEmailStatusModal">x</span>
+				@if (emailSendStatus == EmailSendStatus.Sent)
+				{
+					<h2>Email sent successfully!</h2>
+				}
+				else if (emailSendStatus == EmailSendStatus.Failed)
+				{
+					<h2>There was an error sending the email. Please try again.</h2>
+				}
+			</div>
+		</div>
+	}
 }
 @*
 <footer>
@@ -182,8 +233,8 @@
 *@
 <style>
 	/* .font-example {
-														font-family: 'MentiDisplay-Regular';
-													} */
+																	font-family: 'MentiDisplay-Regular';
+																} */
 
 	.center-container {
 		padding: 220px;
@@ -204,6 +255,35 @@
 		footer p {
 			color: #333;
 		}
+
+	.modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+	}
+
+	.modal-content {
+		background-color: #f4f4f4;
+		padding: 20px;
+		border-radius: 5px;
+		width: 50%;
+	}
+
+	.close-button {
+		cursor: pointer;
+		position: absolute;
+		top: 10px;
+		right: 20px;
+		font-size: 24px;
+	}
+
 </style>
 
 @code {
@@ -212,6 +292,11 @@
 	private string[] kuStyle = { "", "" };
 	private string[] atStyle = { "", "" };
 	private string[] roStyle = { "", "" };
+	private bool showEmailModal = false;
+	private string userEmail = "";
+	private enum EmailSendStatus { None, Sent, Failed, Sending }
+	private EmailSendStatus emailSendStatus = EmailSendStatus.None;
+	private bool showEmailStatusModal = false;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -266,5 +351,36 @@
 		}
 	}
 
-	// Result = new() {Tester=10, Gatherer=10,IdeaGiver=15,Explainer=15 };
+	private void ToggleEmailModal()
+	{
+		showEmailModal = !showEmailModal;
+	}
+
+	private void ToggleEmailStatusModal()
+	{
+		showEmailStatusModal = !showEmailStatusModal;
+
+		if (!showEmailStatusModal)
+		{
+			emailSendStatus = EmailSendStatus.None;
+		}
+	}
+
+	private async Task SendResultToEmail()
+	{
+		try
+		{
+			emailSendStatus = EmailSendStatus.Sending;
+			await EmailService.SendEmailAsync(await EmailService.CreateEmailMessageAsync(userEmail));
+
+			emailSendStatus = EmailSendStatus.Sent;
+		}
+		catch
+		{
+			emailSendStatus = EmailSendStatus.Failed;
+		}
+
+		showEmailModal = false;
+		showEmailStatusModal = true;
+	}
 }

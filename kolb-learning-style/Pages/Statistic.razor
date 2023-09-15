@@ -3,23 +3,28 @@
 @inject IJSRuntime JSRuntime
 
 <PageTitle>Statistik</PageTitle>
+@if (loadingData)
+{
+	<div style="display:flex;justify-content:center;">
+		<div><div class="loading-spinner"></div>Laddar statistik...</div>
+	</div>
 
-@if (labels != null)
+}
+else if (labels != null && results != null && pieChartResult != null)
 {
 	<div style="display:flex;justify-content:center;">
 		<div style="margin-top:1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
 			<h1>Statistik</h1>
-			<h3 style="max-width:30rem;">Nedan följer statistik för @noOfTests genomförda tester. Andelen i procent ovanför varje kolumn motsvarar genomsnittet av hur de @noOfTests personer som har genomfört testet svarade.</h3>
+			<h3 style="max-width:30rem;">Nedan följer statistik för @results.Count() genomförda tester. Siffrorna överst i varje kolumn motsvarar genomsnittet av hur de @results.Count() personer som har genomfört testet svarade.</h3>
 			<div style="display:flex; margin-top:3rem;">
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[1],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Tester</h3>
 					<h3>Prövare (AE)</h3>
 					<ul>
 						<li>
 							Är väldigt
 							aktiv och
-							handlings-
-							inriktad och
+							handlingsinriktad och
 							därför passar
 							inte
 							traditionella
@@ -54,7 +59,7 @@
 					</ul>
 				</div>
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[0],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.IdeaGiver</h3>
 					<h3>Idégivare (KU)</h3>
 					<ul>
 						<li>
@@ -100,7 +105,7 @@
 					</ul>
 				</div>
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[3],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Gatherer</h3>
 					<h3>Sammanställare (AT)</h3>
 					<ul>
 						<li>
@@ -132,7 +137,7 @@
 					</ul>
 				</div>
 				<div class="result-text-container">
-					<h3 style="text-align:center; color:red;">@Math.Round(data[2],2) %</h3>
+					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Explainer</h3>
 					<h3>Förklarare (RO)</h3>
 					<ul>
 						<li>
@@ -170,7 +175,10 @@
 					</ul>
 				</div>
 			</div>
+			<h3>Hur vanliga är lärstilarna?</h3>
 			<PieChart Labels="@labels" Data="@data"></PieChart>
+			<h3>Genomsnittlig Lärstil</h3>
+			<ResultCircle Result="pieChartResult"></ResultCircle>
 			<NavLink class="nav-link" href="/">
 				<button class="btn btn-primary" @*@onclick="StartTest" *@>GO BACK TO THE MAIN PAGE</button>
 			</NavLink>
@@ -180,9 +188,8 @@
 
 <style>
 	/* .font-example {
-										font-family: 'MentiDisplay-Regular';
-									}*/
-
+											font-family: 'MentiDisplay-Regular';
+										}*/
 	.center-container {
 		padding: 220px;
 		display: flex;
@@ -205,87 +212,35 @@
 </style>
 
 @code {
-	private List<ResultModel> results;
-	private int noOfTests;
-
+	private List<ResultModel>? results;
 	private int Index = -1;
-	private string[] labels { get; set; }
-	private double[] data { get; set; }
+	private string[]? labels { get; set; }
+	private double[]? data { get; set; }
+	private ResultModel? pieChartResult { get; set; }
+	private bool loadingData = false;
 
-	protected override async void OnInitialized()
+	protected override void OnInitialized()
 	{
-		// results = await ResultService.GetResultsAsync();
-	}
-
-	protected override async void OnParametersSet()
-	{
-		//results = await ResultService.GetResultsAsync();
-
-		//data = CalculateProcentData();
-
-		//labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
-
-		//StateHasChanged();
+		loadingData = true;
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
+			//loadingData = true;
 			results = await ResultService.GetResultsAsync();
-			
-			noOfTests = results.Count();
 
-			data = CalculateProcentData();
+			pieChartResult = ResultService.GetPieChartResult(results);
 
-			labels = new string[] { "IdeaGiver", "Tester", "Explainer", "Gatherer" };
+			data = ResultService.CalculateProcentData(results);
+
+			labels = new string[] { "Andel som är övervägande Idégivare", "Andel som är övervägande Prövare", "Andel som är övervägande Förklarare", "Andel som är övervägande Sammanställare" };
 
 			await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
-    
+			loadingData = false;
+
 			StateHasChanged();
 		}
-		//if (firstRender)
-		//{
-		//    results = await ResultService.GetResultsAsync();
-		//    data = CalculateProcentData();
-		//    labels = new string[]{ "IdeaGiver", "Tester", "Explainer", "Gatherer" };
-		//}
-	}
-	private double GetAverage(string type)
-	{
-		double sum = 0;
-		foreach (var result in results)
-		{
-			switch (type)
-			{
-				case "IdeaGiver":
-					sum += result.IdeaGiver;
-					break;
-				case "Tester":
-					sum += result.Tester;
-					break;
-				case "Explainer":
-					sum += result.Explainer;
-					break;
-				case "Gatherer":
-					sum += result.Gatherer;
-					break;
-			}
-		}
-		return sum / results.Count;
-	}
-	private double[] CalculateProcentData()
-	{
-		if (results == null) return new double[] { 25 , 25, 25, 25 };
-
-		double[] temp = { 0, 0, 0, 0 };
-		foreach (var result in results)
-		{
-			int maxScore = new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }.Max(); //Leta upp högsta värdet
-			temp[Array.IndexOf(new[] { result.IdeaGiver, result.Tester, result.Explainer, result.Gatherer }, maxScore)]++; // Addera till rätt index
-		}
-		temp = temp.Select(x => (x * 100) / noOfTests).ToArray();
-
-		return temp;
 	}
 }

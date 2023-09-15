@@ -1,14 +1,15 @@
 ﻿@inject Data.MainDbContext DbContext
 @inject IJSRuntime JSRuntime
+@inject IEmailService EmailService
 @page "/"
-
 
 <PageTitle>Kolb's "Learning Style" Test</PageTitle>
 
 @* <div class="font-example"> *@
 
-
 <div class="center-container">
+
+  
         <h1>
             Kolbs lärstilar: testa din inlärningsstil
         </h1>
@@ -46,8 +47,8 @@
 
 
 
-
 <style>
+
 
    /* .font-example {
         font-family: 'MentiDisplay-Regular';
@@ -119,6 +120,7 @@
                 <p class="success-message">Email submitted successfully!</p>
             }
         </div>
+
 
 
     </div>
