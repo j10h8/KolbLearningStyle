@@ -390,6 +390,7 @@
 
 		</EditForm>
 		<br />
+
 		<div class="button-row">
 
 			<button class="btn-cancel" @onclick="ShowConfirmationModal" disabled="@calculating"> AVBRYT TESTET </button>
@@ -404,6 +405,7 @@
 		{
 			<div><div class="loading-spinner"></div>Beräknar resultat, var god och vänta någon sekund...</div>
 		}
+
 		<br />
 		<P> . </P>
 		@*<NavLink class="nav-link" href="/">*@
@@ -412,11 +414,21 @@
 		<br />
 		<br />
 	</div>
-	<div class="right-container">
-	</div>
+	
 
 	<br />
 </div>
+
+<div class="button-row">
+
+			<button class="btn-cancel" @onclick="ShowConfirmationModal"> AVBRYT TESTET </button>
+			<button class="btn btn-primary" @onclick="HandleSubmitAsync">SLUTFÖR TESTET</button>
+
+	@*type="submit"*@
+			<br />
+			<br />
+
+		</div>
 
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -450,6 +462,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
+				<br>
 					<h2>
 						@*Kolbs lärstilar: testa din inlärningsstil*@
 			Instruktion
@@ -660,7 +673,8 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-top: 10px;
+		margin-top: 50px;
+		margin-bottom: 50px;
 	}
 
 	.center-container {

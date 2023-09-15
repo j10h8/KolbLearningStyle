@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
+
 <PageTitle>Instruktion</PageTitle>
 
 <div class="center-container">
@@ -94,6 +95,9 @@
 	<br />
 </div>
 
+
+
+
 <div class="font-example">
 </div>
 
@@ -117,7 +121,9 @@
 	</div>
 </div>
 
+
 @code {
+
 	private async Task ShowConfirmationModal()
 	{
 		await JSRuntime.InvokeVoidAsync("showModal");

@@ -1,4 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@inject Data.MainDbContext DbContext
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+
+
 
 <PageTitle>kolb-learning-style</PageTitle>
 
@@ -8,6 +14,10 @@
     </div>*@
 
     <main>
+
+        <div class="main-content">
+
+      
         
         <div class="top-row px-4" style="background-color: white;">
             <a class="navbar-brand" href="/">
@@ -23,5 +33,366 @@
         <article class="content px-4">
             @Body
         </article>
+
+
+        </div>
+
+    
+            <footer >
+                <div class="subscribe-form">
+
+                    <div class="footer-links">
+                    <p><a href="" @onclick="ShowAboutModal">Om Oss</a>&nbsp; - &nbsp;<a href="" @onclick="ShowWebpageModal">Om Webbplatsen</a> &nbsp;- &nbsp;<a href="" @onclick="ShowReferenceModal">Referenser</a> &nbsp;- &nbsp;<a href="" @onclick="ShowPolicyModal">Allmänna Villkor</a> &nbsp;- &nbsp;<a href="" @onclick="ShowContactModal">Kontakta Oss</a> </p>
+                    </div>
+                    <div class="footer-links">
+
+
+                        @*<p>Subscribe to Our Newsletter</p>*@
+
+                    </div>
+
+                    <div class="footer-text">
+                        <p style="color: black;">@*&nbsp; *@Vill du få nyheter och nya tester från oss? </p>
+                    </div>
+
+                    <div>
+
+                        <form @onsubmit="Subscribe">
+
+                            <input type="email" placeholder="Fyll i din e-postadress" @bind="viewModel.EmailAddress" />
+                            <button type="submit">PRENUMERERA</button>
+
+
+                        </form>
+
+                    </div>
+
+                    @* © Copyright 2023 by JADA. All Rights Reserved.*@
+
+                    <div>
+                        @if (emailSubmitted)
+                        {
+                            <p class="success-message"><i class="fa-solid fa-check" style="color: #08af3a;"></i></p>
+                        }
+                    </div>
+
+
+            </div>
+
+        </footer>
+
+
+        @*About*@
+        
+        <div class="modal-width">
+            <div class="modal fade " id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+                <div class="modal-dialog custom-modal-width" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="aboutModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <p>
+                                Om Oss
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        @*Webpage*@
+
+        <div class="modal-width">
+            <div class="modal fade " id="webpageModal" tabindex="-1" role="dialog" aria-labelledby="webpageModalLabel" aria-hidden="true">
+                <div class="modal-dialog custom-modal-width" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="webpageModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <p>
+                                Webpage
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @*Reference*@
+
+
+        <div class="modal-width">
+            <div class="modal fade " id="referenceModal" tabindex="-1" role="dialog" aria-labelledby="referenceModalLabel" aria-hidden="true">
+                <div class="modal-dialog custom-modal-width" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="referenceModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <p>
+                                Reference
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       @* Policy*@
+
+
+        <div class="modal-width">
+            <div class="modal fade " id="policyModal" tabindex="-1" role="dialog" aria-labelledby="policyModalLabel" aria-hidden="true">
+                <div class="modal-dialog custom-modal-width" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="policyModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <p>
+                                Policy
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @*Contact*@
+
+        <div class="modal-width">
+            <div class="modal fade " id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+                <div class="modal-dialog custom-modal-width" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="contactModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <p>
+                                Contact
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </main>
 </div>
+
+@code {
+
+   
+
+    private EmailAddressModel viewModel = new EmailAddressModel();
+    private bool emailSubmitted = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
+        }
+    }
+
+    private async Task Subscribe()
+    {
+        if (!string.IsNullOrWhiteSpace(viewModel.EmailAddress))
+        {
+
+            DbContext.SendList.Add(new EmailAddressModel { EmailAddress = viewModel.EmailAddress });
+            await DbContext.SaveChangesAsync();
+
+
+            viewModel.EmailAddress = string.Empty;
+
+            emailSubmitted = true;
+        }
+    }
+
+    private async Task ShowAboutModal()
+    {
+
+        await JSRuntime.InvokeVoidAsync("showAboutModal");
+        //_errorMessageIsVisible = false;
+
+    }
+
+    private async Task ShowWebpageModal()
+    {
+
+        await JSRuntime.InvokeVoidAsync("showWebpageModal");
+        //_errorMessageIsVisible = false;
+
+    }
+
+    private async Task ShowReferenceModal()
+    {
+
+        await JSRuntime.InvokeVoidAsync("showReferenceModal");
+        //_errorMessageIsVisible = false;
+
+    }
+
+    private async Task ShowPolicyModal()
+    {
+
+        await JSRuntime.InvokeVoidAsync("showPolicyModal");
+        //_errorMessageIsVisible = false;
+
+    }
+
+    private async Task ShowContactModal()
+    {
+
+        await JSRuntime.InvokeVoidAsync("showContactModal");
+        //_errorMessageIsVisible = false;
+
+    }
+}
+
+<style>
+
+    .main-content
+    {
+        padding-bottom: 60px; 
+    }
+
+    footer {
+        background-color: whitesmoke;
+        padding-top: 10px;
+        padding-left: -100px;
+        text-align: center;
+        width: 100%;
+        /*position: absolute;*/ 
+        bottom: 0;
+        /*border-width: thin;
+            border-color: black;*/
+        /*border: solid 1px;*/
+        /*border-radius: 0.2rem;*/
+    }
+
+
+
+        footer p {
+            color: #333;
+        }
+
+    .footer-links {
+        margin-bottom: 10px;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+    .footer-text
+    {
+        
+        margin-bottom: 10px;
+        margin-right: 5px;
+    }
+
+
+    .subscribe-form {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-around;
+        margin-top: 10px;
+        margin-bottom: -10px;
+        /* margin-right: 50px;*/
+        text-align: justify-all;
+        margin-right: 40px;
+    }
+
+        .subscribe-form p {
+            margin-bottom: 15px;
+        }
+
+        .subscribe-form input[type="email"] {
+            padding: 3px;
+            width: 210px;
+            height: 25px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            /*margin-right: 10px;*/
+            /*margin-left: 20px;*/
+            margin-top: 5px;
+            margin-bottom: 25px;
+            /*margin-left: -10px;*/
+            margin-right: 3px;
+        }
+
+        .subscribe-form button[type="submit"] {
+            padding: 4px 12px;
+            background-color: #2ab083;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    .success-message {
+        color: green;
+        /*margin-bottom: 50px;*/
+        margin-left: 10px;
+        margin-top: -47px;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 400;
+    }
+
+        a:hover {
+            text-decoration: none;
+            font-weight: 400;
+            color: black;
+        }
+
+
+</style>
