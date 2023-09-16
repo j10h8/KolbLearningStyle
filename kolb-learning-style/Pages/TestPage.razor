@@ -2,6 +2,7 @@
 @inject IResultService ResultService
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@layout CustomLayout
 
 <PageTitle>Test Page</PageTitle>
 
@@ -391,26 +392,12 @@
 		</EditForm>
 		<br />
 
-		<div class="button-row">
-
-			<button class="btn-cancel" @onclick="ShowConfirmationModal" disabled="@calculating"> AVBRYT TESTET </button>
-			<button class="btn btn-primary" @onclick="HandleSubmitAsync" disabled="@calculating">SLUTFÖR TESTET</button>
-
-			@*type="submit"*@
-			<br />
-			<br />
-
-		</div>
-		@if (calculating)
-		{
-			<div><div class="loading-spinner"></div>Beräknar resultat, var god och vänta någon sekund...</div>
-		}
+		
+		<br />
+		<br />
 
 		<br />
-		<P> . </P>
-		@*<NavLink class="nav-link" href="/">*@
-
-		@*</NavLink>*@
+		
 		<br />
 		<br />
 	</div>
@@ -425,10 +412,15 @@
 			<button class="btn btn-primary" @onclick="HandleSubmitAsync">SLUTFÖR TESTET</button>
 
 	@*type="submit"*@
+			
 			<br />
-			<br />
-
+	
 		</div>
+
+@if (calculating)
+{
+	<div><div class="loading-spinner" style="display:flex;justify-content:center;"></div>Beräknar resultat, var god och vänta någon sekund...</div>
+}
 
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -703,11 +695,11 @@
 		/*height: 100%;*/
 	}
 
-	footer {
+	/*footer {
 		background-color: #f8f8f8;
 		padding-top: 20px;
 		text-align: center;
-	}
+	}*/
 
 		footer p {
 			color: #333;

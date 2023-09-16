@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kolb-learning-style", "kolb-learning-style\kolb-learning-style.csproj", "{961FE635-309E-4D56-BED2-BE9B71FFEB8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KolbLearningStyleUnitTests", "KolbLearningStyleUnitTests\KolbLearningStyleUnitTests.csproj", "{0EA9E58C-2BF4-4653-9C07-2AD4798D1A2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KolbLearningStyleUnitTests", "KolbLearningStyleUnitTests\KolbLearningStyleUnitTests.csproj", "{0EA9E58C-2BF4-4653-9C07-2AD4798D1A2E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{961FE635-309E-4D56-BED2-BE9B71FFEB8A} = {961FE635-309E-4D56-BED2-BE9B71FFEB8A}
 	EndProjectSection

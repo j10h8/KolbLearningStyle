@@ -5,6 +5,7 @@
 @inject IConverter PdfConverter
 @* @inject EmailSettings EmailSettings *@
 @inject IOptions<EmailSettings> EmailSettingsOptions
+@layout CustomLayout
 
 @using DinkToPdf;
 @using DinkToPdf.Contracts;
@@ -18,17 +19,19 @@
 @if (Result != null)
 {
 	<div id="testResults" class="text-center">
-		<h1>Ditt resultat</h1>
-		<div>
-			<p style="@aeStyle[0]">Aktivt experimenterande/Prövare (AE): @Result.Tester</p>
-			<p style="@kuStyle[0]">Konkreta upplevelser/Idégivare (KU): @Result.IdeaGiver</p>
-			<p style="@atStyle[0]">Abstrakt tänkande/Sammanställare (AT): @Result.Gatherer</p>			
-			<p style="@roStyle[0]"> Reflekterande observation/Förklarare (RO): @Result.Explainer</p>
+		<h1 style="margin-top: 60px; margin-bottom:40px">Ditt resultat</h1>
+		<div style="margin-bottom:50px">
+			<h5 style="@aeStyle[0]">Aktivt experimenterande/Prövare (AE): @Result.Tester</h5>
+			<h5 style="@kuStyle[0]">Konkreta upplevelser/Idégivare (KU): @Result.IdeaGiver</h5>
+			<h5 style="@atStyle[0]">Abstrakt tänkande/Sammanställare (AT): @Result.Gatherer</h5>			
+			<h5 style="@roStyle[0]"> Reflekterande observation/Förklarare (RO): @Result.Explainer</h5>
 		</div>
-		<div style="display:flex;">
-			<div class="result-text-container" style="@aeStyle[1];">
+		<div style="display:flex;justify-content:center;">
+
+			<div style="display:flex;flex-direction:row;  justify-content:center;  max-width: 60rem;">
+				<div class="result-text-container" style="@aeStyle[1]; flex: 1; margin: 10px;">
 				<h3 style="text-align:center; color:red;">@Result.Tester</h3>
-				<h3>Prövare (AE)</h3>
+				<h4>Prövare (AE)</h4>
 				<ul>
 					<li>
 						Är väldigt
@@ -68,9 +71,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="result-text-container" style="@kuStyle[1]">
+			<div class="result-text-container" style="@kuStyle[1] flex: 1; margin: 10px;">
 				<h3 style="text-align:center; color:red;">@Result.IdeaGiver</h3>
-				<h3>Idégivare (KU)</h3>
+				<h4>Idégivare (KU)</h4>
 				<ul>
 					<li>
 						Vill gärna ha
@@ -114,9 +117,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="result-text-container" style="@atStyle[1]">
+			<div class="result-text-container" style="@atStyle[1]; flex: 1; margin: 10px;">
 				<h3 style="text-align:center; color:red;">@Result.Gatherer</h3>
-				<h3>Sammanställare (AT)</h3>
+				<h4>Sammanställare (AT)</h4>
 				<ul>
 					<li>
 						Tänker först och
@@ -146,9 +149,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="result-text-container" style="@roStyle[1]">
+			<div class="result-text-container" style="@roStyle[1]; flex: 1; margin: 10px;">
 				<h3 style="text-align:center; color:red;">@Result.Explainer</h3>
-				<h3>Förklarare (RO)</h3>
+				<h4>Förklarare (RO)</h4>
 				<ul>
 					<li>
 						Behöver ha
@@ -185,10 +188,29 @@
 				</ul>
 			</div>
 		</div>
+		</div>
 
+		<br>
+		<h1 style="margin-top: 50px; margin-bottom:20px">Ditt resultat i Kolbs Lärcirkel</h1>
+		<h4 style="margin-bottom:60px">
+			Denna figur anger vilken inlärningsstil som är dominerande och hur starka de övriga stilarna är.
+		</h4>
+		<div style="flex:1">
+			<ResultCircle Result="Result"></ResultCircle>
+		</div>
+		
+		
+		<div class="button-row">
 
-		<ResultCircle Result="Result"></ResultCircle>
-		<button class="btn btn-primary nav-link" @onclick="ToggleEmailModal">SEND RESULTS TO MY EMAIL</button>
+			<NavLink class="nav-link" href="/">
+				<button class="btn btn-primary">GÅ TILL STARTSIDAN</button>
+			</NavLink>
+			<NavLink style="margin-left: -15px;" class="nav-link" href="Statistic">
+			<button class="btn btn-primary">SE STATISTIK</button>
+			</NavLink>
+			<button  class="btn btn-primary" @onclick="ToggleEmailModal">SEND RESULTS TO MY EMAIL</button>
+		</div>
+		
 	</div>
 
 	@if (showEmailModal)
@@ -282,6 +304,15 @@
 		top: 10px;
 		right: 20px;
 		font-size: 24px;
+	}
+
+	.button-row {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 50px;
+		
+		
 	}
 
 </style>

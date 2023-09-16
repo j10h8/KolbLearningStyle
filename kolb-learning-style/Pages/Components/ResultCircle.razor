@@ -34,38 +34,38 @@
 
     private async Task DrawAllLabels()
     {
-        await DrawText("Känna och titta", canvasSize - 90, 10, 0,12); //Uppe Höger
-        await DrawText("Göra konkreta", canvasSize - 85, 25, 0, 10); //Uppe Höger
-        await DrawText("upplevelser", canvasSize - 85, 35, 0, 10); //Uppe Höger
-        await DrawText("och erfarenheter", canvasSize - 85, 45, 0, 10); //Uppe Höger
+        await DrawText("Känna och titta", canvasSize - 85, 10, 0, 12); //Uppe Höger
+        await DrawText("Göra konkreta", canvasSize - 75, 25, 0, 11); //Uppe Höger
+        await DrawText("upplevelser", canvasSize - 75, 35, 0, 11); //Uppe Höger
+        await DrawText("och erfarenheter", canvasSize - 75, 45, 0, 11); //Uppe Höger
 
-        await DrawText("Känna och göra", 10, 10, 0,12); //Uppe Vänster
-        await DrawText("Tillämpa,", 15, 25, 0, 10);
-        await DrawText("omsätta i nya", 15, 35, 0, 10);
-        await DrawText("situationer", 15, 45, 0, 10);
+        await DrawText("Känna och göra", 5, 10, 0,12); //Uppe Vänster
+        await DrawText("Tillämpa,", 15, 25, 0, 11);
+        await DrawText("omsätta i nya", 15, 35, 0, 11);
+        await DrawText("situationer", 15, 45, 0, 11);
 
-        await DrawText("Tänka och titta", canvasSize - 90, canvasSize - 70, 0,12); // Nere Höger
-        await DrawText("Göra", canvasSize - 85, canvasSize - 55, 0, 10);
-        await DrawText("observationer", canvasSize - 85, canvasSize - 45, 0, 10);
-        await DrawText("och", canvasSize - 85, canvasSize - 35, 0, 10);
-        await DrawText("reflektioner", canvasSize - 85, canvasSize - 25, 0, 10);
+        await DrawText("Tänka och titta", canvasSize - 85, canvasSize - 70, 0,12); // Nere Höger
+        await DrawText("Göra", canvasSize - 75, canvasSize - 55, 0, 10);
+        await DrawText("observationer", canvasSize - 75, canvasSize - 45, 0, 11);
+        await DrawText("och", canvasSize - 75, canvasSize - 35, 0, 11);
+        await DrawText("reflektioner", canvasSize - 75, canvasSize - 25, 0, 11);
 
-        await DrawText("Tänka och göra", 10, canvasSize - 70, 0,12); //Nere Vänster
-        await DrawText("Lära genom", 15, canvasSize - 55, 0,10); //Nere Vänster
-        await DrawText("att kunna", 15, canvasSize - 45, 0,10); //Nere Vänster
-        await DrawText("abstrahera", 15, canvasSize - 35, 0,10); //Nere Vänster
-        await DrawText("generalisera", 15, canvasSize - 25, 0,10); //Nere Vänster
-        await DrawText("vara logisk", 15, canvasSize - 15, 0,10); //Nere Vänster
+        await DrawText("Tänka och göra", 5, canvasSize - 70, 0,12); //Nere Vänster
+        await DrawText("Lära genom", 15, canvasSize - 55, 0,11); //Nere Vänster
+        await DrawText("att kunna", 15, canvasSize - 45, 0,11); //Nere Vänster
+        await DrawText("abstrahera", 15, canvasSize - 35, 0,11); //Nere Vänster
+        await DrawText("generalisera", 15, canvasSize - 25, 0,11); //Nere Vänster
+        await DrawText("vara logisk", 15, canvasSize - 15, 0,11); //Nere Vänster
 
         await DrawText("Aktivt", 5, canvasSize / 2, -90,12); // Left
         await DrawText("Exprimenterande", 5, (canvasSize / 2)+10, -90,12); // Left
 
         await DrawText("Konkreta upplevelser", canvasSize/2-50, 10, 0,12); // Top
 
-        await DrawText("Reflekterande", canvasSize-80, canvasSize / 2, 90,12); // Right
-        await DrawText("Observation", canvasSize-80, (canvasSize / 2)+10, 90,12); // Right
+        await DrawText("Reflekterande", canvasSize-85, canvasSize / 2, 90,12); // Right
+        await DrawText("Observation", canvasSize-85, (canvasSize / 2)+10, 90,12); // Right
 
-        await DrawText("Abstrakt Tänkande", canvasSize/2-30, canvasSize-30, 0,12); // Bottom
+        await DrawText("Abstrakt Tänkande", canvasSize/2-50, canvasSize-30, 0,12); // Bottom
     }
     private async Task DrawText(string text, int x, int y, int direction, int size)
     {
