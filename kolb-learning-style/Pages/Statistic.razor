@@ -5,23 +5,24 @@
 <PageTitle>Statistik</PageTitle>
 @if (loadingData)
 {
-	<div style="display:flex;justify-content:center;">
-		<div><div class="loading-spinner"></div>Laddar statistik...</div>
+	<div style="display:flex;justify-content:center;margin-top: 50px;">
+		<div><div class="loading-spinner" ></div>Laddar statistik...</div>
 	</div>
 
 }
 else if (labels != null && results != null && pieChartResult != null)
 {
 	<div style="display:flex;justify-content:center;">
-		<div style="margin-top:1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
+		<div style="margin-top:4rem;margin-bottom: 1rem;display:flex;flex-direction:column;align-items:center;max-width:60rem;">
 			<h1>Statistik</h1>
-			<h3 style="max-width:30rem;">Nedan följer statistik för @results.Count() genomförda tester. Siffrorna överst i varje kolumn motsvarar genomsnittet av hur de @results.Count() personer som har genomfört testet svarade.</h3>
+			<h4 style="max-width:60rem; color: black; text-align: center;" >Nedan följer statistik för @results.Count() genomförda tester. Siffrorna överst i varje kolumn motsvarar genomsnittet av hur de @results.Count() personer som har genomfört testet svarade.</h4>
 			<div style="display:flex; margin-top:3rem;">
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Tester</h3>
-					<h3>Prövare (AE)</h3>
-					<ul>
-						<li>
+					<h4 style="text-align:center;margin-bottom:20px;" ;>Prövare (AE)</h4>
+					@*<ul>*@
+						<p style="text-align: center">
+							
 							Är väldigt
 							aktiv och
 							handlingsinriktad och
@@ -31,8 +32,9 @@ else if (labels != null && results != null && pieChartResult != null)
 							föreläsningar
 							då man sitter
 							still mycket.
-						</li>
-						<li>
+						</p>
+					@*	<hr>*@
+					<p style="text-align: center">
 							Personen i
 							fråga vill
 							arbeta
@@ -43,26 +45,28 @@ else if (labels != null && results != null && pieChartResult != null)
 							kan använda
 							sina nya
 							kunskaper.
-						</li>
-						<li>
+						</p style="text-align: center">
+					@*	<hr>*@
+						<p style="text-align: center">
 							Prövaren styr
 							sin
 							upptäckarlust
 							och lär sig
 							genom
 							experiment.
-						</li>
-						<li>
+						</p>
+					@*	<hr>*@
+						<p style="text-align: center">
 							Frågar sig:
 							Om?
-						</li>
-					</ul>
+						</p>
+					@*</ul>*@
 				</div>
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.IdeaGiver</h3>
-					<h3>Idégivare (KU)</h3>
-					<ul>
-						<li>
+					<h4 style="text-align:center; margin-bottom:15px;">Idégivare (KU)</h4>
+					
+						<p style="text-align: center">
 							Vill gärna ha
 							en
 							känslomässig
@@ -73,8 +77,9 @@ else if (labels != null && results != null && pieChartResult != null)
 							man ska lära
 							sig det som
 							ska läras.
-						</li>
-						<li>
+						</p>
+						@*<hr>*@
+						<p style="text-align: center">
 							Idégivaren lär
 							sig genom att
 							uppleva saker
@@ -87,28 +92,29 @@ else if (labels != null && results != null && pieChartResult != null)
 							annat sätt
 							som kan vara
 							till bra hjälp.
-						</li>
-						<li>
+						</p>
+					@*	<hr>*@
+						<p style="text-align: center">
 							Idégivaren
 							lär sig mest
 							då han/hon
 							har
 							diskussioner
 							med andra.
+							
+						</p>
+				@*		<hr>*@
+						<p style="text-align: center">
 							Frågar sig:
 							Varför?
-						</li>
-						<li>
-							Frågar sig:
-							Varför?
-						</li>
-					</ul>
+						</p>
+					
 				</div>
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Gatherer</h3>
-					<h3>Sammanställare (AT)</h3>
-					<ul>
-						<li>
+					<h4 style="text-align:center; margin-bottom:15px;">Sammanställare (AT)</h4>
+					
+						<p style="text-align: center">
 							Tänker först och
 							handlar därefter.
 							Man vill ha den
@@ -118,8 +124,9 @@ else if (labels != null && results != null && pieChartResult != null)
 							möjligtvis tillämpa
 							kunskapen
 							praktiskt.
-						</li>
-						<li>
+						</p>
+						<hr>
+						<p style="text-align: center">
 							Sammanställaren
 							lär sig
 							bäst då man
@@ -130,17 +137,18 @@ else if (labels != null && results != null && pieChartResult != null)
 							få stenciler där
 							allt står
 							nedskrivet.
-						</li>
-						<li>
+						</p>
+						<hr>
+						<p style="text-align: center">
 							Frågar sig: Hur?
-						</li>
-					</ul>
+						</p>
+					
 				</div>
 				<div class="result-text-container">
 					<h3 style="text-align:center; color:red;">Genomsnittspoäng: @pieChartResult.Explainer</h3>
-					<h3>Förklarare (RO)</h3>
-					<ul>
-						<li>
+					<h4 style="text-align:center;margin-bottom:15px;">Förklarare (RO)</h4>
+					
+						<p style="text-align: center">
 							Behöver ha
 							teori och
 							fakta och
@@ -149,15 +157,17 @@ else if (labels != null && results != null && pieChartResult != null)
 							idéer och vill
 							få fram vad
 							som är viktigt.
-						</li>
-						<li>
+						</p>
+						<hr>
+						<p style="text-align: center">
 							Förklararen
 							vill inte prova
 							praktiskt utan
 							läser hellre
 							manualer.
-						</li>
-						<li>
+						</p>
+						<hr>
+						<p style="text-align: center">
 							Dessa elever
 							klarar sig bra i
 							skolan
@@ -167,29 +177,40 @@ else if (labels != null && results != null && pieChartResult != null)
 							lärarledda
 							lektioner och
 							föreläsningar.
-						</li>
-						<li>
+						</p>
+						<hr>
+						<p style="text-align: center">
 							Frågar sig:
 							Vad?
-						</li>
-					</ul>
+						</p>
+					
 				</div>
 			</div>
-			<h3>Hur vanliga är lärstilarna?</h3>
+		<hr style="color: black">
+
+			<h1 style="margin-top: 50px;font-weight:bold;">Hur vanliga är lärstilarna?</h1>
 			<PieChart Labels="@labels" Data="@data"></PieChart>
-			<h3>Genomsnittlig Lärstil</h3>
-			<ResultCircle Result="pieChartResult"></ResultCircle>
+			
+			<h1 style="margin-bottom: 20px; margin-top: 50px; font-weight:bold;">Genomsnittlig Lärstil</h1>
+			<h4 style="margin-bottom:60px">
+			Denna figur anger vilken inlärningsstil som är dominerande och hur starka de övriga stilarna är.
+		</h4>
+
+			<div style="max-width:60rem;flex-grow: 1;">
+				<ResultCircle Result="pieChartResult"></ResultCircle>
+				
+			</div>
+			<br/>
+			<br/>
 			<NavLink class="nav-link" href="/">
-				<button class="btn btn-primary" @*@onclick="StartTest" *@>GO BACK TO THE MAIN PAGE</button>
+				<button class="btn btn-primary">GÅ TILLBAKA TILL STARTSIDAN</button>
 			</NavLink>
 		</div>
 	</div>
 }
 
 <style>
-	/* .font-example {
-											font-family: 'MentiDisplay-Regular';
-										}*/
+	
 	.center-container {
 		padding: 220px;
 		display: flex;
@@ -200,15 +221,6 @@ else if (labels != null && results != null && pieChartResult != null)
 		text-align: center; /* This will center-align the text horizontally */
 	}
 
-	footer {
-		background-color: #f8f8f8;
-		padding-top: 20px;
-		text-align: center;
-	}
-
-		footer p {
-			color: #333;
-		}
 </style>
 
 @code {

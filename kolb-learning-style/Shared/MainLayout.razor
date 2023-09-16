@@ -37,44 +37,44 @@
 
         </div>
 
-    
-            <footer >
-                <div class="subscribe-form">
 
-                    <div class="footer-links">
+        <footer>
+            <div class="subscribe-form">
+
+                <div class="footer-links">
                     <p><a href="" @onclick="ShowAboutModal">Om Oss</a>&nbsp; - &nbsp;<a href="" @onclick="ShowWebpageModal">Om Webbplatsen</a> &nbsp;- &nbsp;<a href="" @onclick="ShowReferenceModal">Referenser</a> &nbsp;- &nbsp;<a href="" @onclick="ShowPolicyModal">Allmänna Villkor</a> &nbsp;- &nbsp;<a href="" @onclick="ShowContactModal">Kontakta Oss</a> </p>
-                    </div>
-                    <div class="footer-links">
+                </div>
+                <div class="footer-links">
 
 
-                        @*<p>Subscribe to Our Newsletter</p>*@
+                    @*<p>Subscribe to Our Newsletter</p>*@
 
-                    </div>
+                </div>
 
-                    <div class="footer-text">
-                        <p style="color: black;">@*&nbsp; *@Vill du få nyheter och nya tester från oss? </p>
-                    </div>
+                <div class="footer-text">
+                    <p style="color: black;">@*&nbsp; *@Vill du få nyheter och nya tester från oss? </p>
+                </div>
 
-                    <div>
+                <div>
 
-                        <form @onsubmit="Subscribe">
+                    <form @onsubmit="Subscribe">
 
-                            <input type="email" placeholder="Fyll i din e-postadress" @bind="viewModel.EmailAddress" />
-                            <button type="submit">PRENUMERERA</button>
+                        <input type="email" placeholder="Fyll i din e-postadress" @bind="viewModel.EmailAddress" />
+                        <button type="submit">PRENUMERERA</button>
 
 
-                        </form>
+                    </form>
 
-                    </div>
+                </div>
 
-                    @* © Copyright 2023 by JADA. All Rights Reserved.*@
+                @* © Copyright 2023 by JADA. All Rights Reserved.*@
 
-                    <div>
-                        @if (emailSubmitted)
-                        {
-                            <p class="success-message"><i class="fa-solid fa-check" style="color: #08af3a;"></i></p>
-                        }
-                    </div>
+                <div>
+                    @if (emailSubmitted)
+                    {
+                        <p class="success-message"><i class="fa-solid fa-check" style="color: #08af3a;"></i></p>
+                    }
+                </div>
 
 
             </div>
@@ -83,7 +83,7 @@
 
 
         @*About*@
-        
+
         <div class="modal-width">
             <div class="modal fade " id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
                 <div class="modal-dialog custom-modal-width" role="document">
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </div>
-        
+
         @*Webpage*@
 
         <div class="modal-width">
@@ -163,7 +163,7 @@
         </div>
 
 
-       @* Policy*@
+        @* Policy*@
 
 
         <div class="modal-width">
@@ -288,7 +288,7 @@
     private async Task ShowContactModal()
     {
 
-        await JSRuntime.InvokeVoidAsync("showContactModal");
+        //await JSRuntime.InvokeVoidAsync("showContactModal");
         //_errorMessageIsVisible = false;
 
     }
@@ -324,7 +324,7 @@
     .footer-links {
         margin-bottom: 10px;
         margin-left: 40px;
-        margin-right: 40px;
+        margin-right: 20px;
     }
 
     .footer-text
