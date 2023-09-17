@@ -7,7 +7,7 @@
 <div class="font-example">
 
 	<div class="center-container">
-		<h2><b>Do you want to save your results in our database?</b></h2>
+		<h2><b>Vill du spara dina resultat i vår databas?</b></h2>
 		<h1> ... </h1>
 		<br />
 
@@ -15,11 +15,11 @@
 		<button class="btn-cancel" @onclick="ShowConfirmationModal"> AVBRYT TESTET </button>
 		@*</NavLink>*@
 		<NavLink class="nav-link" href="TestPage">
-			<button class="btn btn-primary" @onclick="StartTestWithoutValidation">NO, CONTINUE WITHOUT SAVING</button>
+			<button class="btn btn-primary" @onclick="StartTestWithoutValidation">NEJ, FORTSÄTT UTAN ATT SPARA</button>
 		</NavLink>
 		<h1> ... </h1>
 
-		<button class="btn btn-primary" @onclick="StartTestWithValidation">YES, I'M OK WITH SHARING MY RESULTS TO THE WORLD</button>
+		<button class="btn btn-primary" @onclick="StartTestWithValidation">JA, JAG ÄR OKEJ MED ATT DELA MINA RESULTAT MED VÄRLDEN</button>
 		<span class="error-message">
 			@errorMessage
 		</span>
@@ -76,7 +76,7 @@
 	{
 		if (!isCheckboxChecked)
 		{
-			errorMessage = "You must agree to the website policy in order to continue!";
+			errorMessage = "Du måste godkänna webbplatsens policy för att kunna fortsätta";
 		}
 		else
 		{
