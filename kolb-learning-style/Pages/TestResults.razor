@@ -208,7 +208,7 @@
 			<NavLink style="margin-left: -15px;" class="nav-link" href="Statistic">
 			<button class="btn btn-primary">SE STATISTIK</button>
 			</NavLink>
-			<button  class="btn btn-primary" @onclick="ToggleEmailModal">SEND RESULTS TO MY EMAIL</button>
+			<button class="btn btn-primary" @onclick="ToggleEmailModal">SKICKA RESULTATEN TILL MIN E-POST</button>
 		</div>
 		
 	</div>
@@ -218,7 +218,7 @@
 		<div class="modal">
 			<div class="modal-content">
 				<span class="close-button" @onclick="ToggleEmailModal">x</span>
-				<h2>Enter your email</h2>
+				<h2>Ange din e-post</h2>
 				<input style="border-radius: 3px; border-color" type="email" @bind="userEmail" placeholder="Fyll i din e-postadress"/>
 				<button style="background-color:#2ab083; color: white; border-radius: 3px; border-color: #2ab083; margin-top: 3px;" @onclick="SendResultToEmail"><b>SKICKA MITT RESULTAT</b></button>
 				@if (emailSendStatus == EmailSendStatus.Sending)
@@ -239,11 +239,11 @@
 				<span class="close-button" @onclick="ToggleEmailStatusModal">x</span>
 				@if (emailSendStatus == EmailSendStatus.Sent)
 				{
-					<h2>Email sent successfully!</h2>
+					<h2>E-postmeddelandet har skickats.</h2>
 				}
 				else if (emailSendStatus == EmailSendStatus.Failed)
 				{
-					<h2>There was an error sending the email. Please try again.</h2>
+					<h2>Det uppstod ett fel vid skickandet av e-post. Vänligen försök igen.</h2>
 				}
 			</div>
 		</div>
