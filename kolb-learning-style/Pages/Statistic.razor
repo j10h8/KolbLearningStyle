@@ -188,20 +188,22 @@ else if (labels != null && results != null && pieChartResult != null)
 			</div>
 		<hr style="color: black">
 
-			<h1 style="margin-top: 50px;font-weight:bold;">Hur vanliga är lärstilarna?</h1>
-			<PieChart Labels="@labels" Data="@data"></PieChart>
+			<h1 style="margin-top: 50px; margin-bottom: 20px;font-weight:bold;">Hur vanliga är lärstilarna?</h1>
+			
+					<PieChart Labels="@labels" Data="@data"></PieChart>
+			
+			
 			
 			<h1 style="margin-bottom: 20px; margin-top: 50px; font-weight:bold;">Genomsnittlig Lärstil</h1>
-			<h4 style="margin-bottom:60px">
+			<h4 style="margin-bottom:80px">
 			Denna figur anger vilken inlärningsstil som är dominerande och hur starka de övriga stilarna är.
 		</h4>
 
-			<div style="max-width:60rem;flex-grow: 1;">
+			<div style="max-width:60rem;flex-grow: 1; margin-bottom:50px;">
 				<ResultCircle Result="pieChartResult"></ResultCircle>
 				
 			</div>
-			<br/>
-			<br/>
+			
 			<NavLink class="nav-link" href="/">
 				<button class="btn btn-primary">GÅ TILLBAKA TILL STARTSIDAN</button>
 			</NavLink>

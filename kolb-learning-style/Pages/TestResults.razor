@@ -202,7 +202,7 @@
 		
 		<div class="button-row">
 
-			<NavLink class="nav-link" href="/">
+			<NavLink style="margin-left: -15px;" class="nav-link" href="/">
 				<button class="btn btn-primary">GÅ TILL STARTSIDAN</button>
 			</NavLink>
 			<NavLink style="margin-left: -15px;" class="nav-link" href="Statistic">
@@ -219,12 +219,13 @@
 			<div class="modal-content">
 				<span class="close-button" @onclick="ToggleEmailModal">x</span>
 				<h2>Enter your email</h2>
-				<input type="email" @bind="userEmail" placeholder="Enter your email address" />
-				<button @onclick="SendResultToEmail">Send Results</button>
+				<input style="border-radius: 3px; border-color" type="email" @bind="userEmail" placeholder="Fyll i din e-postadress"/>
+				<button style="background-color:#2ab083; color: white; border-radius: 3px; border-color: #2ab083; margin-top: 3px;" @onclick="SendResultToEmail"><b>SKICKA MITT RESULTAT</b></button>
 				@if (emailSendStatus == EmailSendStatus.Sending)
 				{
+					<br />
 					<div>
-					<div class="loading-spinner"></div> Skickar email,var god att vänta. Ta ett par djupa avkopplande andetag så är det snart skickat...
+					<div class="loading-spinner"></div> Skickar email, var god att vänta. Ta ett par djupa avkopplande andetag så är det snart skickat...
 					</div>
 				}
 			</div>
@@ -248,15 +249,10 @@
 		</div>
 	}
 }
-@*
-<footer>
-	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
-</footer>
-*@
+
+
 <style>
-	/* .font-example {
-																	font-family: 'MentiDisplay-Regular';
-																} */
+	
 
 	.center-container {
 		padding: 220px;
@@ -264,8 +260,8 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		height: 78vh; /* This will center-align vertically by using the full viewport height */
-		text-align: center; /* This will center-align the text horizontally */
+		height: 78vh; 
+		text-align: center; 
 	}
 
 	footer {
@@ -293,7 +289,7 @@
 
 	.modal-content {
 		background-color: #f4f4f4;
-		padding: 20px;
+		padding: 70px;
 		border-radius: 5px;
 		width: 50%;
 	}

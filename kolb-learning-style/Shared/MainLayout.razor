@@ -47,12 +47,12 @@
                 <div class="footer-links">
 
 
-                    @*<p>Subscribe to Our Newsletter</p>*@
+                
 
                 </div>
 
                 <div class="footer-text">
-                    <p style="color: black;">@*&nbsp; *@Vill du få nyheter och nya tester från oss? </p>
+                    <p style="color: black;"> Vill du få nyheter och nya tester från oss? </p>
                 </div>
 
                 <div>
@@ -288,7 +288,7 @@
     private async Task ShowContactModal()
     {
 
-        //await JSRuntime.InvokeVoidAsync("showContactModal");
+        await JSRuntime.InvokeVoidAsync("showContactModal");
         //_errorMessageIsVisible = false;
 
     }
@@ -304,7 +304,7 @@
     footer {
         background-color: whitesmoke;
         padding-top: 10px;
-        padding-left: -100px;
+        /*padding-left: -100px;*/
         text-align: center;
         width: 100%;
         /*position: absolute;*/ 
@@ -323,8 +323,8 @@
 
     .footer-links {
         margin-bottom: 10px;
-        margin-left: 40px;
-        margin-right: 20px;
+        margin-left: 30px;
+        /*margin-right: 10px;*/
     }
 
     .footer-text
@@ -344,7 +344,7 @@
         margin-bottom: -10px;
         /* margin-right: 50px;*/
         text-align: justify-all;
-        margin-right: 40px;
+        margin-right: 20px;
     }
 
         .subscribe-form p {

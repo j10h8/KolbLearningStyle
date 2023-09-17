@@ -5,7 +5,7 @@
     public ResultModel Result { get; set; } 
     private Canvas2DContext? _context;
     protected BECanvasComponent? _canvasReference;
-    public int canvasSize = 400;
+    public int canvasSize = 650;
     private int circleRadius => (canvasSize-200)/2;
     private int middle => canvasSize / 2;
     private int height => canvasSize - 100;
@@ -45,7 +45,7 @@
         await DrawText("situationer", 15, 45, 0, 11);
 
         await DrawText("Tänka och titta", canvasSize - 85, canvasSize - 70, 0,12); // Nere Höger
-        await DrawText("Göra", canvasSize - 75, canvasSize - 55, 0, 10);
+        await DrawText("Göra", canvasSize - 75, canvasSize - 55, 0, 11);
         await DrawText("observationer", canvasSize - 75, canvasSize - 45, 0, 11);
         await DrawText("och", canvasSize - 75, canvasSize - 35, 0, 11);
         await DrawText("reflektioner", canvasSize - 75, canvasSize - 25, 0, 11);
