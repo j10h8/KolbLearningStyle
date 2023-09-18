@@ -4,7 +4,6 @@ using kolb_learning_style.Data;
 using kolb_learning_style.Models;
 using kolb_learning_style.Repositories;
 using kolb_learning_style.Services;
-//using BlazorBootstrap;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -26,11 +25,6 @@ builder.Services.AddSignalR(e =>
 	e.MaximumReceiveMessageSize = 102400000;
 });
 
-//builder.Services.AddBlazorBootstrap();
-
-
-//builder.Services.AddScoped<BootstrapModalService>();
-//builder.Services.AddScoped<BootstrapCssClasses>();
 
 // Add MainDbContext
 var connectionString = builder.Configuration.GetConnectionString("Default");

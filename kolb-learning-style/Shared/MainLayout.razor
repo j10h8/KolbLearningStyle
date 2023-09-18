@@ -9,9 +9,6 @@
 <PageTitle>kolb-learning-style</PageTitle>
 
 <div class="page">
-    @*<div class="sidebar">
-        <NavMenu />
-    </div>*@
 
     <main>
 
@@ -123,7 +120,7 @@
                         <div style="text-align: center" class="modal-body">
                             <br>
                             <p>
-                                Den här Blazor Web Server App skapad med hjälp av:
+                                Den här Blazor WebServer App skapad med hjälp av:
                             </p>
 
                             <p>
@@ -283,7 +280,7 @@
     {
 
         await JSRuntime.InvokeVoidAsync("showAboutModal");
-        //_errorMessageIsVisible = false;
+        
 
     }
 
@@ -291,7 +288,7 @@
     {
 
         await JSRuntime.InvokeVoidAsync("showWebpageModal");
-        //_errorMessageIsVisible = false;
+        
 
     }
 
@@ -299,7 +296,7 @@
     {
 
         await JSRuntime.InvokeVoidAsync("showReferenceModal");
-        //_errorMessageIsVisible = false;
+        
 
     }
 
@@ -307,7 +304,7 @@
     {
 
         await JSRuntime.InvokeVoidAsync("showPolicyModal");
-        //_errorMessageIsVisible = false;
+        
 
     }
 
@@ -315,8 +312,7 @@
     {
 
         await JSRuntime.InvokeVoidAsync("showContactModal");
-        //_errorMessageIsVisible = false;
-
+        
     }
 }
 
@@ -346,19 +342,11 @@
     footer {
         background-color: whitesmoke;
         padding-top: 10px;
-        /*padding-left: -100px;*/
         text-align: center;
-        width: 100%;
-        /*position: absolute;*/ 
+        width: 100%; 
         position: fixed;
         bottom: 0;
-        /*border-width: thin;
-            border-color: black;*/
-        /*border: solid 1px;*/
-        /*border-radius: 0.2rem;*/
     }
-
-
 
         footer p {
             color: #333;
@@ -384,8 +372,6 @@
         align-items: flex-end;
         justify-content: space-around;
         margin-top: 10px;
-        
-        /* margin-right: 50px;*/
         text-align: justify-all;
         
     }
@@ -400,11 +386,8 @@
             height: 25px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            /*margin-right: 10px;*/
-            /*margin-left: 20px;*/
             margin-top: 5px;
             margin-bottom: 25px;
-            /*margin-left: -10px;*/
             margin-right: 3px;
         }
 
@@ -420,7 +403,6 @@
 
     .success-message {
         color: green;
-        /*margin-bottom: 50px;*/
         margin-left: 10px;
         margin-top: -47px;
         margin-right: 20px;
