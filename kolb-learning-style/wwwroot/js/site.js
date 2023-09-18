@@ -22,21 +22,30 @@ $(document).ready(function () {
                 throw new Error("jsPDF is not loaded.");
             }
 
+            let buttons = document.querySelectorAll('#testResults button');
+            buttons.forEach(button => {
+                button.style.display = 'none';
+            });
+
             const canvas = await html2canvas(document.getElementById('testResults'));
             console.log("Canvas Width:", canvas.width);
             console.log("Canvas Height:", canvas.height);
+
+            buttons.forEach(button => {
+                button.style.display = '';
+            });
+
             const imgData = canvas.toDataURL('image/png');
 
-            const a4WidthMm = 190;  
-            const a4HeightMm = 277;  
+            const a4WidthMm = 190;
+            const a4HeightMm = 277;
 
             const aspectRatio = canvas.width / canvas.height;
-            let targetWidth = a4WidthMm; 
+            let targetWidth = a4WidthMm;
             let targetHeight = targetWidth / aspectRatio;
 
             if (targetHeight > a4HeightMm) {
-               
-                targetHeight = a4HeightMm; 
+                targetHeight = a4HeightMm;
                 targetWidth = targetHeight * aspectRatio;
             }
 
@@ -49,6 +58,7 @@ $(document).ready(function () {
             throw error;
         }
     };
+
 });
 
   $('#emailConfirmationModal').modal('show');
