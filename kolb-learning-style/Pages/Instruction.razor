@@ -17,80 +17,42 @@
 		<br />
 
 		<h1>
-			@*Kolbs lärstilar: testa din inlärningsstil*@
 			Instruktion
 		</h1>
 
-		@*<h2> Instruktion </h2>*@
-		<br />
-		@*<b>Nedan ser du nio rader med fyra ord i varje rad</b>*@
-
+		
 		<ul>
-			@* <br /> *@
-			@*<p>
-			Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
-			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
-			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
-			dig.
-			</p>*@
 
 			<SurveyPrompt Title="Jämför varje vågrät uppsättning med fyra ord genom att ge 4 till det ord som du tycker bäst
 			beskriver din inlärningsstil, ge 3 till det ord som näst bäst karakteriserar din inlärningsstil, 2
 			till det näst minst karakteristiska ordet och 1 till det ord som minst karakteriserar hur du lär
 			dig." />
-			@*<br />
-			<hr />
-			<br />*@
-			@*<p>
-			<b>
-			Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
-			information eller arbetsuppgifter, hur gör du?
-			</b>
-			</p>*@
+			
 
 			<SurveyPrompt Title="Uppskatta varje rad för sig och tänk på situationer då du arbetar eller studerar och tar in ny
 			information eller arbetsuppgifter, hur gör du?" />
 
-			@*<br />
-			<hr />
-			<br />*@
-			@*<p>
-			Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
-			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
-			kan tycka att det är svårt, men rangordna ändå.
-
-			</p>*@
+			
 			<SurveyPrompt Title="Kontrollera att du sätter olika rangordning på vart och ett av de fyra olika orden i varje
 			uppsättning. Gör inga garderingar. Fundera inte för länge på varje rad, arbeta spontant. Du
 			kan tycka att det är svårt, men rangordna ändå." />
-			@* <br /> *@
+			
 		</ul>
 	</p>
 	<br />
 	<h2><b>Exempel: </b></h2>
-
 	<br />
 	<p> <b>Rangordna nedan 9 påståenden med siffrorna 1, 2, 3, 4, se exempel: </b></p>
 	<p> <b> 1. prioritera ____2  |  pröva ____4  |  sammanfatta ____3  |  praktisera ____1 </b></p>
-
 	<br />
-	@*<div class="exempel-img">*@
 	<img class="exempel-img" src="NewFolder/exempel.png" alt="Test Example" />
-	@*</div>*@
+	
 
 	<div class="button-row">
-		@*<h3>Do you want to save your results in our database?</h3>
-		<h1> ... </h1>
-		<br />*@
-
-		@*<NavLink class="nav-link" href="/">*@
 		<button class="btn-cancel" @onclick="ShowConfirmationModal">AVBRYT</button>
-		@*</NavLink>*@
 		<NavLink href="SaveResults">
-			<button class="btn btn-primary" @*@onclick="StartTest" *@>GÅ VIDARE</button>
+			<button class="btn btn-primary">GÅ VIDARE</button>
 		</NavLink>
-		@*<br />
-		<br />*@
 	</div>
 	<br />
 </div>
@@ -140,8 +102,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/*margin-top: 10px;*/
-		/*margin-bottom: 30px;*/
 		padding-bottom: -170px;
 	}
 
@@ -154,7 +114,6 @@
 	.center-container {
 		padding: 200px;
 		padding-top: 100px;
-		
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -165,17 +124,15 @@
 
 	.right-container {
 		display: flex;
-		/*flex-direction: column;*/
 		padding-right: 10px;
 		align-items: end;
 		justify-content: right;
-		/*height: 78vh;
-					text-align: center;  */
+		
 	}
 
 	.exempel-img {
 		width: 100%;
-		/*height: 100%;*/
+		
 	}
 
 	.checkbox-container {
