@@ -42,7 +42,7 @@
             <div class="subscribe-form">
 
                 <div class="footer-links">
-                    <p><a href="" @onclick="ShowAboutModal">Om Oss</a>&nbsp; - &nbsp;<a href="" @onclick="ShowWebpageModal">Om Webbplatsen</a> &nbsp;- &nbsp;<a href="" @onclick="ShowReferenceModal">Referenser</a> &nbsp;- &nbsp;<a href="" @onclick="ShowPolicyModal">Allmänna Villkor</a> &nbsp;- &nbsp;<a href="" @onclick="ShowContactModal">Kontakta Oss</a> </p>
+                    <p><button class="button-footer" @onclick="ShowAboutModal">Om Oss</button> - <button class="button-footer" @onclick="ShowWebpageModal">Om Webbplatsen</button> - <button class="button-footer" @onclick="ShowReferenceModal">Referenser</button> - <button class="button-footer" @onclick="ShowPolicyModal">Allmänna Villkor</button> - <button class="button-footer" @onclick="ShowContactModal">Kontakta Oss</button> </p>
                 </div>
                 <div class="footer-links">
 
@@ -120,11 +120,37 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div style="text-align: center" class="modal-body">
                             <br>
                             <p>
-                                Webpage
+                                Den här Blazor Web Server App skapad med hjälp av:
                             </p>
+
+                            <p>
+                                - Bootstrap
+                               </p>
+
+                            <p>
+                                - Blazor Canvas
+                            </p>
+
+                            <p>
+                                - Entity Framework
+                                </p>
+
+                            <p>
+                                - Blazor Radzen
+                            </p>
+
+                            <p>
+                                - Blazorise Charts
+                            </p>
+
+                           <p> 
+                               - Dink To PDF
+                               </p>
+
+                           
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -148,7 +174,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div style="text-align: center" class="modal-body">
                             <br>
                             <p>
                                 På den här webbplatsen är all information som är hänförlig till Kolbs test hämtad från https://forvaltarforum.se/wp-content/uploads/2017/09/Kolbs-la%CC%88rstilar-ladda-ner-test.pdf (om inte annat anges). 
@@ -203,7 +229,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div style="text-align: center" class="modal-body">
                             <br>
                             <p>
                                 Välkommen att kontakta oss på email
@@ -299,6 +325,22 @@
     .main-content
     {
         padding-bottom: 60px; 
+    }
+
+    .button-footer
+    {
+        color: #333;
+        border-color:transparent;
+        background-color: whitesmoke;
+        margin-bottom:-4px;
+        margin-left: -2px;
+        margin-right:-2px;
+    }
+
+        .button-footer:hover {
+        text-decoration: none;
+        font-weight: 400;
+        color: black;
     }
 
     footer {
