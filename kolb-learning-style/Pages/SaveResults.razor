@@ -11,9 +11,9 @@
 		<h1> ... </h1>
 		<br />
 
-		@*<NavLink class="nav-link" href="/">*@
+		
 		<button class="btn-cancel" @onclick="ShowConfirmationModal"> AVBRYT TESTET </button>
-		@*</NavLink>*@
+		
 		<NavLink class="nav-link" href="TestPage">
 			<button class="btn btn-primary" @onclick="StartTestWithoutValidation">NEJ, FORTSÄTT UTAN ATT SPARA</button>
 		</NavLink>
@@ -35,9 +35,7 @@
 		<br />
 
 	</div>
-	@*<footer>
-	<p>&copy; 2023 Kolb's "Learning Style" Test App. All rights reserved.</p>
-	</footer>*@
+	
 </div>
 
 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -133,17 +131,16 @@
 		justify-content: center;
 		height: 67vh;
 		text-align: center;
-		margin-top: 90px;
+		margin-top: 70px;
 	}
 
 	.right-container {
+
 		display: flex;
-		/*flex-direction: column;*/
 		padding-right: 10px;
 		align-items: end;
 		justify-content: right;
-		/*height: 78vh;
-								text-align: center;  */
+		
 	}
 
 	.checkbox-container {
