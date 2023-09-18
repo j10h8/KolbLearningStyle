@@ -2,217 +2,207 @@
 @inject Data.MainDbContext DbContext
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
-
-
-
+@inject IEmailService EmailService
 
 <PageTitle>kolb-learning-style</PageTitle>
 
 <div class="page">
-    @*<div class="sidebar">
-    <NavMenu />
-    </div>*@
+	@*<div class="sidebar">
+	<NavMenu />
+	</div>*@
 
-    <main>
+	<main>
 
-        <div class="main-content">
-
-
-
-           @* <div class="top-row px-4" style="background-color: white;">
-                <a class="navbar-brand" href="/">
-                    <img src="NewFolder/logo.png.png" alt="My Logo" />
-                </a>
-
-                <NavLink class="nav-link" href="Statistic">
-                    <button class="btn-navi"> SE STATISTIK </button>
-                </NavLink>
-
-            </div>*@
-
-            <article class="content px-4">
-                @Body
-            </article>
+		<div class="main-content">
 
 
-        </div>
+
+			@* <div class="top-row px-4" style="background-color: white;">
+			<a class="navbar-brand" href="/">
+			<img src="NewFolder/logo.png.png" alt="My Logo" />
+			</a>
+
+			<NavLink class="nav-link" href="Statistic">
+			<button class="btn-navi"> SE STATISTIK </button>
+			</NavLink>
+
+			</div>*@
+
+			<article class="content px-4">
+				@Body
+			</article>
 
 
-       
+		</div>
 
 
 
 
-    </main>
+
+
+
+	</main>
 </div>
 
 @code {
 
 
 
-    private EmailAddressModel viewModel = new EmailAddressModel();
-    private bool emailSubmitted = false;
+	private EmailAddressModel viewModel = new EmailAddressModel();
+	private bool emailSubmitted = false;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
-        }
-    }
+	// protected override async Task OnAfterRenderAsync(bool firstRender)
+	// {
+	//     if (firstRender)
+	//     {
+	//         await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "saveResultToDb", "False");
+	//     }
+	// }
 
-    private async Task Subscribe()
-    {
-        if (!string.IsNullOrWhiteSpace(viewModel.EmailAddress))
-        {
+	private async Task Subscribe()
+	{
+		if (!string.IsNullOrWhiteSpace(viewModel.EmailAddress))
+		{
+			await EmailService.AddEmailAddressAsync(viewModel.EmailAddress);
 
-            DbContext.SendList.Add(new EmailAddressModel { EmailAddress = viewModel.EmailAddress });
-            await DbContext.SaveChangesAsync();
+			viewModel.EmailAddress = string.Empty;
 
+			emailSubmitted = true;
+		}
+	}
 
-            viewModel.EmailAddress = string.Empty;
+	//private async Task ShowAboutModal()
+		//{
 
-            emailSubmitted = true;
-        }
-    }
+	//    await JSRuntime.InvokeVoidAsync("showAboutModal");
+	//    //_errorMessageIsVisible = false;
 
-    //private async Task ShowAboutModal()
-    //{
+		//}
 
-    //    await JSRuntime.InvokeVoidAsync("showAboutModal");
-    //    //_errorMessageIsVisible = false;
+	//private async Task ShowWebpageModal()
+		//{
 
-    //}
+	//    await JSRuntime.InvokeVoidAsync("showWebpageModal");
+	//    //_errorMessageIsVisible = false;
 
-    //private async Task ShowWebpageModal()
-    //{
+		//}
 
-    //    await JSRuntime.InvokeVoidAsync("showWebpageModal");
-    //    //_errorMessageIsVisible = false;
+	//private async Task ShowReferenceModal()
+		//{
 
-    //}
+	//    await JSRuntime.InvokeVoidAsync("showReferenceModal");
+	//    //_errorMessageIsVisible = false;
 
-    //private async Task ShowReferenceModal()
-    //{
+		//}
 
-    //    await JSRuntime.InvokeVoidAsync("showReferenceModal");
-    //    //_errorMessageIsVisible = false;
+	//private async Task ShowPolicyModal()
+		//{
 
-    //}
+	//    await JSRuntime.InvokeVoidAsync("showPolicyModal");
+	//    //_errorMessageIsVisible = false;
 
-    //private async Task ShowPolicyModal()
-    //{
+		//}
 
-    //    await JSRuntime.InvokeVoidAsync("showPolicyModal");
-    //    //_errorMessageIsVisible = false;
+	//private async Task ShowContactModal()
+		//{
 
-    //}
+	//    await JSRuntime.InvokeVoidAsync("showContactModal");
+	//    //_errorMessageIsVisible = false;
 
-    //private async Task ShowContactModal()
-    //{
-
-    //    await JSRuntime.InvokeVoidAsync("showContactModal");
-    //    //_errorMessageIsVisible = false;
-
-    //}
+		//}
 }
 
 <style>
+	.main-content {
+		padding-bottom: 60px;
+	}
 
-    .main-content {
-        padding-bottom: 60px;
-    }
+	footer {
+		background-color: whitesmoke;
+		padding-top: 10px;
+		padding-left: -100px;
+		text-align: center;
+		width: 100%;
+		/*position: absolute;*/
+		bottom: 0;
+		/*border-width: thin;
+		border-color: black;*/
+		/*border: solid 1px;*/
+		/*border-radius: 0.2rem;*/
+	}
 
-    footer {
-        background-color: whitesmoke;
-        padding-top: 10px;
-        padding-left: -100px;
-        text-align: center;
-        width: 100%;
-        /*position: absolute;*/
-        bottom: 0;
-        /*border-width: thin;
-                border-color: black;*/
-        /*border: solid 1px;*/
-        /*border-radius: 0.2rem;*/
-    }
+		footer p {
+			color: #333;
+		}
 
+	.footer-links {
+		margin-bottom: 10px;
+		margin-left: 40px;
+		margin-right: 20px;
+	}
 
+	.footer-text {
+		margin-bottom: 10px;
+		margin-right: 5px;
+	}
 
-        footer p {
-            color: #333;
-        }
+	.subscribe-form {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		justify-content: space-around;
+		margin-top: 10px;
+		margin-bottom: -10px;
+		/* margin-right: 50px;*/
+		text-align: justify-all;
+		margin-right: 40px;
+	}
 
-    .footer-links {
-        margin-bottom: 10px;
-        margin-left: 40px;
-        margin-right: 20px;
-    }
+		.subscribe-form p {
+			margin-bottom: 15px;
+		}
 
-    .footer-text {
-        margin-bottom: 10px;
-        margin-right: 5px;
-    }
+		.subscribe-form input[type="email"] {
+			padding: 3px;
+			width: 210px;
+			height: 25px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			/*margin-right: 10px;*/
+			/*margin-left: 20px;*/
+			margin-top: 5px;
+			margin-bottom: 25px;
+			/*margin-left: -10px;*/
+			margin-right: 3px;
+		}
 
+		.subscribe-form button[type="submit"] {
+			padding: 4px 12px;
+			background-color: #2ab083;
+			color: white;
+			font-weight: bold;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
 
-    .subscribe-form {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-around;
-        margin-top: 10px;
-        margin-bottom: -10px;
-        /* margin-right: 50px;*/
-        text-align: justify-all;
-        margin-right: 40px;
-    }
+	.success-message {
+		color: green;
+		/*margin-bottom: 50px;*/
+		margin-left: 10px;
+		margin-top: -47px;
+	}
 
-        .subscribe-form p {
-            margin-bottom: 15px;
-        }
+	a {
+		color: #333;
+		text-decoration: none;
+		font-weight: 400;
+	}
 
-        .subscribe-form input[type="email"] {
-            padding: 3px;
-            width: 210px;
-            height: 25px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            /*margin-right: 10px;*/
-            /*margin-left: 20px;*/
-            margin-top: 5px;
-            margin-bottom: 25px;
-            /*margin-left: -10px;*/
-            margin-right: 3px;
-        }
-
-        .subscribe-form button[type="submit"] {
-            padding: 4px 12px;
-            background-color: #2ab083;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-    .success-message {
-        color: green;
-        /*margin-bottom: 50px;*/
-        margin-left: 10px;
-        margin-top: -47px;
-    }
-
-    a {
-        color: #333;
-        text-decoration: none;
-        font-weight: 400;
-    }
-
-        a:hover {
-            text-decoration: none;
-            font-weight: 400;
-            color: black;
-        }
-
+		a:hover {
+			text-decoration: none;
+			font-weight: 400;
+			color: black;
+		}
 </style>
 
