@@ -15,7 +15,7 @@
         if (firstRender)
         {
             this._context = await this._canvasReference.CreateCanvas2DAsync();
-            await _context.ClearRectAsync(0, 0, canvasSize, canvasSize); // Clear the canvas
+            await _context.ClearRectAsync(0, 0, canvasSize, canvasSize); 
             await DrawAllCircles(circleRadius);
             await DrawAllLabels();
             await DrawRektangle(Result, circleRadius);
